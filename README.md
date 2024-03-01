@@ -1,13 +1,8 @@
 <div align="center">
 <h1>Streaming Availability</h1>
-    <a href="https://github.com/MattCMcCoy/streaming-availability/deployments">
-    <img src="https://github.com/MattCMcCoy/streaming-availability/deployments/badge.svg"
-      alt="Vercel Deploy Status" />
-
-  </a>
+<img src="https://github.com/MattCMcCoy/streaming-availability/actions/workflows/CI.yml/badge.svg">
+<img src="https://vercelbadge.vercel.app/api/mattcmccoy/streaming-availability">
 </div>
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with
-`create-t3-app`.
 
 ## Stack
 
@@ -17,3 +12,6 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with
 
 ![NextJS](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+
+This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with
+`create-t3-app`.
