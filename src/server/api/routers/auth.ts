@@ -51,7 +51,8 @@ export const authRouter = createTRPCRouter({
       console.log('signing in user', input.email);
       const user = ctx.db.user.findUnique({
         where: {
-          email: input.email
+          email: input.email,
+          password: await bcrypt.hash(input.password, 10)
         }
       });
 

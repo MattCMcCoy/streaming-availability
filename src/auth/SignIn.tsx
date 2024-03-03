@@ -39,18 +39,38 @@ interface SignInProps {
 export default function SignIn({ csrfToken, form, onSubmit }: SignInProps) {
   //      <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
   return (
-    <Form {...form}>
-      <div className="mb-2">
+    <form onSubmit={form.handleSubmit(onSubmit)}>
+      <Form {...form}>
+        <div className="mb-2">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-white">Email</FormLabel>
+                <FormControl>
+                  <Input
+                    className="border border-white bg-transparent text-white"
+                    placeholder="example@email.com"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         <FormField
           control={form.control}
-          name="email"
+          name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-white">Email</FormLabel>
+              <FormLabel className="text-white">Password</FormLabel>
               <FormControl>
                 <Input
                   className="border border-white bg-transparent text-white"
-                  placeholder="example@email.com"
+                  placeholder="password123"
                   {...field}
                 />
               </FormControl>
@@ -58,31 +78,13 @@ export default function SignIn({ csrfToken, form, onSubmit }: SignInProps) {
             </FormItem>
           )}
         />
-      </div>
-
-      <FormField
-        control={form.control}
-        name="password"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className="text-white">Password</FormLabel>
-            <FormControl>
-              <Input
-                className="border border-white bg-transparent text-white"
-                placeholder="password123"
-                {...field}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <Button
-        className="text-white w-full hover:bg-streamingpurple font-semibold mt-8"
-        onClick={() => onSubmit(form.getValues())}
-      >
-        Log In / Sign Up
-      </Button>
-    </Form>
+        <Button
+          className="text-white w-full hover:bg-streamingpurple font-semibold mt-8"
+          type="submit"
+        >
+          Log In / Sign Up
+        </Button>
+      </Form>
+    </form>
   );
 }
