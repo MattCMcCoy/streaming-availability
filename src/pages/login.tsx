@@ -29,7 +29,12 @@ export default function SignIn({
         <div className="flex flex-col">
           <InputForm csrfToken={csrfToken} />
         </div>
-        <div className="border-t pt-4">
+        <div className="flex">
+          <div className="border-t border-white w-10 mt-3 mr-2" />
+          <p className="text-white text-lg">Or Sign In With</p>
+          <div className="border-t border-white w-10 mt-3 ml-2" />
+        </div>
+        <div className="pt-4">
           {Object.values(providers)
             .filter((p) => p.name !== 'Credentials')
             .map((provider) => {
@@ -37,7 +42,7 @@ export default function SignIn({
               return (
                 <div key={provider.name}>
                   <button
-                    className={`flex items-center w-52 mb-2 p-2 font-semibold ${buttonStyle.style}`}
+                    className={`flex items-center w-52 mb-4 p-2 font-semibold ${buttonStyle.style}`}
                     onClick={() => signIn(provider.id)}
                     disabled={buttonStyle.disabled}
                   >
@@ -72,10 +77,6 @@ const getProviderButtonStyle = (provider: ClientSafeProvider) => {
         style: 'rounded-lg bg-red-300 text-white',
         icon: <BsGoogle size={19} color="white" />,
         disabled: true
-      };
-    case 'Credentials':
-      return {
-        style: 'rounded-lg bg-gray-500 text-white w-52'
       };
     default:
       throw new Error(`Unknown provider: ${provider.name}`);
