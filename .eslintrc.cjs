@@ -16,6 +16,8 @@ const config = {
     '@typescript-eslint/array-type': 'off',
     '@typescript-eslint/consistent-type-definitions': 'off',
 
+    'react-hooks/rules-of-hooks': 'error',
+
     '@typescript-eslint/consistent-type-imports': [
       'warn',
       {
