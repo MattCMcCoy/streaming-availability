@@ -3,10 +3,10 @@ import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import { z } from 'zod';
 
-import { createTRPCRouter, protectedProcedure } from '../trpc';
+import { createTRPCRouter, publicProcedure } from '../trpc';
 
 export const authRouter = createTRPCRouter({
-  register: protectedProcedure
+  register: publicProcedure
     .input(
       z.object({
         email: z.string(),
@@ -16,13 +16,13 @@ export const authRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const exist = await ctx.db.user.findUnique({
+      const exists = await ctx.db.user.findUnique({
         where: {
           email: input.email
         }
       });
 
-      if (exist) {
+      if (exists) {
         return new NextResponse('User already exists', { status: 400 });
       }
 
@@ -40,7 +40,7 @@ export const authRouter = createTRPCRouter({
       return user;
     }),
 
-  signin: protectedProcedure
+  signin: publicProcedure
     .input(
       z.object({
         email: z.string(),
@@ -49,12 +49,24 @@ export const authRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       console.log('signing in user', input.email);
-      const user = ctx.db.user.findUnique({
+      const user = await ctx.db.user.findUnique({
         where: {
-          email: input.email,
-          password: await bcrypt.hash(input.password, 10)
+          email: input.email
         }
       });
+
+      if (!user) {
+        return null;
+      }
+
+      const passwordMatch = await bcrypt.compare(
+        input.password,
+        user.password ?? ''
+      );
+
+      if (!passwordMatch) {
+        return null;
+      }
 
       return user;
     })

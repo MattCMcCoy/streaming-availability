@@ -1,8 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-
-import { useRouter } from 'next/router';
+import { signIn, useSession } from 'next-auth/react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -25,19 +23,13 @@ const FormSchema = z.object({
 });
 
 export function InputForm({
-  csrfToken,
   setShowRegisterUserForm,
   showRegisterUserForm
 }: {
-  csrfToken: string | undefined;
   setShowRegisterUserForm: (show: boolean) => void;
   showRegisterUserForm: boolean;
 }) {
-  const router = useRouter();
-
-  const { mutate: registerUserMutation, data: registeredUser } =
-    api.auth.register.useMutation();
-
+  const session = useSession();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -50,11 +42,22 @@ export function InputForm({
 
   const signInUser = async (data: { email: string; password: string }) => {
     if (signInQuery !== null && signInQuery !== undefined) {
-      await router.push('/');
-      return;
+      signIn('credentials', {
+        email: data.email,
+        password: data.password
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.error('Failed to sign in', error);
+        });
+      console.log(session.data?.user.name);
+      return 'Signed in!';
     }
 
     setShowRegisterUserForm(true);
+    return;
   };
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -76,10 +79,9 @@ export function InputForm({
       });
   }
 
-  //      <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
   return !showRegisterUserForm ? (
-    <SignIn csrfToken={csrfToken} form={form} onSubmit={onSubmit} />
+    <SignIn form={form} onSubmit={onSubmit} />
   ) : (
-    <Register csrfToken={csrfToken} currForm={form} />
+    <Register currForm={form} />
   );
 }

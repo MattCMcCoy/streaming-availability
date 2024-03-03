@@ -5,12 +5,7 @@ import {
   type InferGetServerSidePropsType
 } from 'next';
 import { getServerSession } from 'next-auth';
-import {
-  type ClientSafeProvider,
-  getCsrfToken,
-  getProviders,
-  signIn
-} from 'next-auth/react';
+import { type ClientSafeProvider, getProviders, signIn } from 'next-auth/react';
 
 import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs';
 import { FaArrowLeft } from 'react-icons/fa6';
@@ -22,8 +17,7 @@ import { InputForm } from '../auth/Authentication';
 import { TopNav } from '../components/topnav';
 
 export default function LogIn({
-  providers,
-  csrfToken
+  providers
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [showRegisterUserForm, setShowRegisterUserForm] = useState(false);
 
@@ -42,7 +36,6 @@ export default function LogIn({
         <GiPopcorn size={80} color="white" />
         <div className="flex flex-col">
           <InputForm
-            csrfToken={csrfToken}
             setShowRegisterUserForm={setShowRegisterUserForm}
             showRegisterUserForm={showRegisterUserForm}
           />
@@ -56,7 +49,7 @@ export default function LogIn({
             </div>
             <div className="pt-4">
               {Object.values(providers)
-                .filter((p) => !p.name.includes('Credentials'))
+                .filter((p) => !p.name.includes('credentials'))
                 .map((provider) => {
                   const buttonStyle = getProviderButtonStyle(provider);
                   return (
@@ -107,7 +100,6 @@ const getProviderButtonStyle = (provider: ClientSafeProvider) => {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
-  const csrfToken = await getCsrfToken(context);
 
   if (session) {
     return { redirect: { destination: '/' } };
@@ -116,6 +108,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const providers = await getProviders();
 
   return {
-    props: { providers: providers ?? [], csrfToken }
+    props: { providers: providers ?? [] }
   };
 }

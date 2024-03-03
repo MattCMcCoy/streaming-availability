@@ -25,7 +25,6 @@ const FormSchema = z.object({
 });
 
 interface SignInProps {
-  csrfToken: string | undefined;
   form: UseFormReturn<
     {
       email: string;
@@ -36,8 +35,7 @@ interface SignInProps {
   onSubmit: (data: z.infer<typeof FormSchema>) => void;
 }
 
-export default function SignIn({ csrfToken, form, onSubmit }: SignInProps) {
-  //      <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+export default function SignIn({ form, onSubmit }: SignInProps) {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
       <Form {...form}>

@@ -9,7 +9,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import DiscordProvider from 'next-auth/providers/discord';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
-import { NextResponse } from 'next/server';
 
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import bcrypt from 'bcrypt';
@@ -44,16 +43,7 @@ declare module 'next-auth' {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
-  callbacks: {
-    session: ({ session, user }) => ({
-      strategy: 'jwt',
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id
-      }
-    })
-  },
+  session: { strategy: 'jwt' },
   debug: process.env.NODE_ENV === 'development',
   secret: process.env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(db) as Adapter,
@@ -66,23 +56,49 @@ export const authOptions: NextAuthOptions = {
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET
     }),
-    // CredentialsProvider({
-    //   name: 'Credentials',
-    //   credentials: {
-    //     userName: { label: 'Username', type: 'text' },
-    //     password: { label: 'Password', type: 'password' }
-    //   },
-    //   async authorize(credentials) {}
-    // }),
+    CredentialsProvider({
+      name: 'credentials',
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' }
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials.password) {
+          console.log('here');
+          return null;
+        }
+
+        const exists = await db.user.findUnique({
+          where: {
+            email: credentials.email
+          }
+        });
+
+        if (!exists) {
+          console.log('Email not found');
+          return null;
+        }
+
+        const passwordMatch = await bcrypt.compare(
+          credentials.password,
+          exists.password ?? ''
+        );
+
+        if (!passwordMatch) {
+          console.log('Password does not match');
+          return null;
+        }
+
+        return exists;
+      }
+    }),
     GoogleProvider({
       clientId: '',
       clientSecret: ''
     })
   ],
   pages: {
-    signIn: '/login',
-    newUser: '/new-user',
-    error: '/login'
+    signIn: '/login'
   }
 };
 

@@ -1,5 +1,8 @@
 'use client';
 
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type UseFormReturn } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
@@ -16,6 +19,7 @@ import {
 } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 import { toast } from '~/components/ui/use-toast';
+import { api } from '~/utils/api';
 
 const FormSchema = z
   .object({
@@ -42,7 +46,6 @@ const FormSchema = z
   );
 
 interface RegisterProps {
-  csrfToken: string | undefined;
   currForm: UseFormReturn<
     {
       email: string;
@@ -52,7 +55,8 @@ interface RegisterProps {
   >;
 }
 
-export default function Register({ csrfToken, currForm }: RegisterProps) {
+export default function Register({ currForm }: RegisterProps) {
+  const { mutate: registerUserMutation } = api.auth.register.useMutation();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -72,6 +76,15 @@ export default function Register({ csrfToken, currForm }: RegisterProps) {
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
         </pre>
       )
+    });
+
+    registerUserMutation(data);
+
+    signIn('credentials', {
+      email: data.email,
+      password: data.password
+    }).catch((error) => {
+      console.error('Failed to sign in', error);
     });
   }
 
