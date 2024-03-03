@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import {
   type GetServerSidePropsContext,
   type InferGetServerSidePropsType
@@ -11,50 +13,70 @@ import {
 } from 'next-auth/react';
 
 import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs';
+import { FaArrowLeft } from 'react-icons/fa6';
 import { GiPopcorn } from 'react-icons/gi';
+import { Button } from '~/components/ui/button';
 import { authOptions } from '~/server/auth';
 
+import { InputForm } from '../auth/Authentication';
 import { TopNav } from '../components/topnav';
-import { InputForm } from './auth/form';
 
-export default function SignIn({
+export default function LogIn({
   providers,
   csrfToken
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const [showRegisterUserForm, setShowRegisterUserForm] = useState(false);
+
   return (
     <div>
       <TopNav />
       <div className="flex h-[80vh] flex-col items-center justify-center space-y-5 align-middle">
+        {showRegisterUserForm && (
+          <Button
+            className="mr-48 hover:bg-streamingpurple"
+            onClick={() => setShowRegisterUserForm(false)}
+          >
+            <FaArrowLeft />
+          </Button>
+        )}
         <GiPopcorn size={80} color="white" />
         <div className="flex flex-col">
-          <InputForm csrfToken={csrfToken} />
+          <InputForm
+            csrfToken={csrfToken}
+            setShowRegisterUserForm={setShowRegisterUserForm}
+            showRegisterUserForm={showRegisterUserForm}
+          />
         </div>
-        <div className="flex">
-          <div className="border-t border-white w-10 mt-3 mr-2" />
-          <p className="text-white text-lg">Or Sign In With</p>
-          <div className="border-t border-white w-10 mt-3 ml-2" />
-        </div>
-        <div className="pt-4">
-          {Object.values(providers)
-            .filter((p) => p.name !== 'Credentials')
-            .map((provider) => {
-              const buttonStyle = getProviderButtonStyle(provider);
-              return (
-                <div key={provider.name}>
-                  <button
-                    className={`flex items-center w-52 mb-4 p-2 font-semibold ${buttonStyle.style}`}
-                    onClick={() => signIn(provider.id)}
-                    disabled={buttonStyle.disabled}
-                  >
-                    {buttonStyle.icon && (
-                      <div className="w-10">{buttonStyle.icon}</div>
-                    )}
-                    Sign in with {provider.name}
-                  </button>
-                </div>
-              );
-            })}
-        </div>
+        {!showRegisterUserForm && (
+          <>
+            <div className="flex">
+              <div className="border-t border-white w-10 mt-3 mr-2" />
+              <p className="text-white text-lg">Or Sign In With</p>
+              <div className="border-t border-white w-10 mt-3 ml-2" />
+            </div>
+            <div className="pt-4">
+              {Object.values(providers)
+                .filter((p) => !p.name.includes('Credentials'))
+                .map((provider) => {
+                  const buttonStyle = getProviderButtonStyle(provider);
+                  return (
+                    <div key={provider.name}>
+                      <Button
+                        className={`flex items-center w-52 mb-4 p-2 font-semibold ${buttonStyle.style}`}
+                        onClick={() => signIn(provider.id)}
+                        disabled={buttonStyle.disabled}
+                      >
+                        {buttonStyle.icon && (
+                          <div className="w-10">{buttonStyle.icon}</div>
+                        )}
+                        Sign in with {provider.name}
+                      </Button>
+                    </div>
+                  );
+                })}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
@@ -74,7 +96,7 @@ const getProviderButtonStyle = (provider: ClientSafeProvider) => {
       };
     case 'Google':
       return {
-        style: 'rounded-lg bg-red-300 text-white',
+        style: 'rounded-lg bg-red-500 text-white',
         icon: <BsGoogle size={19} color="white" />,
         disabled: true
       };

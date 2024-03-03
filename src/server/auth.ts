@@ -5,11 +5,14 @@ import {
   type NextAuthOptions
 } from 'next-auth';
 import { type Adapter } from 'next-auth/adapters';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import DiscordProvider from 'next-auth/providers/discord';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
+import { NextResponse } from 'next/server';
 
 import { PrismaAdapter } from '@auth/prisma-adapter';
+import bcrypt from 'bcrypt';
 //import { compare, hash } from 'bcrypt';
 import { env } from '~/env';
 import { db } from '~/server/db';
@@ -43,17 +46,16 @@ declare module 'next-auth' {
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: ({ session, user }) => ({
+      strategy: 'jwt',
       ...session,
       user: {
         ...session.user,
         id: user.id
       }
-    }),
-    jwt: async ({ token, user }) => {
-      user && (token.user = user);
-      return token;
-    }
+    })
   },
+  debug: process.env.NODE_ENV === 'development',
+  secret: process.env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
     DiscordProvider({
@@ -64,13 +66,23 @@ export const authOptions: NextAuthOptions = {
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET
     }),
+    // CredentialsProvider({
+    //   name: 'Credentials',
+    //   credentials: {
+    //     userName: { label: 'Username', type: 'text' },
+    //     password: { label: 'Password', type: 'password' }
+    //   },
+    //   async authorize(credentials) {}
+    // }),
     GoogleProvider({
       clientId: '',
       clientSecret: ''
     })
   ],
   pages: {
-    signIn: '/login'
+    signIn: '/login',
+    newUser: '/new-user',
+    error: '/login'
   }
 };
 
