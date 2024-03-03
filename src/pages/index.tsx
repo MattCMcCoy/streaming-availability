@@ -3,11 +3,8 @@ import Head from 'next/head';
 
 import { GiPopcorn } from 'react-icons/gi';
 import { Input } from '~/components/ui/input';
-import { api } from '~/utils/api';
 
 export default function Home() {
-  const hello = api.post.hello.useQuery({ text: 'from tRPC' });
-
   return (
     <>
       <Head>

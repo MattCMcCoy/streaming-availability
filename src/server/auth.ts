@@ -5,7 +5,6 @@ import {
   type NextAuthOptions
 } from 'next-auth';
 import { type Adapter } from 'next-auth/adapters';
-import CredentialProvider from 'next-auth/providers/credentials';
 import DiscordProvider from 'next-auth/providers/discord';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
