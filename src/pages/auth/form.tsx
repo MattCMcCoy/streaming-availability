@@ -5,7 +5,7 @@ import { signIn } from 'next-auth/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Button } from '~/pages/components/ui/button';
+import { Button } from '~/components/ui/button';
 import {
   Form,
   FormControl,
@@ -13,9 +13,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from '~/pages/components/ui/form';
-import { Input } from '~/pages/components/ui/input';
-import { toast } from '~/pages/components/ui/use-toast';
+} from '~/components/ui/form';
+import { Input } from '~/components/ui/input';
+import { toast } from '~/components/ui/use-toast';
 
 const FormSchema = z.object({
   email: z
@@ -116,16 +116,11 @@ export function InputForm({ csrfToken }: { csrfToken: string | undefined }) {
           )}
         />
         <Button
-          className="text-black w-full bg-[#ffff] hover:bg-[#d6d6d6] font-semibold text-md"
-          type="submit"
-        >
-          Log In
-        </Button>
-        <Button
+          disabled
           className="text-white w-full bg-[hsl(280,100%,70%)] hover:bg-[#e0a1ff] font-semibold text-md"
           type="submit"
         >
-          Sign Up
+          Log In / Sign Up
         </Button>
       </form>
     </Form>

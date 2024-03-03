@@ -10,12 +10,12 @@ import {
   signIn
 } from 'next-auth/react';
 
-import { BsDiscord, BsGoogle } from 'react-icons/bs';
+import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs';
 import { GiPopcorn } from 'react-icons/gi';
 import { authOptions } from '~/server/auth';
 
 import { TopNav } from '../components/topnav';
-import { InputForm } from './form';
+import { InputForm } from './auth/form';
 
 export default function SignIn({
   providers,
@@ -61,6 +61,11 @@ const getProviderButtonStyle = (provider: ClientSafeProvider) => {
       return {
         style: 'rounded-lg bg-indigo-600 text-white hover:bg-indigo-500',
         icon: <BsDiscord size={19} color="white" />
+      };
+    case 'GitHub':
+      return {
+        style: 'rounded-lg bg-gray-800 text-white hover:bg-gray-700',
+        icon: <BsGithub size={19} color="white" />
       };
     case 'Google':
       return {

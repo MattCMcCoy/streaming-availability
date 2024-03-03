@@ -7,6 +7,7 @@ import {
 import { type Adapter } from 'next-auth/adapters';
 import CredentialProvider from 'next-auth/providers/credentials';
 import DiscordProvider from 'next-auth/providers/discord';
+import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 
 import { PrismaAdapter } from '@auth/prisma-adapter';
@@ -60,46 +61,17 @@ export const authOptions: NextAuthOptions = {
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET
     }),
+    GitHubProvider({
+      clientId: env.GITHUB_CLIENT_ID,
+      clientSecret: env.GITHUB_CLIENT_SECRET
+    }),
     GoogleProvider({
       clientId: '',
       clientSecret: ''
-    }),
-    CredentialProvider({
-      name: 'Credentials',
-      credentials: {
-        username: {
-          label: 'Username',
-          type: 'text',
-          placeholder: 'grafbase'
-        },
-        password: { label: 'Password', type: 'password' }
-      },
-      async authorize(credentials) {
-        const { username, password } = credentials as {
-          username: string;
-          password: string;
-        };
-
-        // TODO: get user by username from db
-        const user = null;
-
-        if (!user) {
-          // TODO: create new user in db
-          return { id: '', name: '' };
-        }
-
-        // const isValid = await compare(password, user.passwordHash);
-
-        // if (!isValid) {
-        //   throw new Error('Wrong credentials. Try again.');
-        // }
-
-        return user;
-      }
     })
   ],
   pages: {
-    signIn: '/auth/signin'
+    signIn: '/login'
   }
 };
 
