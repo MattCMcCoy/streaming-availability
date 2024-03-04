@@ -27,9 +27,8 @@ export default function Home() {
       <main className="flex max-h-screen flex-col">
         <div className="container flex flex-col items-center justify-center gap-12 px-4">
           <GiPopcorn size={80} color="white" />
-          <h1 className="text-5xl text-center font-extrabold tracking-tight text-white sm:text-[5rem]">
-            Streaming
-            <span className="text-[hsl(280,100%,70%)]"> Availability</span>
+          <h1 className="text-5xl text-center font-extrabold bg-gradient-to-r from-streamingpurple via-[#b167d7] to-white inline-block text-transparent bg-clip-text">
+            Streaming Availability
           </h1>
           <div className="flex flex-grow flex-col space-y-5 pb-20">
             <div className="text-white text-3xl font-bold font-sans">
