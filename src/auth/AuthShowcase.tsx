@@ -35,7 +35,7 @@ export function AuthShowcase() {
         <DropdownMenuDemo />
       ) : (
         <button
-          className="rounded-full bg-white/10 p-2 px-3 font-semibold text-white no-underline transition hover:bg-white/20"
+          className="rounded-xl bg-white/10 p-2 px-3 font-semibold text-white no-underline transition hover:bg-white/20"
           onClick={() => void signIn()}
         >
           Sign in

@@ -5,7 +5,6 @@ import { signIn, useSession } from 'next-auth/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { toast } from '~/components/ui/use-toast';
 import { api } from '~/utils/api';
 
 import Register from './Register';
@@ -61,15 +60,6 @@ export function InputForm({
   };
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      )
-    });
-
     signInUser(data)
       .then((res) => {
         console.log(res);

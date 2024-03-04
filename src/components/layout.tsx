@@ -18,7 +18,7 @@ export default function Layout({
   children: JSX.Element | JSX.Element[];
 }) {
   return (
-    <main className="bg-gradient-to-b from-[#2e026d] to-[#15162c] overflow-auto h-screen font-sans font-inter">
+    <main className="bg-gradient-to-b to-[#2e026d] from-[#15162c] overflow-auto h-screen font-sans font-inter">
       {children}
       <Toaster />
     </main>
