@@ -14,6 +14,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
+      <style jsx global>{`
+        :root {
+          background-image: background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
+          background-color: #2e026d;
+          background-color: #15162c;
+        }
+      `}</style>
       <Layout>
         <Component {...pageProps} />
       </Layout>

@@ -38,9 +38,9 @@ jobs:
       NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
       DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
       DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
-      WATCHMODE_API_KEY: ${{ secrets.WATCHMODE_API_KEY }}
       GITHUB_CLIENT_ID: ${{ secrets.CI_GITHUB_CLIENT_ID }}
       GITHUB_CLIENT_SECRET: ${{ secrets.CI_GITHUB_CLIENT_SECRET }}
+      WATCHMODE_API_KEY: ${{ secrets.WATCHMODE_API_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3

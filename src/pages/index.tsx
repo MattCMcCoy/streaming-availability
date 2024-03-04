@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Image from 'next/image';
 
+import Brazil from 'country-flag-icons/react/3x2/BR';
+import US from 'country-flag-icons/react/3x2/US';
 import { HeartIcon } from 'lucide-react';
 import { GiPopcorn } from 'react-icons/gi';
 import { RiNetflixFill } from 'react-icons/ri';
@@ -52,8 +54,12 @@ export function Card() {
           <div className="text-3xl text-white font-bold">Intersteller</div>
           <div className="text-white">2011</div>
         </div>
-        <div className="absolute bottom-0 left-0 p-5 z-40">
+        <div className="absolute bottom-0 left-0 pl-3 pb-2 z-40 flex flex-col">
           <RiNetflixFill size={30} className="text-red-500" />
+          <div className="flex flex-row space-x-2 pl-1">
+            <US title="United States" className="h-8 w-8" />
+            <Brazil title="Brazil" className="h-8 w-8" />
+          </div>
         </div>
         <div className="absolute bottom-0 right-0 p-5 z-40">
           <HeartIcon size={30} className="text-green-100 hover:fill-red-500" />
