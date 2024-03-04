@@ -6,7 +6,8 @@ const config = {
   ],
   importOrder: [
     '^(react)$',
-    '^(next/(.*)$)|^(next$)|^(next-auth$)|^(next-auth/(.*)$)',
+    '^(next/(.*)$)|^(next$)',
+    '^(next-auth$)|^(next-auth/(.*)$)',
     '<BUILTIN_MODULES>',
     '<THIRD_PARTY_MODULES>',
     '^[.]'

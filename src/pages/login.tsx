@@ -4,6 +4,7 @@ import {
   type GetServerSidePropsContext,
   type InferGetServerSidePropsType
 } from 'next';
+
 import { getServerSession } from 'next-auth';
 import { type ClientSafeProvider, getProviders, signIn } from 'next-auth/react';
 
