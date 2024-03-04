@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import { Card } from '~/pages';
-
 import {
   Carousel,
   CarouselContent,
@@ -9,6 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '../ui/carousel';
+import { Card } from './card';
 
 export function CarouselSize() {
   return (
@@ -17,15 +16,17 @@ export function CarouselSize() {
         align: 'start'
       }}
     >
-      <CarouselContent>
-        {Array.from({ length: 40 }).map((_, index) => (
-          <CarouselItem key={index}>
-            <Card like={index % 2 == 0} />
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <div className="flex flex-row w-full justify-center">
+        <CarouselPrevious className="absolute sm:left-0 left-9" />
+        <CarouselContent>
+          {Array.from({ length: 40 }).map((_, index) => (
+            <CarouselItem key={index}>
+              <Card like={index % 2 == 0} />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselNext className="absolute sm:right-0 right-9" />
+      </div>
     </Carousel>
   );
 }

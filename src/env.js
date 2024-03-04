@@ -32,7 +32,12 @@ export const env = createEnv({
     DISCORD_CLIENT_SECRET: z.string(),
     GITHUB_CLIENT_ID: z.string(),
     GITHUB_CLIENT_SECRET: z.string(),
-    WATCHMODE_API_KEY: z.string()
+    WATCHMODE_API_KEY: z.string(),
+    WATCHMODE_API_URL: z.string().url(),
+    TMDB_API_READ_ACCESS_TOKEN: z.string(),
+    TMDB_API_KEY: z.string(),
+    TMDB_API_URL: z.string().url(),
+    TMDB_API_IMAGE_URL: z.string().url()
   },
 
   /**
@@ -57,7 +62,12 @@ export const env = createEnv({
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
     WATCHMODE_API_KEY: process.env.WATCHMODE_API_KEY,
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
-    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET
+    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
+    WATCHMODE_API_URL: process.env.WATCHMODE_API_URL,
+    TMDB_API_READ_ACCESS_TOKEN: process.env.TMDB_API_READ_ACCESS_TOKEN,
+    TMDB_API_KEY: process.env.TMDB_API_KEY,
+    TMDB_API_URL: process.env.TMDB_API_URL,
+    TMDB_API_IMAGE_URL: process.env.TMDB_API_IMAGE_URL
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
