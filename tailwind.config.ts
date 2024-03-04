@@ -19,7 +19,9 @@ const config = {
       }
     },
     extend: {
-      fontFamily: { sans: ['var(--font-sans)', ...fontFamily.sans] },
+      fontFamily: {
+        sans: ['var(--font-sans)', 'var(--font-inter)', ...fontFamily.sans]
+      },
       colors: {
         streamingpurple: 'hsl(280,100%,70%)',
         border: 'hsl(var(--border))',

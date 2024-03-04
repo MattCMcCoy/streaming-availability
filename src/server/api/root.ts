@@ -1,5 +1,6 @@
 import { authRouter } from '~/server/api/routers/auth';
 import { postRouter } from '~/server/api/routers/post';
+import { watchmodeRouter } from '~/server/api/routers/watchmode';
 import { createTRPCRouter } from '~/server/api/trpc';
 
 /**
@@ -9,7 +10,8 @@ import { createTRPCRouter } from '~/server/api/trpc';
  */
 export const appRouter = createTRPCRouter({
   post: postRouter,
-  auth: authRouter
+  auth: authRouter,
+  watchMode: watchmodeRouter
 });
 
 // export type definition of API

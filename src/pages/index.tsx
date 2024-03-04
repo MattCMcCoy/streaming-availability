@@ -1,32 +1,11 @@
-import { signIn, signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Image from 'next/image';
 
-import { GitHubLogoIcon } from '@radix-ui/react-icons';
-import {
-  LogOut,
-  Mail,
-  MessageSquare,
-  Settings,
-  User,
-  UserPlus,
-  Users
-} from 'lucide-react';
+import { HeartIcon } from 'lucide-react';
 import { GiPopcorn } from 'react-icons/gi';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger
-} from '~/components/ui/dropdown-menu';
-import { Input } from '~/components/ui/input';
+import { RiNetflixFill } from 'react-icons/ri';
+import { AuthShowcase } from '~/auth/AuthShowcase';
+import { CarouselSize } from '~/components/movie/carousel';
 
 export default function Home() {
   return (
@@ -39,113 +18,48 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex flex-col items-end gap-2 pr-10">
+      <div className=" flex flex-col items-end gap-2 pr-10">
         <AuthShowcase />
       </div>
       <main className="flex max-h-screen flex-col">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
+        <div className="container flex flex-col items-center justify-center gap-12 px-4">
           <GiPopcorn size={80} color="white" />
-          <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
+          <h1 className="text-5xl text-center font-extrabold tracking-tight text-white sm:text-[5rem]">
             Streaming
             <span className="text-[hsl(280,100%,70%)]"> Availability</span>
           </h1>
-          <Input
-            className="border-white bg-transparent rounded-full w-[50vh] text-lg text-white"
-            type="text"
-            placeholder="Search"
-          />
+          <div className="flex flex-grow flex-col space-y-5">
+            <CarouselSize />
+            <CarouselSize />
+          </div>
         </div>
       </main>
     </>
   );
 }
 
-function AuthShowcase() {
-  const { data: sessionData } = useSession();
-
+export function Card() {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 mt-5">
-      {sessionData ? (
-        <DropdownMenuDemo />
-      ) : (
-        <button
-          className="rounded-full bg-white/10 p-2 px-3 font-semibold text-white no-underline transition hover:bg-white/20"
-          onClick={() => void signIn()}
-        >
-          Sign in
-        </button>
-      )}
+    <div>
+      <div className="relative overflow-hidden w-96 h-96">
+        <Image
+          src="https://static1.squarespace.com/static/5a78ab8490badee028bef0e9/t/5d840e597d51593a02b10357/1568935527866/Interstellar.jpg?format=1500w"
+          alt=""
+          fill
+          className="rounded-lg"
+        />
+        <div className="absolute mt-auto flex pt-64 z-20 pl-5 font-sans  flex-col">
+          <div className="text-3xl text-white font-bold">Intersteller</div>
+          <div className="text-white">2011</div>
+        </div>
+        <div className="absolute bottom-0 left-0 p-5 z-40">
+          <RiNetflixFill size={30} className="text-red-500" />
+        </div>
+        <div className="absolute bottom-0 right-0 p-5 z-40">
+          <HeartIcon size={30} className="text-green-100 hover:fill-red-500" />
+        </div>
+        <div className="absolute w-full h-full bg-[linear-gradient(0deg,rgba(0,0,0,0.75)_40.82%,rgba(0,0,0,0.00)_81.44%)] rounded-lg" />
+      </div>
     </div>
-  );
-}
-
-export function DropdownMenuDemo() {
-  const { data: sessionData } = useSession();
-
-  if (!sessionData) return null;
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button className="rounded-full p-1 px-1 font-semibold text-white no-underline transition hover:bg-white/20 focus:outline-none">
-          <Image
-            src={sessionData.user.image ?? ''}
-            alt=""
-            className="w-12 h-12 rounded-full border-none fill-none"
-            width={96}
-            height={96}
-          />
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-48 mr-10">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <Users className="mr-2 h-4 w-4" />
-            <span>Friends</span>
-          </DropdownMenuItem>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
-              <UserPlus className="mr-2 h-4 w-4" />
-              <span>Add A Friend</span>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <DropdownMenuItem>
-                  <Mail className="mr-2 h-4 w-4" />
-                  <span>Email</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <MessageSquare className="mr-2 h-4 w-4" />
-                  <span>Username</span>
-                </DropdownMenuItem>
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem disabled>
-          <GitHubLogoIcon className="mr-2 h-4 w-4" />
-          <span>GitHub</span>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => void signOut()}>
-          <LogOut className="mr-2 h-4 w-4" />
-          <span>Log out</span>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
   );
 }

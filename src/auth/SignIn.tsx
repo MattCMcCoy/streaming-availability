@@ -79,6 +79,7 @@ export default function SignIn({ form, onSubmit }: SignInProps) {
         <Button
           className="text-white w-full hover:bg-streamingpurple font-semibold mt-8"
           type="submit"
+          disabled={!form.formState.isDirty || !form.formState.isValid}
         >
           Log In / Sign Up
         </Button>
