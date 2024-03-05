@@ -136,7 +136,11 @@ const Carousel = React.forwardRef<
         <div
           ref={ref}
           onKeyDownCapture={handleKeyDown}
-          className={cn('relative', '2xl:w-[94.3vw] xl:w-[80vw]', className)}
+          className={cn(
+            'relative',
+            '2xl:w-[96.3vw] xl:w-[81.8vw] w-[75vw]',
+            className
+          )}
           role="region"
           aria-roledescription="carousel"
           {...props}
@@ -159,7 +163,11 @@ const CarouselContent = React.forwardRef<
     <div ref={carouselRef} className="overflow-hidden">
       <div
         ref={ref}
-        className={cn('2xl:w-[94.3vw] xl:w-[80vw] w-[75vw] flex', className)}
+        className={cn(
+          'flex',
+          '2xl:w-[96.3vw] xl:w-[81.8vw] w-[75vw]',
+          className
+        )}
         {...props}
       />
     </div>

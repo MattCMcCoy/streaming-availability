@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { buildURL } from '~/utils/api';
 
-import type { AutoCompleteSearch, TitlesList } from '../../models/watchmode';
 import { createTRPCRouter, publicProcedure } from '../../trpc';
 
 export const watchmodeRouter = createTRPCRouter({
@@ -23,11 +22,11 @@ export const watchmodeRouter = createTRPCRouter({
       );
 
       console.log(url);
-      const res = await fetch('url', { method: 'Get' });
+      // const res = await fetch('url', { method: 'Get' });
 
-      const body = (await res.json()) as AutoCompleteSearch[];
+      // const body = (await res.json()) as AutoCompleteSearch[];
 
-      return body;
+      // return body;
     }),
   listTitles: publicProcedure
     .input(
@@ -74,10 +73,10 @@ export const watchmodeRouter = createTRPCRouter({
 
       console.log(url);
 
-      const res = await fetch('url', { method: 'Get' });
+      // const res = await fetch('url', { method: 'Get' });
 
-      const body = (await res.json()) as TitlesList[];
+      // const body = (await res.json()) as TitlesList[];
 
-      return body;
+      // return body;
     })
 });

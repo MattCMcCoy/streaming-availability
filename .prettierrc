@@ -1,4 +1,12 @@
 {
+  "semi": true,
+  "trailingComma": "none",
+  "singleQuote": true,
+  "printWidth": 80,
+  "tabWidth": 2,
+  "endOfLine": "auto",
+  "bracketSpacing": true,
+  "proseWrap": "always",
   "plugins": [
     "prettier-plugin-tailwindcss",
     "@trivago/prettier-plugin-sort-imports"
@@ -13,13 +21,5 @@
   ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
-  "importOrderCaseInsensitive": true,
-  "semi": true,
-  "trailingComma": "none",
-  "singleQuote": true,
-  "printWidth": 80,
-  "tabWidth": 2,
-  "endOfLine": "auto",
-  "bracketSpacing": true,
-  "proseWrap": "always"
+  "importOrderCaseInsensitive": true
 }

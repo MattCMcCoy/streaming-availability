@@ -1,51 +1,45 @@
-import Head from 'next/head';
+'use client';
 
+import moment from 'moment';
 import { GiPopcorn } from 'react-icons/gi';
-import { CarouselSize } from '~/components/movie/carousel';
+import { MovieCategory } from '~/components/movie/category';
 import { api } from '~/utils/api';
 
 import { AuthShowcase } from '../auth/AuthShowcase';
 
 export default function Home() {
-  const { data } = api.watchMode.listTitles.useQuery({ sort_by: 'title_asc' });
-
-  console.log(data);
+  const { data: discover } = api.tmdb.discover.useQuery({
+    primary_release_date_gte: new Date(moment(Date.now()).format('YYYY-MM-DD')),
+    sort_by: 'primary_release_date.asc'
+  });
+  const { data: nowPlaying } = api.tmdb.nowplaying.useQuery({});
+  const { data: upcomingMovies } = api.tmdb.upcoming.useQuery({});
+  const { data: popularMovies } = api.tmdb.popular.useQuery({});
+  const { data: topRatedMovies } = api.tmdb.topRated.useQuery({});
   return (
     <div id="home">
-      <Head>
-        <title>Streaming Availability</title>
-        <meta
-          name="description"
-          content="A platform for discovering where a movie is streaming"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <div className=" flex flex-col items-end gap-2 pr-10">
         <AuthShowcase />
       </div>
       <main className="flex max-h-screen flex-col">
         <div className="container flex flex-col items-center justify-center gap-12 px-4">
           <GiPopcorn size={80} color="white" />
-          <h1 className="text-5xl text-center font-extrabold bg-gradient-to-r from-streamingpurple via-[#b167d7] to-white inline-block text-transparent bg-clip-text">
-            Streaming Availability
+          <h1 className="text-5xl text-center font-extrabold bg-gradient-to-r from-streamingpurple via-[#c6c0ca] to-white inline-block text-transparent bg-clip-text">
+            Popcorn Streaming
           </h1>
           <div className="flex flex-grow flex-col space-y-5 pb-20">
-            <div className="text-white text-3xl font-bold font-sans">
-              WHATS COMING OUT
-              <CarouselSize />
-            </div>
-            <div className="text-white text-3xl font-bold font-sans">
-              WHATS POPULAR
-              <CarouselSize />
-            </div>
-            <div className="text-white text-3xl font-bold font-sans">
-              WHATS POPULAR WITH FRIENDS
-              <CarouselSize />
-            </div>
-            <div className="text-white text-3xl font-bold font-sans">
-              YOUR FAVORITES
-              <CarouselSize />
-            </div>
+            <MovieCategory title="Now Playing" data={nowPlaying ?? []} />
+            <MovieCategory
+              title="Whats Popular With Friends"
+              data={upcomingMovies ?? []}
+            />
+            <MovieCategory title="Up and Coming" data={discover ?? []} />
+            <MovieCategory title="Whats Popular" data={popularMovies ?? []} />
+            <MovieCategory
+              title="Top Rated Of All Time"
+              data={topRatedMovies ?? []}
+            />
+            <MovieCategory title="Your Favorites" data={upcomingMovies ?? []} />
           </div>
         </div>
       </main>

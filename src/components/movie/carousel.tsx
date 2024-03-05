@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { type Movie } from '~/server/api/models/tmdb';
+
 import {
   Carousel,
   CarouselContent,
@@ -9,7 +11,11 @@ import {
 } from '../ui/carousel';
 import { Card } from './card';
 
-export function CarouselSize() {
+interface MovieCarouselProps {
+  data: Movie[];
+}
+
+export function MovieCarousel(props: MovieCarouselProps) {
   return (
     <Carousel
       opts={{
@@ -17,15 +23,15 @@ export function CarouselSize() {
       }}
     >
       <div className="flex flex-row w-full justify-center">
-        <CarouselPrevious className="absolute sm:left-0 left-9" />
-        <CarouselContent>
-          {Array.from({ length: 40 }).map((_, index) => (
+        <CarouselPrevious className="absolute left-0" />
+        <CarouselContent className="space-x-3">
+          {props.data?.map((movie, index) => (
             <CarouselItem key={index}>
-              <Card like={index % 2 == 0} />
+              <Card data={movie} />
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselNext className="absolute sm:right-0 right-9" />
+        <CarouselNext className="absolute right-0" />
       </div>
     </Carousel>
   );
