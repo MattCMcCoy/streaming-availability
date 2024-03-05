@@ -1,7 +1,10 @@
+'use client';
+
 import Image from 'next/image';
 
 import { CircularProgress } from '@nextui-org/react';
 import moment from 'moment';
+import { env } from '~/env';
 import { type Movie } from '~/server/api/models/tmdb';
 
 interface CardProps {
@@ -14,7 +17,7 @@ export function Card(props: CardProps) {
       <div className="relative overflow-hidden w-[75vw] sm:w-[37vw] md:w-[37vw] xl:w-[26.3vw] 2xl:w-[23.3vw] h-96 rounded-xl">
         {props.data.poster_path ? (
           <Image
-            src={`https://image.tmdb.org/t/p/original/${props.data.poster_path}`}
+            src={`${env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${props.data.poster_path}`}
             alt=""
             fill
             sizes="100% 100%"
@@ -23,7 +26,7 @@ export function Card(props: CardProps) {
           />
         ) : props.data.backdrop_path ? (
           <Image
-            src={`https://image.tmdb.org/t/p/original/${props.data.backdrop_path}`}
+            src={`${env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${props.data.backdrop_path}`}
             alt=""
             fill
             sizes="100% 100%"

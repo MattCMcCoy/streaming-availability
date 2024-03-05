@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { env } from '~/env';
 import { buildURL } from '~/utils/api';
 
 import {
@@ -14,8 +15,8 @@ export const tmdbRouter = createTRPCRouter({
     .input(DiscoverMovieInputModel)
     .output(ZodMovieOutputModel)
     .query(async ({ input }) => {
-      const url = buildURL(`${process.env.TMDB_API_URL}/discover/movie`, {
-        api_key: process.env.TMDB_API_KEY,
+      const url = buildURL(`${env.NEXT_PUBLIC_TMDB_API_URL}/discover/movie`, {
+        api_key: env.TMDB_API_KEY,
         certification: input.certification,
         'certification.gte': input.certification_gte,
         'certification.lte': input.certification_lte,
@@ -73,12 +74,15 @@ export const tmdbRouter = createTRPCRouter({
     .input(SpecialDiscoverMovieInputModel)
     .output(ZodMovieOutputModel)
     .query(async ({ input }) => {
-      const url = buildURL(`${process.env.TMDB_API_URL}/movie/now_playing`, {
-        api_key: process.env.TMDB_API_KEY,
-        language: input.language,
-        page: input.page,
-        region: input.region
-      });
+      const url = buildURL(
+        `${env.NEXT_PUBLIC_TMDB_API_URL}/movie/now_playing`,
+        {
+          api_key: env.TMDB_API_KEY,
+          language: input.language,
+          page: input.page,
+          region: input.region
+        }
+      );
 
       const res = await fetch(url, { method: 'Get' });
 
@@ -91,8 +95,8 @@ export const tmdbRouter = createTRPCRouter({
     .input(SpecialDiscoverMovieInputModel)
     .output(ZodMovieOutputModel)
     .query(async ({ input }) => {
-      const url = buildURL(`${process.env.TMDB_API_URL}/movie/popular`, {
-        api_key: process.env.TMDB_API_KEY,
+      const url = buildURL(`${env.NEXT_PUBLIC_TMDB_API_URL}/movie/popular`, {
+        api_key: env.TMDB_API_KEY,
         language: input.language,
         page: input.page,
         region: input.region
@@ -109,8 +113,8 @@ export const tmdbRouter = createTRPCRouter({
     .input(SpecialDiscoverMovieInputModel)
     .output(ZodMovieOutputModel)
     .query(async ({ input }) => {
-      const url = buildURL(`${process.env.TMDB_API_URL}/movie/top_rated`, {
-        api_key: process.env.TMDB_API_KEY,
+      const url = buildURL(`${env.NEXT_PUBLIC_TMDB_API_URL}/movie/top_rated`, {
+        api_key: env.TMDB_API_KEY,
         language: input.language,
         page: input.page,
         region: input.region
@@ -127,8 +131,8 @@ export const tmdbRouter = createTRPCRouter({
     .input(SpecialDiscoverMovieInputModel)
     .output(ZodMovieOutputModel)
     .query(async ({ input }) => {
-      const url = buildURL(`${process.env.TMDB_API_URL}/movie/upcoming`, {
-        api_key: process.env.TMDB_API_KEY,
+      const url = buildURL(`${env.NEXT_PUBLIC_TMDB_API_URL}/movie/upcoming`, {
+        api_key: env.TMDB_API_KEY,
         language: input.language,
         page: input.page,
         region: input.region

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { env } from '~/env';
 import { buildURL } from '~/utils/api';
 
 import { createTRPCRouter, publicProcedure } from '../../trpc';
@@ -13,9 +14,9 @@ export const watchmodeRouter = createTRPCRouter({
     )
     .query(async ({ input }) => {
       const url = buildURL(
-        `${process.env.WATCHMODE_API_URL}/autocomplete-search/`,
+        `${env.NEXT_PUBLIC_WATCHMODE_API_URL}/autocomplete-search/`,
         {
-          apiKey: process.env.WATCHMODE_API_KEY,
+          apiKey: env.WATCHMODE_API_KEY,
           search_value: input.search_value,
           search_type: input.search_type
         }
@@ -56,20 +57,23 @@ export const watchmodeRouter = createTRPCRouter({
       })
     )
     .query(async ({ input }) => {
-      const url = buildURL(`${process.env.WATCHMODE_API_URL}/v1/list-titles/`, {
-        apiKey: process.env.WATCHMODE_API_KEY,
-        types: input.types?.join(','),
-        regions: input.regions?.join(','),
-        source_types: input.source_types?.join(','),
-        source_ids: input.source_ids?.join(','),
-        genres: input.genres?.join(','),
-        network_ids: input.network_ids?.join(','),
-        sort_by: input.sort_by,
-        release_date_start: input.release_date_start,
-        release_date_end: input.release_date_end,
-        page: input.page,
-        limit: input.limit
-      });
+      const url = buildURL(
+        `${env.NEXT_PUBLIC_WATCHMODE_API_URL}/v1/list-titles/`,
+        {
+          apiKey: env.WATCHMODE_API_KEY,
+          types: input.types?.join(','),
+          regions: input.regions?.join(','),
+          source_types: input.source_types?.join(','),
+          source_ids: input.source_ids?.join(','),
+          genres: input.genres?.join(','),
+          network_ids: input.network_ids?.join(','),
+          sort_by: input.sort_by,
+          release_date_start: input.release_date_start,
+          release_date_end: input.release_date_end,
+          page: input.page,
+          limit: input.limit
+        }
+      );
 
       console.log(url);
 

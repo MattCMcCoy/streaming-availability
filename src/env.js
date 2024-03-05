@@ -43,6 +43,9 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_TMDB_API_URL: z.string().url(),
+    NEXT_PUBLIC_TMDB_IMAGE_URL: z.string().url(),
+    NEXT_PUBLIC_WATCHMODE_API_URL: z.string().url()
   },
 
   /**
@@ -52,14 +55,27 @@ export const env = createEnv({
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
+
+    // NEXT AUTH
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+
+    // DISCORD CLIENT
     DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
-    WATCHMODE_API_KEY: process.env.WATCHMODE_API_KEY,
+
+    // GITHUB CLIENT
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
     GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
-    TMDB_API_KEY: process.env.TMDB_API_KEY
+
+    // WATCHMODE API
+    WATCHMODE_API_KEY: process.env.WATCHMODE_API_KEY,
+    NEXT_PUBLIC_WATCHMODE_API_URL: process.env.NEXT_PUBLIC_WATCHMODE_API_URL,
+
+    // TMDB API
+    TMDB_API_KEY: process.env.TMDB_API_KEY,
+    NEXT_PUBLIC_TMDB_API_URL: process.env.NEXT_PUBLIC_TMDB_API_URL,
+    NEXT_PUBLIC_TMDB_IMAGE_URL: process.env.NEXT_PUBLIC_TMDB_IMAGE_URL
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
