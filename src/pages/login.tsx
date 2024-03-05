@@ -8,8 +8,8 @@ import {
 import { getServerSession } from 'next-auth';
 import { type ClientSafeProvider, getProviders, signIn } from 'next-auth/react';
 
+import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react';
 import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs';
-import { FaArrowLeft } from 'react-icons/fa6';
 import { GiPopcorn } from 'react-icons/gi';
 import { Button } from '~/components/ui/button';
 import { authOptions } from '~/server/auth';
@@ -25,14 +25,24 @@ export default function LogIn({
   return (
     <div>
       <TopNav />
-      <div className="flex h-[80vh] flex-col items-center justify-center space-y-5 align-middle">
+      <div className="flex h-[80vh] mx-auto self-center w-fit flex-col items-center justify-center space-y-5 align-middle">
         {showRegisterUserForm && (
-          <Button
-            className="mr-48 hover:bg-streamingpurple"
-            onClick={() => setShowRegisterUserForm(false)}
-          >
-            <FaArrowLeft />
-          </Button>
+          <Breadcrumbs className="self-start">
+            <BreadcrumbItem
+              onClick={() => setShowRegisterUserForm(false)}
+              color="secondary"
+              size="lg"
+            >
+              Home
+            </BreadcrumbItem>
+            <BreadcrumbItem
+              isCurrent={showRegisterUserForm}
+              color="secondary"
+              size="lg"
+            >
+              Register
+            </BreadcrumbItem>
+          </Breadcrumbs>
         )}
         <GiPopcorn size={80} color="white" />
         <div className="flex flex-col">

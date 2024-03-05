@@ -8,12 +8,11 @@ import { api } from '~/utils/api';
 import { AuthShowcase } from '../auth/AuthShowcase';
 
 export default function Home() {
-  const { data: discover } = api.tmdb.discover.useQuery({
+  const { data: comingSoon } = api.tmdb.discover.useQuery({
     primary_release_date_gte: new Date(moment(Date.now()).format('YYYY-MM-DD')),
     sort_by: 'primary_release_date.asc'
   });
   const { data: nowPlaying } = api.tmdb.nowplaying.useQuery({});
-  const { data: upcomingMovies } = api.tmdb.upcoming.useQuery({});
   const { data: popularMovies } = api.tmdb.popular.useQuery({});
   const { data: topRatedMovies } = api.tmdb.topRated.useQuery({});
   return (
@@ -29,17 +28,14 @@ export default function Home() {
           </h1>
           <div className="flex flex-grow flex-col space-y-5 pb-20">
             <MovieCategory title="Now Playing" data={nowPlaying ?? []} />
-            <MovieCategory
-              title="Whats Popular With Friends"
-              data={upcomingMovies ?? []}
-            />
-            <MovieCategory title="Up and Coming" data={discover ?? []} />
+            <MovieCategory title="Whats Popular With Friends" data={[]} />
+            <MovieCategory title="Up and Coming" data={comingSoon ?? []} />
             <MovieCategory title="Whats Popular" data={popularMovies ?? []} />
             <MovieCategory
               title="Top Rated Of All Time"
               data={topRatedMovies ?? []}
             />
-            <MovieCategory title="Your Favorites" data={upcomingMovies ?? []} />
+            <MovieCategory title="Your Favorites" data={[]} />
           </div>
         </div>
       </main>

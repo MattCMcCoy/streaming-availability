@@ -23,7 +23,7 @@ export function Card(props: CardProps) {
           />
         ) : props.data.backdrop_path ? (
           <Image
-            src={`https://image.tmdb.org/t/p/original/${props.data.poster_path}`}
+            src={`https://image.tmdb.org/t/p/original/${props.data.backdrop_path}`}
             alt=""
             fill
             sizes="100% 100%"
@@ -35,7 +35,7 @@ export function Card(props: CardProps) {
         )}
         <div>
           <div className="absolute mt-auto flex bottom-5 z-20 pl-5 font-sans  flex-col">
-            <div className="text-3xl text-white font-bold font-sans">
+            <div className="text-3xl text-white font-bold font-sans w-80">
               {props.data.title}
             </div>
             <div className="text-white text-lg mt-[-8px]">

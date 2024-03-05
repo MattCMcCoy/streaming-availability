@@ -10,6 +10,7 @@ import {
   CarouselPrevious
 } from '../ui/carousel';
 import { Card } from './card';
+import { MovieSkeleton } from './movieskeleton';
 
 interface MovieCarouselProps {
   data: Movie[];
@@ -23,15 +24,34 @@ export function MovieCarousel(props: MovieCarouselProps) {
       }}
     >
       <div className="flex flex-row w-full justify-center">
-        <CarouselPrevious className="absolute left-0" />
+        {props.data.length > 0 && (
+          <CarouselPrevious className="absolute left-0" />
+        )}
         <CarouselContent className="space-x-3">
-          {props.data?.map((movie, index) => (
-            <CarouselItem key={index}>
-              <Card data={movie} />
-            </CarouselItem>
-          ))}
+          {props.data.length > 0 ? (
+            props.data.map((movie, index) => (
+              <CarouselItem key={index}>
+                <Card data={movie} />
+              </CarouselItem>
+            ))
+          ) : (
+            <>
+              <CarouselItem>
+                <MovieSkeleton />
+              </CarouselItem>
+              <CarouselItem>
+                <MovieSkeleton />
+              </CarouselItem>
+              <CarouselItem>
+                <MovieSkeleton />
+              </CarouselItem>
+              <CarouselItem>
+                <MovieSkeleton />
+              </CarouselItem>
+            </>
+          )}
         </CarouselContent>
-        <CarouselNext className="absolute right-0" />
+        {props.data.length > 0 && <CarouselNext className="absolute right-0" />}
       </div>
     </Carousel>
   );
