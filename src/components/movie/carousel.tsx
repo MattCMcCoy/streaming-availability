@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Card } from '~/pages';
+import { type Movie } from '~/server/api/models/tmdb';
 
 import {
   Carousel,
@@ -9,23 +9,50 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '../ui/carousel';
+import { Card } from './card';
+import { MovieSkeleton } from './movieskeleton';
 
-export function CarouselSize() {
+interface MovieCarouselProps {
+  data: Movie[];
+}
+
+export function MovieCarousel(props: MovieCarouselProps) {
   return (
     <Carousel
       opts={{
         align: 'start'
       }}
     >
-      <CarouselContent>
-        {Array.from({ length: 40 }).map((_, index) => (
-          <CarouselItem key={index}>
-            <Card like={index % 2 == 0} />
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <div className="flex flex-row w-full justify-center">
+        {props.data.length > 0 && (
+          <CarouselPrevious className="absolute left-0" />
+        )}
+        <CarouselContent className="space-x-3">
+          {props.data.length > 0 ? (
+            props.data.map((movie, index) => (
+              <CarouselItem key={index}>
+                <Card data={movie} />
+              </CarouselItem>
+            ))
+          ) : (
+            <>
+              <CarouselItem>
+                <MovieSkeleton />
+              </CarouselItem>
+              <CarouselItem>
+                <MovieSkeleton />
+              </CarouselItem>
+              <CarouselItem>
+                <MovieSkeleton />
+              </CarouselItem>
+              <CarouselItem>
+                <MovieSkeleton />
+              </CarouselItem>
+            </>
+          )}
+        </CarouselContent>
+        {props.data.length > 0 && <CarouselNext className="absolute right-0" />}
+      </div>
     </Carousel>
   );
 }

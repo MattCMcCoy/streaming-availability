@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 import { signIn } from 'next-auth/react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -162,6 +164,17 @@ export default function Register({ currForm }: RegisterProps) {
           />
         </div>
         <div className="mb-2">
+          {form.getValues().imageURL && (
+            <div className="rounded-full p-1 pl-20 font-semibold text-white no-underline transition focus:outline-none">
+              <Image
+                src={form.getValues().imageURL ?? ''}
+                alt=""
+                className="w-12 h-12 rounded-full border-none fill-none"
+                width={96}
+                height={96}
+              />
+            </div>
+          )}
           <FormField
             control={form.control}
             name="imageURL"
