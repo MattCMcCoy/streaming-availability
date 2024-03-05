@@ -7,8 +7,8 @@ import {
   type Response,
   SpecialDiscoverMovieInputModel,
   ZodMovieOutputModel
-} from '../../models/tmdb';
-import { createTRPCRouter, publicProcedure } from '../../trpc';
+} from '../models/tmdb';
+import { createTRPCRouter, publicProcedure } from '../trpc';
 
 export const tmdbRouter = createTRPCRouter({
   discover: publicProcedure
