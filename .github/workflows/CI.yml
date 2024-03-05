@@ -41,6 +41,7 @@ jobs:
       GITHUB_CLIENT_ID: ${{ secrets.CI_GITHUB_CLIENT_ID }}
       GITHUB_CLIENT_SECRET: ${{ secrets.CI_GITHUB_CLIENT_SECRET }}
       WATCHMODE_API_KEY: ${{ secrets.WATCHMODE_API_KEY }}
+      TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
