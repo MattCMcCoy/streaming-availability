@@ -152,7 +152,12 @@ export const tmdbRouter = createTRPCRouter({
     .input(WatchProvidersInputSchema)
     .output(MovieAvailabilitySchema)
     .query(async ({ input }) => {
-      const url = `${env.NEXT_PUBLIC_TMDB_API_URL}/movie/${input}/watch/providers`;
+      const url = buildURL(
+        `${env.NEXT_PUBLIC_TMDB_API_URL}/movie/${input}/watch/providers`,
+        {
+          api_key: env.TMDB_API_KEY
+        }
+      );
 
       const res = await fetch(url, { method: 'Get' });
 
