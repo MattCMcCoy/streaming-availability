@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { type Movie } from '~/server/api/models/tmdb';
+import { type Movie } from '~/server/api/models/tmdb/Movie';
 
 import {
   Carousel,
@@ -27,7 +27,7 @@ export function MovieCarousel(props: MovieCarouselProps) {
         {props.data.length > 0 && (
           <CarouselPrevious className="absolute left-0" />
         )}
-        <CarouselContent className="space-x-3">
+        <CarouselContent className="md:space-x-4">
           {props.data.length > 0 ? (
             props.data.map((movie, index) => (
               <CarouselItem key={index}>
@@ -36,16 +36,16 @@ export function MovieCarousel(props: MovieCarouselProps) {
             ))
           ) : (
             <>
-              <CarouselItem>
+              <CarouselItem className="hidden sm:block">
                 <MovieSkeleton />
               </CarouselItem>
-              <CarouselItem>
+              <CarouselItem className="hidden md:block">
                 <MovieSkeleton />
               </CarouselItem>
-              <CarouselItem>
+              <CarouselItem className="hidden lg:block">
                 <MovieSkeleton />
               </CarouselItem>
-              <CarouselItem>
+              <CarouselItem className="">
                 <MovieSkeleton />
               </CarouselItem>
             </>

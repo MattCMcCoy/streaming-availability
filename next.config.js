@@ -26,7 +26,8 @@ const config = {
         pathname: '**'
       }
     ]
-  }
+  },
+  transpilePackages: ['next-safe-navigation']
 };
 
 export default config;

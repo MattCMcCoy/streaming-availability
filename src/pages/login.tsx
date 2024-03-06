@@ -10,7 +10,6 @@ import { type ClientSafeProvider, getProviders, signIn } from 'next-auth/react';
 
 import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react';
 import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs';
-import { GiPopcorn } from 'react-icons/gi';
 import { Button } from '~/components/ui/button';
 import { authOptions } from '~/server/auth';
 
@@ -44,7 +43,6 @@ export default function LogIn({
             </BreadcrumbItem>
           </Breadcrumbs>
         )}
-        <GiPopcorn size={80} color="white" />
         <div className="flex flex-col">
           <InputForm
             setShowRegisterUserForm={setShowRegisterUserForm}

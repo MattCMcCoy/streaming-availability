@@ -76,11 +76,9 @@ const Carousel = React.forwardRef<
 
     const scrollPrev = React.useCallback(() => {
       api?.scrollPrev();
-      api?.scrollPrev();
     }, [api]);
 
     const scrollNext = React.useCallback(() => {
-      api?.scrollNext();
       api?.scrollNext();
     }, [api]);
 
@@ -138,7 +136,7 @@ const Carousel = React.forwardRef<
           onKeyDownCapture={handleKeyDown}
           className={cn(
             'relative',
-            '2xl:w-[96.3vw] xl:w-[81.8vw] w-[75vw]',
+            '2xl:w-[96.3vw] xl:w-[81.8vw] w-[75vw] pl-2 border-t-2 border-streaminggold pt-2',
             className
           )}
           role="region"
@@ -203,7 +201,7 @@ const CarouselPrevious = React.forwardRef<
       className={cn(
         className,
         'h-8 w-8 rounded-l-lg',
-        'hover:bg-blue-900/75 text-white w-10 h-96 text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300'
+        'hover:bg-streamingpurple/40 text-white w-10 h-96 text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300'
       )}
       disabled={!canScrollPrev}
       {...props}
@@ -241,7 +239,7 @@ const CarouselNext = React.forwardRef<
       className={cn(
         className,
         'h-8 w-8 rounded-r-lg',
-        'hover:bg-blue-900/75 text-white w-10 text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300 h-96'
+        'hover:bg-streamingpurple/40 text-white w-10 text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300 h-96'
       )}
       disabled={!canScrollNext}
       {...props}

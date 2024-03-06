@@ -48,7 +48,6 @@ export const authRouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
-      console.log('signing in user', input.email);
       const user = await ctx.db.user.findUnique({
         where: {
           email: input.email

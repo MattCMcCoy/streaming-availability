@@ -2,14 +2,22 @@ import moment from 'moment';
 import { env } from '~/env';
 import { buildURL } from '~/utils/api';
 
-import { type MovieAvailability, type Response } from '../models/tmdb';
 import {
-  DiscoverMovieInputSchema,
+  type MovieAvailability,
   MovieAvailabilitySchema,
-  MovieSchema,
-  SpecialDiscoverMovieInputSchema,
   WatchProvidersInputSchema
-} from '../schemas/tmdb';
+} from '../models/tmdb/Availability';
+import {
+  type MovieDetail,
+  MovieDetailsInputSchema,
+  MovieDetailsSchema
+} from '../models/tmdb/Details';
+import {
+  type DiscoverMovie,
+  DiscoverMovieInputSchema,
+  MovieSchema,
+  SpecialDiscoverMovieInputSchema
+} from '../models/tmdb/Movie';
 import { createTRPCRouter, publicProcedure } from '../trpc';
 
 export const tmdbRouter = createTRPCRouter({
@@ -68,7 +76,7 @@ export const tmdbRouter = createTRPCRouter({
 
       const res = await fetch(url, { method: 'Get' });
 
-      const body = (await res.json()) as Response;
+      const body = (await res.json()) as DiscoverMovie;
 
       return body.results;
     }),
@@ -89,7 +97,7 @@ export const tmdbRouter = createTRPCRouter({
 
       const res = await fetch(url, { method: 'Get' });
 
-      const body = (await res.json()) as Response;
+      const body = (await res.json()) as DiscoverMovie;
 
       return body.results;
     }),
@@ -107,7 +115,7 @@ export const tmdbRouter = createTRPCRouter({
 
       const res = await fetch(url, { method: 'Get' });
 
-      const body = (await res.json()) as Response;
+      const body = (await res.json()) as DiscoverMovie;
 
       return body.results;
     }),
@@ -125,25 +133,28 @@ export const tmdbRouter = createTRPCRouter({
 
       const res = await fetch(url, { method: 'Get' });
 
-      const body = (await res.json()) as Response;
+      const body = (await res.json()) as DiscoverMovie;
 
       return body.results;
     }),
 
-  upcoming: publicProcedure
+  trending: publicProcedure
     .input(SpecialDiscoverMovieInputSchema)
     .output(MovieSchema)
     .query(async ({ input }) => {
-      const url = buildURL(`${env.NEXT_PUBLIC_TMDB_API_URL}/movie/upcoming`, {
-        api_key: env.TMDB_API_KEY,
-        language: input.language,
-        page: input.page,
-        region: input.region
-      });
+      const url = buildURL(
+        `${env.NEXT_PUBLIC_TMDB_API_URL}/trending/movie/day`,
+        {
+          api_key: env.TMDB_API_KEY,
+          language: input.language,
+          page: input.page,
+          region: input.region
+        }
+      );
 
       const res = await fetch(url, { method: 'Get' });
 
-      const body = (await res.json()) as Response;
+      const body = (await res.json()) as DiscoverMovie;
 
       return body.results;
     }),
@@ -164,5 +175,29 @@ export const tmdbRouter = createTRPCRouter({
       const body = (await res.json()) as MovieAvailability;
 
       return body;
+    }),
+
+  details: publicProcedure
+    .input(MovieDetailsInputSchema)
+    .output(MovieDetailsSchema.nullable())
+    .query(async ({ input }) => {
+      const url = buildURL(`${env.NEXT_PUBLIC_TMDB_API_URL}/movie/${input}`, {
+        api_key: env.TMDB_API_KEY,
+        append_to_response: 'watch%2Fproviders'
+      });
+
+      console.log(url);
+
+      const res = await fetch(url, { method: 'Get' });
+
+      const body = (await res.json()) as MovieDetail;
+
+      const isMovieDetails = MovieDetailsSchema.safeParse(body);
+
+      if (isMovieDetails.success) {
+        return body;
+      }
+
+      return null;
     })
 });

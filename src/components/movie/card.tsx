@@ -1,11 +1,11 @@
-'use client';
-
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { CircularProgress } from '@nextui-org/react';
 import moment from 'moment';
 import { env } from '~/env';
-import { type Movie } from '~/server/api/models/tmdb';
+import { routes } from '~/navigation';
+import { type Movie } from '~/server/api/models/tmdb/Movie';
 
 interface CardProps {
   data: Movie;
@@ -13,8 +13,8 @@ interface CardProps {
 
 export function Card(props: CardProps) {
   return (
-    <div>
-      <div className="relative overflow-hidden w-[75vw] sm:w-[37vw] md:w-[37vw] xl:w-[26.3vw] 2xl:w-[23.3vw] h-96 rounded-xl">
+    <Link href={routes.details({ did: props.data.id })}>
+      <div className="relative border overflow-hidden w-[75vw] sm:w-[37vw] md:w-[36vw] xl:w-[26vw] 2xl:w-[23vw] h-96 rounded-xl">
         {props.data.poster_path ? (
           <Image
             src={`${env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${props.data.poster_path}`}
@@ -36,7 +36,7 @@ export function Card(props: CardProps) {
         ) : (
           <></>
         )}
-        <div>
+        <div className="w-[100vw]">
           <div className="absolute mt-auto flex bottom-5 z-20 pl-5 font-sans  flex-col">
             <div className="text-3xl text-white font-bold font-sans w-80">
               {props.data.title}
@@ -62,6 +62,6 @@ export function Card(props: CardProps) {
         </div>
         <div className="absolute w-full h-full bg-[linear-gradient(0deg,rgba(0,0,0,0.75)_40.82%,rgba(0,0,0,0.00)_81.44%)] rounded-lg" />
       </div>
-    </div>
+    </Link>
   );
 }

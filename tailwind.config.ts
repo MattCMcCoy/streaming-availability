@@ -26,6 +26,7 @@ const config = {
       },
       colors: {
         streamingpurple: 'hsl(280,100%,70%)',
+        streaminggold: '#e6c43d',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

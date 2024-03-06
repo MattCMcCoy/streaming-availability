@@ -3,7 +3,7 @@ import { Card, Skeleton } from '@nextui-org/react';
 export function MovieSkeleton() {
   return (
     <Card
-      className="dark sm:w-[37vw] md:w-[37vw] xl:w-[26.3vw] 2xl:w-[23.3vw] h-96  space-y-5 p-4"
+      className="dark w-[75vw] sm:w-[37vw] md:w-[36vw] xl:w-[26vw] 2xl:w-[23.15vw] h-96 rounded-xl space-y-5 p-4"
       radius="lg"
     >
       <Skeleton className="rounded-lg">

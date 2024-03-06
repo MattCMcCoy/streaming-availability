@@ -1,33 +1,28 @@
 import { z, type ZodType } from 'zod';
 
-import {
-  type CountryAvailability,
-  type Movie,
-  type MovieAvailability,
-  type ProviderDetail
-} from '../models/tmdb';
+export interface DiscoverMovie {
+  page: number;
+  results: Movie[];
+  total_pages: number;
+  total_results: number;
+}
 
-export const WatchProvidersInputSchema = z.number();
-
-export const ProviderDetailSchema = z.object({
-  logo_path: z.string(),
-  provider_id: z.number(),
-  provider_name: z.string(),
-  display_priority: z.number()
-}) satisfies ZodType<ProviderDetail>;
-
-export const MovieAvailabilitySchema = z.object({
-  id: z.number(),
-  results: z.record(
-    z.string(),
-    z.object({
-      link: z.string(),
-      buy: z.array(ProviderDetailSchema).optional(),
-      rent: z.array(ProviderDetailSchema).optional(),
-      flatrate: z.array(ProviderDetailSchema).optional()
-    }) satisfies ZodType<CountryAvailability>
-  )
-}) satisfies ZodType<MovieAvailability>;
+export interface Movie {
+  adult: boolean;
+  backdrop_path: string | null;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string | null;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
 
 export const MovieSchema = z.array(
   z.object({
