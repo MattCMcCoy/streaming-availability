@@ -7,7 +7,7 @@
 
 declare module "@@@next-typesafe-url" {
   import { type RouteType as Route_0 } from "./src/pages/details/[did]";
-  import type { InferRoute, StaticRoute } from "next-typesafe-url";
+import type { InferRoute, StaticRoute } from "next-typesafe-url";
 
   interface DynamicRouter {
     "/details/[did]": InferRoute<Route_0>;
