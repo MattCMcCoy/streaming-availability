@@ -3,8 +3,8 @@ import Link from 'next/link';
 
 import { CircularProgress } from '@nextui-org/react';
 import moment from 'moment';
+import { $path } from 'next-typesafe-url';
 import { env } from '~/env';
-import { routes } from '~/navigation';
 import { type Movie } from '~/server/api/models/tmdb/Movie';
 
 interface CardProps {
@@ -13,20 +13,17 @@ interface CardProps {
 
 export function Card(props: CardProps) {
   return (
-    <Link href={routes.details({ did: props.data.id })}>
-      <div className="relative border overflow-hidden w-[75vw] sm:w-[37vw] md:w-[36vw] xl:w-[26vw] 2xl:w-[23vw] h-96 rounded-xl">
-        {props.data.poster_path ? (
+    <Link
+      href={$path({
+        route: '/details/[did]',
+        routeParams: { did: props.data.id }
+      })}
+    >
+      <div className="relative border border-streaminggold overflow-hidden w-[75vw] sm:w-[37vw] md:w-[36vw] xl:w-[26vw] 2xl:w-[23vw] h-96 rounded-xl">
+        {props.data.poster_path ?? props.data.backdrop_path ? (
           <Image
-            src={`${env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${props.data.poster_path}`}
-            alt=""
-            fill
-            sizes="100% 100%"
-            aria-label="movie poster"
-            className="rounded-lg"
-          />
-        ) : props.data.backdrop_path ? (
-          <Image
-            src={`${env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${props.data.backdrop_path}`}
+            src={`${env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${props.data.backdrop_path ?? props.data.poster_path}`}
+            draggable={false}
             alt=""
             fill
             sizes="100% 100%"

@@ -27,7 +27,7 @@ const config = {
       }
     ]
   },
-  transpilePackages: ['next-safe-navigation']
+  transpilePackages: ['next-typesafe-url']
 };
 
 export default config;
