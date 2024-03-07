@@ -99,13 +99,15 @@ export const authOptions: NextAuthOptions = {
       clientSecret: ''
     })
   ],
+
+  // TODO: Add custom error page (https://next-auth.js.org/configuration/pages#error-redirect)
   pages: {
     signIn: '/login'
   },
   callbacks: {
     async jwt({ token, account, user }) {
       if (account) {
-        token.accessToken = account.accessToken;
+        token.account = account;
         token.id = user?.id;
       }
 
