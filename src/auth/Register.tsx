@@ -71,12 +71,16 @@ export default function Register({ currForm }: RegisterProps) {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     registerUserMutation(data);
 
-    signIn('credentials', {
-      email: data.email,
-      password: data.password
-    }).catch((error) => {
-      console.error('Failed to sign in', error);
-    });
+    new Promise((r) => setTimeout(r, 1000))
+      .then(() => {
+        signIn('credentials', {
+          email: data.email,
+          password: data.password
+        }).catch((error) => {
+          console.error('Failed to sign in', error);
+        });
+      })
+      .catch((error) => console.error('Failed to sign in', error));
   }
 
   return (

@@ -4,12 +4,13 @@ import Image from 'next/image';
 
 import { useSession } from 'next-auth/react';
 
-import { Link, User } from '@nextui-org/react';
+import * as Separator from '@radix-ui/react-separator';
 import { type DynamicRoute } from 'next-typesafe-url';
 import { useRouteParams } from 'next-typesafe-url/pages';
 import { z } from 'zod';
 import { AuthShowcase } from '~/auth/AuthShowcase';
 import { TopNav } from '~/components/topnav';
+import { UserProfile } from '~/components/UserProfile';
 import { env } from '~/env';
 import { api } from '~/utils/api';
 
@@ -33,7 +34,7 @@ export default function MovieDetails() {
     return <div>Loading...</div>;
   }
 
-  if (isError || !data || !sessionData) {
+  if (isError || !data) {
     return <div>Error: {JSON.stringify(error?.message)}</div>;
   }
 
@@ -71,28 +72,54 @@ export default function MovieDetails() {
             </div>
           </div>
         </div>
-        <div className="text-white bg-streamingpurple/5 rounded-3xl w-[20vw] ml-24 mr-10 h-[60vh]">
-          <div className="flex flex-col m-3 rounded-lg bg-black-300 h-fit bg-streamingpurple/15">
-            <div className="p-3">
-              <User
-                name={sessionData.user.name}
-                description={
-                  <Link
-                    href="https://twitter.com/jrgarciadev"
-                    size="sm"
-                    color="secondary"
-                  >
-                    @{sessionData.user.name}
-                  </Link>
-                }
-                avatarProps={{
-                  src: sessionData.user.image ?? ''
-                }}
-              />
+        <div>
+          <div className="flex flex-col w-[20vw] ml-24 mr-10 ">
+            <div className=" overflow-y-auto bg-streamingpurple/5 rounded-2xl">
+              <div className="text-white pt-2 rounded-3xl h-[60vh] flex flex-col">
+                {sessionData && (
+                  <div className="flex flex-col m-3 rounded-lg bg-black-300 h-fit bg-streamingpurple/15">
+                    <div className="p-3">
+                      <UserProfile
+                        image={sessionData.user.image ?? ''}
+                        name={sessionData.user.name ?? ''}
+                        handle={sessionData.user.name ?? ''}
+                      />
+                      <Separator.Root className="bg-white/15 h-1 w-full my-2" />
+                      <UserProfile
+                        image={sessionData.user.image ?? ''}
+                        name={sessionData.user.name ?? ''}
+                        handle={sessionData.user.name ?? ''}
+                      />
+                      <Separator.Root className="bg-white/15 h-1 w-full my-2" />
+                      <UserProfile
+                        image={sessionData.user.image ?? ''}
+                        name={sessionData.user.name ?? ''}
+                        handle={sessionData.user.name ?? ''}
+                      />
+                      <Separator.Root className="bg-white/15 h-1 w-full my-2" />
+                      <UserProfile
+                        image={sessionData.user.image ?? ''}
+                        name={sessionData.user.name ?? ''}
+                        handle={sessionData.user.name ?? ''}
+                      />
+                      <Separator.Root className="bg-white/15 h-1 w-full my-2" />
+                      <UserProfile
+                        image={sessionData.user.image ?? ''}
+                        name={sessionData.user.name ?? ''}
+                        handle={sessionData.user.name ?? ''}
+                      />
+                      <Separator.Root className="bg-white/15 h-1 w-full my-2" />
+                      <UserProfile
+                        image={sessionData.user.image ?? ''}
+                        name={sessionData.user.name ?? ''}
+                        handle={sessionData.user.name ?? ''}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
-            <div className="p-2 bg-streamingpurple/20 rounded-lg m-1">
-              10/10 Movie NGL
-            </div>
+            <div className="mt-auto">HI</div>
           </div>
         </div>
       </div>
