@@ -6,6 +6,7 @@ import {
   type NextAuthOptions
 } from 'next-auth';
 import { type Adapter } from 'next-auth/adapters';
+import { decode, encode } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import DiscordProvider from 'next-auth/providers/discord';
 import GitHubProvider from 'next-auth/providers/github';
@@ -13,7 +14,6 @@ import GoogleProvider from 'next-auth/providers/google';
 
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import bcrypt from 'bcrypt';
-//import { compare, hash } from 'bcrypt';
 import { env } from '~/env';
 import { db } from '~/server/db';
 
@@ -24,12 +24,12 @@ import { db } from '~/server/db';
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  */
 declare module 'next-auth' {
-  interface Session extends DefaultSession {
-    user: DefaultSession['user'] & {
+  interface Session {
+    user: {
       id: string;
       // ...other properties
       // role: UserRole;
-    };
+    } & DefaultSession['user'];
   }
 
   // interface User {
@@ -45,6 +45,7 @@ declare module 'next-auth' {
  */
 export const authOptions: NextAuthOptions = {
   session: { strategy: 'jwt' },
+  jwt: { encode, decode },
   debug: process.env.NODE_ENV === 'development',
   secret: process.env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(db) as Adapter,
@@ -100,6 +101,21 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: '/login'
+  },
+  callbacks: {
+    async jwt({ token, account, user }) {
+      if (account) {
+        token.accessToken = account.accessToken;
+        token.id = user?.id;
+      }
+
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.id = token.id as string;
+
+      return session;
+    }
   }
 };
 
