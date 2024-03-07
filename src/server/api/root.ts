@@ -1,6 +1,7 @@
 import { createTRPCRouter } from '~/server/api/trpc';
 
 import { authRouter } from './routers/auth';
+import { commentRouter } from './routers/comment';
 import { tmdbRouter } from './routers/tmdb';
 
 /**
@@ -10,7 +11,8 @@ import { tmdbRouter } from './routers/tmdb';
  */
 export const appRouter = createTRPCRouter({
   auth: authRouter,
-  tmdb: tmdbRouter
+  tmdb: tmdbRouter,
+  comment: commentRouter
 });
 
 // export type definition of API
