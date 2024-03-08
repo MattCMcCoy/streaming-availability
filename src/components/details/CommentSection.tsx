@@ -87,27 +87,27 @@ export function CommentSection({ movieId }: CommentSectionProps) {
 
   return (
     <>
-      <div className="ml-auto mr-3 lg:hidden block">
+      <div className="ml-auto mr-3 block lg:hidden">
         <Drawer modal>
-          <div className="flex flex-row bottom-10 absolute left-0 border-t pt-2 rounded-lg border-streamingpurple w-full">
+          <div className="absolute bottom-10 left-0 flex w-full flex-row rounded-lg border-t border-streamingpurple pt-2">
             <DrawerTrigger asChild>
-              <div className="flex ml-auto">
-                <ChatBubbleIcon className="w-8 h-8 text-gray-400 hover:text-streamingpurple" />
+              <div className="ml-auto flex">
+                <ChatBubbleIcon className="h-8 w-8 text-gray-400 hover:text-streamingpurple" />
               </div>
             </DrawerTrigger>
-            <HeartIcon className="w-8 h-8 ml-2 mr-2 text-gray-400 hover:text-streamingpurple" />
+            <HeartIcon className="ml-2 mr-2 h-8 w-8 text-gray-400 hover:text-streamingpurple" />
           </div>
           <DrawerContent className="bg-[#1d132a]">
             <DrawerHeader className="dark">
-              <div className="flex text-left flex-col lg:w-[20vw] lg:ml-24 lg:mr-10 bg-streamingpurple/5 border-streamingpurple border rounded-lg  shadow-lg shadow-black">
+              <div className="flex flex-col rounded-lg border border-streamingpurple bg-streamingpurple/5 text-left shadow-lg shadow-black lg:ml-24  lg:mr-10 lg:w-[20vw]">
                 <div className=" overflow-y-auto rounded-2xl">
-                  <div className="text-white pt-2 rounded-3xl h-[60vh] flex flex-col">
-                    <div className="flex flex-col m-3 rounded-lg bg-black-300 h-fit">
+                  <div className="flex h-[60vh] flex-col rounded-3xl pt-2 text-white">
+                    <div className="bg-black-300 m-3 flex h-fit flex-col rounded-lg">
                       <div className="p-3">
                         {comments.data?.map((comment, index) => (
                           <>
                             <UserProfile key={index} comment={comment} />
-                            <Separator.Root className="bg-white/15 h-1 w-full my-2" />
+                            <Separator.Root className="my-2 h-1 w-full bg-white/15" />
                           </>
                         ))}
                       </div>
@@ -127,7 +127,7 @@ export function CommentSection({ movieId }: CommentSectionProps) {
                       <FormItem>
                         <FormControl>
                           <Textarea
-                            className="border-streamingpurple border rounded-lg text-white"
+                            className="rounded-lg border border-streamingpurple text-white"
                             placeholder="Type something!"
                             {...field}
                           />
@@ -136,8 +136,8 @@ export function CommentSection({ movieId }: CommentSectionProps) {
                     )}
                   />
                   <Button
-                    className="text-white w-full
-                    mt-2 disabled:cursor-not-allowed hover:bg-streamingpurple font-semibold"
+                    className="mt-2 w-full
+                    font-semibold text-white hover:bg-streamingpurple disabled:cursor-not-allowed"
                     type="submit"
                     disabled={
                       !form.formState.isDirty ||
@@ -154,17 +154,17 @@ export function CommentSection({ movieId }: CommentSectionProps) {
         </Drawer>
       </div>
       <div
-        className="hidden lg:flex flex-col lg:w-[40vw]
-        xl:w-[30vw] 2xl:w-[25vw] lg:ml-24 lg:mr-10 bg-streamingpurple/5 rounded-lg border-white/25 shadow-md shadow-black border"
+        className="hidden flex-col rounded-lg border
+        border-white/25 bg-streamingpurple/5 shadow-md shadow-black lg:ml-24 lg:mr-10 lg:flex lg:w-[40vw] xl:w-[30vw] 2xl:w-[25vw]"
       >
         <div className=" overflow-y-auto rounded-2xl">
-          <div className="text-white pt-2 rounded-3xl h-[60vh] flex flex-col">
-            <div className="flex flex-col m-3 rounded-lg bg-black-300 h-fit">
+          <div className="flex h-[60vh] flex-col rounded-3xl pt-2 text-white">
+            <div className="bg-black-300 m-3 flex h-fit flex-col rounded-lg">
               <div className="p-3">
                 {comments.data?.map((comment, index) => (
                   <>
                     <UserProfile key={index} comment={comment} />
-                    <Separator.Root className="bg-white/15 h-1 w-full my-2" />
+                    <Separator.Root className="my-2 h-1 w-full bg-white/15" />
                   </>
                 ))}
               </div>
@@ -181,7 +181,7 @@ export function CommentSection({ movieId }: CommentSectionProps) {
                 <FormItem>
                   <FormControl>
                     <Textarea
-                      className="border-streamingpurple text-white border rounded-lg dark"
+                      className="rounded-lg border border-streamingpurple text-white dark"
                       placeholder="Type something!"
                       {...field}
                     />
@@ -190,7 +190,7 @@ export function CommentSection({ movieId }: CommentSectionProps) {
               )}
             />
             <Button
-              className="text-white w-full disabled:cursor-not-allowed hover:bg-streamingpurple font-semibold"
+              className="w-full font-semibold text-white hover:bg-streamingpurple disabled:cursor-not-allowed"
               type="submit"
               disabled={
                 !form.formState.isDirty ||

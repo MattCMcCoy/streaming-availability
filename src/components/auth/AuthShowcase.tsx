@@ -30,7 +30,7 @@ export function AuthShowcase() {
   const { data: sessionData } = useSession();
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 mt-5">
+    <div className="mt-5 flex flex-col items-center justify-center gap-4">
       {sessionData ? (
         <DropdownMenuDemo />
       ) : (
@@ -57,13 +57,13 @@ export function DropdownMenuDemo() {
           <Image
             src={sessionData.user.image ?? ''}
             alt=""
-            className="w-12 h-12 rounded-full border-none fill-none"
+            className="h-12 w-12 rounded-full border-none fill-none"
             width={96}
             height={96}
           />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-48 mr-10">
+      <DropdownMenuContent className="mr-10 w-48">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>

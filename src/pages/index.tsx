@@ -17,7 +17,7 @@ export default function Home() {
       </div>
       <main className="flex max-h-screen flex-col">
         <div className="container flex flex-col items-center justify-center gap-12 px-4">
-          <h1 className="text-5xl text-center font-extrabold bg-gradient-to-r from-streamingpurple via-streaminggold to-white inline-block text-transparent bg-clip-text">
+          <h1 className="inline-block bg-gradient-to-r from-streamingpurple via-streaminggold to-white bg-clip-text text-center text-5xl font-extrabold text-transparent">
             Popcorn Streaming
           </h1>
           <div className="flex flex-grow flex-col space-y-5 pb-20">

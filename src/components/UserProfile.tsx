@@ -30,7 +30,7 @@ export function UserProfile({ comment }: UserProfileProps) {
 
   return (
     <div className="flex flex-row">
-      <div className="relative h-10 w-10 mt-2 rounded-full border-streamingpurple border">
+      <div className="relative mt-2 h-10 w-10 rounded-full border border-streamingpurple">
         {user.image && (
           <Image
             src={user.image}
@@ -43,13 +43,13 @@ export function UserProfile({ comment }: UserProfileProps) {
           />
         )}
       </div>
-      <div className="flex flex-col min-w-0">
+      <div className="flex min-w-0 flex-col">
         <div className="flex flex-row">
           <div className="pl-2">{user.name}</div>
           <div className="pl-1 text-gray-300/25">@{user.name}</div>
         </div>
-        <div className="p-2 bg-streamingpurple/20 rounded-lg m-1 border-streamingpurple block border w-72 line-clamp-3 overflow-hidden">
-          <p className="text-white line-clamp-3">{comment.message}</p>
+        <div className="m-1 line-clamp-3 block w-72 overflow-hidden rounded-lg border border-streamingpurple bg-streamingpurple/20 p-2">
+          <p className="line-clamp-3 text-white">{comment.message}</p>
         </div>
       </div>
     </div>

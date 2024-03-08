@@ -23,7 +23,7 @@ export function MovieCarousel(props: MovieCarouselProps) {
         align: 'start'
       }}
     >
-      <div className="flex flex-row w-full justify-center">
+      <div className="flex w-full flex-row justify-center">
         {props.data.length > 0 && (
           <CarouselPrevious className="absolute left-0" />
         )}

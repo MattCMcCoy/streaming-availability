@@ -4,13 +4,13 @@ import { $path } from 'next-typesafe-url';
 
 export function TopNav() {
   return (
-    <div className="pl-5 mt-10">
+    <div className="mt-10 pl-5">
       <Link
         href={$path({
           route: '/'
         })}
       >
-        <div className="font-extrabold tracking-tight text-[2rem] bg-gradient-to-r from-streamingpurple via-[#e6c43d] to-white inline-block text-transparent bg-clip-text">
+        <div className="inline-block bg-gradient-to-r from-streamingpurple via-[#e6c43d] to-white bg-clip-text text-[2rem] font-extrabold tracking-tight text-transparent">
           Popcorn Streaming
         </div>
       </Link>

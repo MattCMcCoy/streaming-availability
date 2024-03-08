@@ -40,9 +40,9 @@ export default function MovieDetails() {
           <AuthShowcase />
         </div>
       </div>
-      <div className="flex lg:flex-row flex-col h-[90vh] lg:h-fit">
-        <div className="items-center flex flex-col lg:flex-row lg:ml-auto lg:border border-streaminggold lg:bg-streamingpurple/10 p-10 rounded h-fit w-fit">
-          <div className="lg:w-[20vw] w-[75vw] lg:bg-slate-700 rounded-lg my-auto h-[30vh] mr-5 relative">
+      <div className="flex h-[90vh] flex-col lg:h-fit lg:flex-row">
+        <div className="flex h-fit w-fit flex-col items-center rounded border-streaminggold p-10 lg:ml-auto lg:flex-row lg:border lg:bg-streamingpurple/10">
+          <div className="relative my-auto mr-5 h-[30vh] w-[75vw] rounded-lg lg:w-[20vw] lg:bg-slate-700">
             {(movieDetails.data.poster_path ??
               movieDetails.data.backdrop_path) && (
               <Image
@@ -57,13 +57,13 @@ export default function MovieDetails() {
             )}
           </div>
           <div>
-            <div className="pt-10 lg:w-[20vw] border-b h-fit border-streaminggold">
+            <div className="h-fit border-b border-streaminggold pt-10 lg:w-[20vw]">
               <div className="text-3xl text-white">
                 {movieDetails.data.title}
               </div>
             </div>
-            <div className="pt-10 lg:w-[20vw] h-fit">
-              <div className="text-white text-xl">
+            <div className="h-fit pt-10 lg:w-[20vw]">
+              <div className="text-xl text-white">
                 {movieDetails.data.overview}
               </div>
             </div>

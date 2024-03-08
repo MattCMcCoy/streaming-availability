@@ -136,7 +136,7 @@ const Carousel = React.forwardRef<
           onKeyDownCapture={handleKeyDown}
           className={cn(
             'relative',
-            '2xl:w-[96.3vw] xl:w-[81.8vw] w-[75vw] pl-2 border-t-2 border-streaminggold pt-2',
+            'w-[75vw] border-t-2 border-streaminggold pl-2 pt-2 xl:w-[81.8vw] 2xl:w-[96.3vw]',
             className
           )}
           role="region"
@@ -163,7 +163,7 @@ const CarouselContent = React.forwardRef<
         ref={ref}
         className={cn(
           'flex',
-          '2xl:w-[96.3vw] xl:w-[81.8vw] w-[75vw]',
+          'w-[75vw] xl:w-[81.8vw] 2xl:w-[96.3vw]',
           className
         )}
         {...props}
@@ -182,7 +182,7 @@ const CarouselItem = React.forwardRef<
       ref={ref}
       role="group"
       aria-roledescription="slide"
-      className={cn(className, 'scroll-smooth min-w-fit pr-2 flex-1 w-[25%]')}
+      className={cn(className, 'w-[25%] min-w-fit flex-1 scroll-smooth pr-2')}
       {...props}
     />
   );
@@ -201,14 +201,14 @@ const CarouselPrevious = React.forwardRef<
       className={cn(
         className,
         'h-8 w-8 rounded-l-lg',
-        'hover:bg-streamingpurple/40 text-white w-10 h-96 text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300'
+        'z-10 m-0 h-96 w-10 p-0 text-center text-white opacity-75 transition-all duration-300 ease-in-out hover:bg-streamingpurple/40 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-25'
       )}
       disabled={!canScrollPrev}
       {...props}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-12 w-20 -ml-5"
+        className="-ml-5 h-12 w-20"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -239,14 +239,14 @@ const CarouselNext = React.forwardRef<
       className={cn(
         className,
         'h-8 w-8 rounded-r-lg',
-        'hover:bg-streamingpurple/40 text-white w-10 text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300 h-96'
+        'z-10 m-0 h-96 w-10 p-0 text-center text-white opacity-75 transition-all duration-300 ease-in-out hover:bg-streamingpurple/40 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-25'
       )}
       disabled={!canScrollNext}
       {...props}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-12 w-20 -ml-5"
+        className="-ml-5 h-12 w-20"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
