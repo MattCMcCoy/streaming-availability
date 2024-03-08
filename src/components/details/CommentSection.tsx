@@ -88,14 +88,14 @@ export function CommentSection({ movieId }: CommentSectionProps) {
   return (
     <>
       <div className="ml-auto mr-3 lg:hidden block">
-        <Drawer>
-          <div className="flex flex-row">
+        <Drawer modal>
+          <div className="flex flex-row bottom-10 absolute left-0 border-t pt-2 rounded-lg border-streamingpurple w-full">
             <DrawerTrigger asChild>
-              <div className="flex">
-                <ChatBubbleIcon className="w-10 h-10 text-streamingpurple" />
+              <div className="flex ml-auto">
+                <ChatBubbleIcon className="w-8 h-8 text-gray-400 hover:text-streamingpurple" />
               </div>
             </DrawerTrigger>
-            <HeartIcon className="w-10 h-10 ml-2 mr-2 text-streamingpurple" />
+            <HeartIcon className="w-8 h-8 ml-2 mr-2 text-gray-400 hover:text-streamingpurple" />
           </div>
           <DrawerContent className="bg-[#1d132a]">
             <DrawerHeader className="dark">
@@ -155,7 +155,7 @@ export function CommentSection({ movieId }: CommentSectionProps) {
       </div>
       <div
         className="hidden lg:flex flex-col lg:w-[40vw]
-        xl:w-[30vw] 2xl:w-[25vw] lg:ml-24 lg:mr-10 bg-streamingpurple/5 rounded-lg border-white/25 shadow-lg shadow-black border"
+        xl:w-[30vw] 2xl:w-[25vw] lg:ml-24 lg:mr-10 bg-streamingpurple/5 rounded-lg border-white/25 shadow-md shadow-black border"
       >
         <div className=" overflow-y-auto rounded-2xl">
           <div className="text-white pt-2 rounded-3xl h-[60vh] flex flex-col">

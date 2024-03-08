@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { type DynamicRoute } from 'next-typesafe-url';
 import { useRouteParams } from 'next-typesafe-url/pages';
 import { z } from 'zod';
-import { AuthShowcase } from '~/auth/AuthShowcase';
+import { AuthShowcase } from '~/components/auth/AuthShowcase';
 import { CommentSection } from '~/components/details/CommentSection';
 import { TopNav } from '~/components/topnav';
 import { env } from '~/env';
@@ -40,9 +40,9 @@ export default function MovieDetails() {
           <AuthShowcase />
         </div>
       </div>
-      <div className="flex lg:flex-row flex-col">
-        <div className="items-center flex flex-col lg:flex-row lg:ml-auto lg:shadow-streaminggold shadow-2xl border border-streaminggold bg-streamingpurple/10 p-10 rounded h-fit w-fit">
-          <div className="lg:w-[20vw] w-[75vw] bg-slate-700 rounded-lg my-auto h-[30vh] mr-5 relative">
+      <div className="flex lg:flex-row flex-col h-[90vh] lg:h-fit">
+        <div className="items-center flex flex-col lg:flex-row lg:ml-auto lg:border border-streaminggold lg:bg-streamingpurple/10 p-10 rounded h-fit w-fit">
+          <div className="lg:w-[20vw] w-[75vw] lg:bg-slate-700 rounded-lg my-auto h-[30vh] mr-5 relative">
             {(movieDetails.data.poster_path ??
               movieDetails.data.backdrop_path) && (
               <Image

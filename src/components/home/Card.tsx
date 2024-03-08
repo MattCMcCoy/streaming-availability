@@ -2,16 +2,22 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { CircularProgress } from '@nextui-org/react';
+import { Tooltip } from '@nextui-org/react';
 import moment from 'moment';
 import { $path } from 'next-typesafe-url';
 import { env } from '~/env';
 import { type Movie } from '~/server/api/models/tmdb/Movie';
+import { api } from '~/utils/api';
 
 interface CardProps {
   data: Movie;
 }
 
 export function Card(props: CardProps) {
+  const { data: watchProviders } = api.tmdb.watchProviders.useQuery(
+    props.data.id
+  );
+
   return (
     <Link
       href={$path({
@@ -19,7 +25,7 @@ export function Card(props: CardProps) {
         routeParams: { did: props.data.id }
       })}
     >
-      <div className="relative border border-streaminggold overflow-hidden w-[75vw] sm:w-[37vw] md:w-[36vw] xl:w-[26vw] 2xl:w-[23vw] h-96 rounded-xl">
+      <div className="relative border border-streaminggold overflow-hidden w-[72vw] sm:w-[36vw] md:w-[34vw] lg:w-[36vw] xl:w-[25.8vw] 2xl:w-[22.8vw] h-96 rounded-xl">
         {props.data.poster_path ?? props.data.backdrop_path ? (
           <Image
             src={`${env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${props.data.backdrop_path ?? props.data.poster_path}`}
@@ -58,6 +64,25 @@ export function Card(props: CardProps) {
           </div>
         </div>
         <div className="absolute w-full h-full bg-[linear-gradient(0deg,rgba(0,0,0,0.75)_40.82%,rgba(0,0,0,0.00)_81.44%)] rounded-lg" />
+      </div>
+      <div className="flex flex-row pt-2 space-x-1 space-y-1 flex-wrap w-[72vw] sm:w-[36vw] md:w-[34vw] lg:w-[36vw] xl:w-[25.8vw] 2xl:w-[22.8vw]">
+        {watchProviders?.results.US?.flatrate?.map((provider, index) => {
+          return (
+            <Tooltip
+              key={index}
+              content={provider.provider_name}
+              className="dark text-white"
+            >
+              <Image
+                src={`${env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${provider.logo_path}`}
+                alt=""
+                width={50}
+                height={50}
+                className="rounded-lg"
+              />
+            </Tooltip>
+          );
+        })}
       </div>
     </Link>
   );

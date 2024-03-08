@@ -13,7 +13,7 @@ import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs';
 import { Button } from '~/components/ui/button';
 import { authOptions } from '~/server/auth';
 
-import { InputForm } from '../auth/Authentication';
+import { InputForm } from '../components/auth/Authentication';
 import { TopNav } from '../components/topnav';
 
 export default function LogIn({

@@ -1,9 +1,9 @@
 'use client';
 
-import { MovieCategory } from '~/components/movie/MovieCategory';
+import { MovieCategory } from '~/components/home/MovieCategory';
 import { api } from '~/utils/api';
 
-import { AuthShowcase } from '../auth/AuthShowcase';
+import { AuthShowcase } from '../components/auth/AuthShowcase';
 
 export default function Home() {
   const { data: trendingMovies } = api.tmdb.trending.useQuery({});
@@ -12,7 +12,7 @@ export default function Home() {
   const { data: topRatedMovies } = api.tmdb.topRated.useQuery({});
   return (
     <div id="home">
-      <div className=" flex flex-col items-end gap-2 pr-10">
+      <div className="flex flex-col items-end gap-2 pr-10">
         <AuthShowcase />
       </div>
       <main className="flex max-h-screen flex-col">
