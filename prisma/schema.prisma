@@ -51,6 +51,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Comments      Comment[]
+  Likes         Like[]
 }
 
 model VerificationToken {
@@ -70,4 +71,15 @@ model Comment {
   createdById String
 
   @@index([createdById])
+}
+
+model Like {
+  id          String   @id @unique @default(cuid())
+  createdAt   DateTime @default(now())
+  message     String
+  mid         Int
+  likedBy   User     @relation(fields: [likedById], references: [id])
+  likedById String
+
+  @@index([likedById])
 }

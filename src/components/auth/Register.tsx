@@ -121,7 +121,7 @@ export default function Register({ currForm }: RegisterProps) {
                   />
                 </FormControl>
                 <FormMessage />
-                <FormDescription className="text-wrap w-56">
+                <FormDescription className="w-56 text-wrap">
                   This is how your name will appear to other users.
                 </FormDescription>
               </FormItem>
@@ -173,7 +173,7 @@ export default function Register({ currForm }: RegisterProps) {
               <Image
                 src={form.getValues().imageURL ?? ''}
                 alt=""
-                className="w-12 h-12 rounded-full border-none fill-none"
+                className="h-12 w-12 rounded-full border-none fill-none"
                 width={96}
                 height={96}
               />
@@ -193,7 +193,7 @@ export default function Register({ currForm }: RegisterProps) {
                   />
                 </FormControl>
                 <FormMessage />
-                <FormDescription className="text-wrap w-56">
+                <FormDescription className="w-56 text-wrap">
                   This is the picture that will display next to your profile.
                 </FormDescription>
               </FormItem>
@@ -201,7 +201,7 @@ export default function Register({ currForm }: RegisterProps) {
           />
         </div>
         <Button
-          className="text-white w-full hover:bg-streamingpurple font-semibold"
+          className="w-full font-semibold text-white hover:bg-streamingpurple"
           type="submit"
           disabled={!form.formState.isDirty || !form.formState.isValid}
         >

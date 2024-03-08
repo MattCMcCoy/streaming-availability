@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { z } from 'zod';
 
-import { createTRPCRouter, protectedProcedure } from '../trpc';
+import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 
 export const commentRouter = createTRPCRouter({
   createComment: protectedProcedure
@@ -33,5 +33,24 @@ export const commentRouter = createTRPCRouter({
       });
 
       return comment;
+    }),
+
+  getCommentsByMovieId: publicProcedure
+    .input(z.object({ movieId: z.number() }))
+    .query(async ({ ctx, input }) => {
+      const comments = await ctx.db.comment.findMany({
+        where: { mid: input.movieId }
+      });
+
+      return comments;
+    }),
+  getCommentsByUserId: protectedProcedure
+    .input(z.object({ userId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const comments = await ctx.db.comment.findMany({
+        where: { createdById: input.userId }
+      });
+
+      return comments;
     })
 });

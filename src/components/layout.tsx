@@ -28,7 +28,7 @@ export default function Layout({
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="bg-gradient-to-b to-[#53357b] via-[#15162c] from-[#15162c] overflow-auto h-screen font-sans font-inter">
+      <main className="font-inter h-screen overflow-auto bg-gradient-to-b from-[#15162c] via-[#15162c] to-[#53357b] font-sans">
         {children}
         <Toaster />
       </main>

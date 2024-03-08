@@ -13,7 +13,7 @@ import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs';
 import { Button } from '~/components/ui/button';
 import { authOptions } from '~/server/auth';
 
-import { InputForm } from '../auth/Authentication';
+import { InputForm } from '../components/auth/Authentication';
 import { TopNav } from '../components/topnav';
 
 export default function LogIn({
@@ -24,7 +24,7 @@ export default function LogIn({
   return (
     <div>
       <TopNav />
-      <div className="flex h-[80vh] mx-auto self-center w-fit flex-col items-center justify-center space-y-5 align-middle">
+      <div className="mx-auto flex h-[80vh] w-fit flex-col items-center justify-center space-y-5 self-center align-middle">
         {showRegisterUserForm && (
           <Breadcrumbs className="self-start">
             <BreadcrumbItem
@@ -52,9 +52,9 @@ export default function LogIn({
         {!showRegisterUserForm && (
           <>
             <div className="flex">
-              <div className="border-t border-white w-10 mt-3 mr-2" />
-              <p className="text-white text-lg">Or Sign In With</p>
-              <div className="border-t border-white w-10 mt-3 ml-2" />
+              <div className="mr-2 mt-3 w-10 border-t border-white" />
+              <p className="text-lg text-white">Or Sign In With</p>
+              <div className="ml-2 mt-3 w-10 border-t border-white" />
             </div>
             <div className="pt-4">
               {Object.values(providers)
@@ -64,7 +64,7 @@ export default function LogIn({
                   return (
                     <div key={provider.name}>
                       <Button
-                        className={`flex items-center w-52 mb-4 p-2 font-semibold ${buttonStyle.style}`}
+                        className={`mb-4 flex w-52 items-center p-2 font-semibold ${buttonStyle.style}`}
                         onClick={() => signIn(provider.id)}
                         disabled={buttonStyle.disabled}
                       >

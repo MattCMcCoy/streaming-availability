@@ -1,6 +1,6 @@
 import { type Movie } from '~/server/api/models/tmdb/Movie';
 
-import { MovieCarousel } from './carousel';
+import { MovieCarousel } from './MovieCarousel';
 
 export interface MovieCategoryProps {
   title: string;
@@ -9,7 +9,7 @@ export interface MovieCategoryProps {
 
 export function MovieCategory(props: MovieCategoryProps) {
   return (
-    <div className="text-white text-3xl font-bold font-sans items-center justify-center align-middle self-center">
+    <div className="items-center justify-center self-center align-middle font-sans text-3xl font-bold text-white">
       {props.title}
       <MovieCarousel data={props.data} />
     </div>

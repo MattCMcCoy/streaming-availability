@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { type Movie } from '~/server/api/models/tmdb/Movie';
 
@@ -9,8 +9,8 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '../ui/carousel';
-import { Card } from './card';
-import { MovieSkeleton } from './movieskeleton';
+import { Card } from './Card';
+import { MovieSkeleton } from './MovieSkeleton';
 
 interface MovieCarouselProps {
   data: Movie[];
@@ -23,7 +23,7 @@ export function MovieCarousel(props: MovieCarouselProps) {
         align: 'start'
       }}
     >
-      <div className="flex flex-row w-full justify-center">
+      <div className="flex w-full flex-row justify-center">
         {props.data.length > 0 && (
           <CarouselPrevious className="absolute left-0" />
         )}

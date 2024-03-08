@@ -3,6 +3,7 @@ import { createTRPCRouter } from '~/server/api/trpc';
 import { authRouter } from './routers/auth';
 import { commentRouter } from './routers/comment';
 import { tmdbRouter } from './routers/tmdb';
+import { userRouter } from './routers/user';
 
 /**
  * This is the primary router for your server.
@@ -11,6 +12,7 @@ import { tmdbRouter } from './routers/tmdb';
  */
 export const appRouter = createTRPCRouter({
   auth: authRouter,
+  user: userRouter,
   tmdb: tmdbRouter,
   comment: commentRouter
 });

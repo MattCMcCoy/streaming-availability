@@ -2,16 +2,22 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { CircularProgress } from '@nextui-org/react';
+import { Tooltip } from '@nextui-org/react';
 import moment from 'moment';
 import { $path } from 'next-typesafe-url';
 import { env } from '~/env';
 import { type Movie } from '~/server/api/models/tmdb/Movie';
+import { api } from '~/utils/api';
 
 interface CardProps {
   data: Movie;
 }
 
 export function Card(props: CardProps) {
+  const { data: watchProviders } = api.tmdb.watchProviders.useQuery(
+    props.data.id
+  );
+
   return (
     <Link
       href={$path({
@@ -19,7 +25,7 @@ export function Card(props: CardProps) {
         routeParams: { did: props.data.id }
       })}
     >
-      <div className="relative border border-streaminggold overflow-hidden w-[75vw] sm:w-[37vw] md:w-[36vw] xl:w-[26vw] 2xl:w-[23vw] h-96 rounded-xl">
+      <div className="relative h-96 w-[72vw] overflow-hidden rounded-xl border border-streaminggold sm:w-[36vw] md:w-[34vw] lg:w-[36vw] xl:w-[25.8vw] 2xl:w-[22.8vw]">
         {props.data.poster_path ?? props.data.backdrop_path ? (
           <Image
             src={`${env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${props.data.backdrop_path ?? props.data.poster_path}`}
@@ -34,11 +40,11 @@ export function Card(props: CardProps) {
           <></>
         )}
         <div className="w-[100vw]">
-          <div className="absolute mt-auto flex bottom-5 z-20 pl-5 font-sans  flex-col">
-            <div className="text-3xl text-white font-bold font-sans w-80">
+          <div className="absolute bottom-5 z-20 mt-auto flex flex-col pl-5  font-sans">
+            <div className="w-80 font-sans text-3xl font-bold text-white">
               {props.data.title}
             </div>
-            <div className="text-white text-lg mt-[-8px]">
+            <div className="mt-[-8px] text-lg text-white">
               {moment(props.data.release_date).format('MMMM Do YYYY')}
             </div>
           </div>
@@ -57,7 +63,26 @@ export function Card(props: CardProps) {
             />
           </div>
         </div>
-        <div className="absolute w-full h-full bg-[linear-gradient(0deg,rgba(0,0,0,0.75)_40.82%,rgba(0,0,0,0.00)_81.44%)] rounded-lg" />
+        <div className="absolute h-full w-full rounded-lg bg-[linear-gradient(0deg,rgba(0,0,0,0.75)_40.82%,rgba(0,0,0,0.00)_81.44%)]" />
+      </div>
+      <div className="flex w-[72vw] flex-row flex-wrap space-x-1 space-y-1 pt-2 sm:w-[36vw] md:w-[34vw] lg:w-[36vw] xl:w-[25.8vw] 2xl:w-[22.8vw]">
+        {watchProviders?.results.US?.flatrate?.map((provider, index) => {
+          return (
+            <Tooltip
+              key={index}
+              content={provider.provider_name}
+              className="text-white dark"
+            >
+              <Image
+                src={`${env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${provider.logo_path}`}
+                alt=""
+                width={50}
+                height={50}
+                className="rounded-lg"
+              />
+            </Tooltip>
+          );
+        })}
       </div>
     </Link>
   );
