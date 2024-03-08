@@ -43,8 +43,8 @@ export default function MovieDetails() {
       <div className="flex lg:flex-row flex-col">
         <div className="items-center flex flex-col lg:flex-row lg:ml-auto lg:shadow-streaminggold shadow-2xl border border-streaminggold bg-streamingpurple/10 p-10 rounded h-fit w-fit">
           <div className="lg:w-[20vw] w-[75vw] bg-slate-700 rounded-lg my-auto h-[30vh] mr-5 relative">
-            {movieDetails.data.poster_path ??
-            movieDetails.data.backdrop_path ? (
+            {(movieDetails.data.poster_path ??
+              movieDetails.data.backdrop_path) && (
               <Image
                 src={`${env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${movieDetails.data.poster_path ?? movieDetails.data.backdrop_path}`}
                 draggable={false}
@@ -54,8 +54,6 @@ export default function MovieDetails() {
                 aria-label="movie poster"
                 className="rounded-lg"
               />
-            ) : (
-              <></>
             )}
           </div>
           <div>
