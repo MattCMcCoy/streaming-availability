@@ -1,6 +1,6 @@
 'use client';
 
-import { MovieCategory } from '~/components/movie/category';
+import { MovieCategory } from '~/components/movie/MovieCategory';
 import { api } from '~/utils/api';
 
 import { AuthShowcase } from '../auth/AuthShowcase';

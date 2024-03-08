@@ -9,8 +9,8 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '../ui/carousel';
-import { Card } from './card';
-import { MovieSkeleton } from './movieskeleton';
+import { Card } from './Card';
+import { MovieSkeleton } from './MovieSkeleton';
 
 interface MovieCarouselProps {
   data: Movie[];

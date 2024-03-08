@@ -1,6 +1,6 @@
 import { type Movie } from '~/server/api/models/tmdb/Movie';
 
-import { MovieCarousel } from './carousel';
+import { MovieCarousel } from './MovieCarousel';
 
 export interface MovieCategoryProps {
   title: string;
