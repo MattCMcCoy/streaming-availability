@@ -1,11 +1,7 @@
-import { unstable_noStore as noStore } from 'next/cache';
-
 import { AuthShowcase } from '../(auth)/AuthShowcase';
 import { MovieCategories } from './MovieList';
 
 export default async function Home() {
-  noStore();
-
   return (
     <div className="h-full pb-10">
       <div className="flex flex-col items-end gap-2 pr-10">

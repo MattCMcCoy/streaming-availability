@@ -2,7 +2,7 @@
 
 import { api } from '~/trpc/react';
 
-import { MovieCategory } from '../components/MovieCategory';
+import { MovieCategory } from './MovieCategory';
 
 export function MovieCategories() {
   const { data: trendingMovies } = api.tmdb.trending.useQuery({});

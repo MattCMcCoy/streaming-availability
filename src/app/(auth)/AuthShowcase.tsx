@@ -5,7 +5,7 @@ import { Auth, SignInButton } from './Auth';
 export async function AuthShowcase() {
   const session = await getServerAuthSession();
   return (
-    <div className="mt-5 flex flex-col items-center justify-center gap-4">
+    <div className="flex flex-col items-center justify-center gap-4">
       {session ? <DropdownMenuDemo /> : <SignInButton />}
     </div>
   );

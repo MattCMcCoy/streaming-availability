@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { CircularProgress } from '@nextui-org/react';
 import { Tooltip } from '@nextui-org/react';
 import moment from 'moment';
+import { $path } from 'next-typesafe-url';
 import { env } from '~/env';
 import { api } from '~/trpc/react';
 
@@ -34,7 +35,12 @@ export function Card(props: CardProps) {
   );
 
   return (
-    <Link href={`/details/${props.data.id}`}>
+    <Link
+      href={$path({
+        route: '/details/[mid]',
+        routeParams: { mid: props.data.id }
+      })}
+    >
       <div className="relative h-96 w-[72vw] overflow-hidden rounded-xl border border-streaminggold sm:w-[36vw] md:w-[34vw] lg:w-[36vw] xl:w-[25.8vw] 2xl:w-[22.8vw]">
         {props.data.poster_path ?? props.data.backdrop_path ? (
           <Image

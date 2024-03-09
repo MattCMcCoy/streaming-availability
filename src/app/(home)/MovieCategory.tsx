@@ -1,4 +1,4 @@
-import { type Movie } from './Card';
+import { type Movie } from '../components/Card';
 import { MovieCarousel } from './MovieCarousel';
 
 export interface MovieCategoryProps {

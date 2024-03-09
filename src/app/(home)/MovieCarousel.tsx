@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { Card, type Movie } from './Card';
-import { MovieSkeleton } from './MovieSkeleton';
+import { Card, type Movie } from '../components/Card';
+import { MovieSkeleton } from '../components/MovieSkeleton';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious
-} from './ui/carousel';
+} from '../components/ui/carousel';
 
 interface MovieCarouselProps {
   data: Movie[];
