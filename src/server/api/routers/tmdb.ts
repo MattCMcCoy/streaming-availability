@@ -1,6 +1,5 @@
 import moment from 'moment';
 import { env } from '~/env';
-import { buildURL } from '~/utils/api';
 
 import {
   type MovieAvailability,
@@ -19,6 +18,7 @@ import {
   SpecialDiscoverMovieInputSchema
 } from '../models/tmdb/Movie';
 import { createTRPCRouter, publicProcedure } from '../trpc';
+import { buildURL } from '../utils/utils';
 
 export const tmdbRouter = createTRPCRouter({
   discover: publicProcedure

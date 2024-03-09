@@ -1,5 +1,3 @@
-import { type GetServerSidePropsContext } from 'next';
-
 import {
   type DefaultSession,
   getServerSession,
@@ -13,7 +11,7 @@ import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 
 import { PrismaAdapter } from '@auth/prisma-adapter';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { env } from '~/env';
 import { db } from '~/server/db';
 
@@ -24,7 +22,7 @@ import { db } from '~/server/db';
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  */
 declare module 'next-auth' {
-  interface Session {
+  interface Session extends DefaultSession {
     user: {
       id: string;
       // ...other properties
@@ -105,7 +103,7 @@ export const authOptions: NextAuthOptions = {
     signIn: '/login'
   },
   callbacks: {
-    async jwt({ token, account, user }) {
+    jwt: ({ token, account, user }) => {
       if (account) {
         token.account = account;
         token.id = user?.id;
@@ -113,11 +111,13 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
-    async session({ session, token }) {
-      session.user.id = token.id as string;
-
-      return session;
-    }
+    session: ({ session, token }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: token.id
+      }
+    })
   }
 };
 
@@ -126,9 +126,4 @@ export const authOptions: NextAuthOptions = {
  *
  * @see https://next-auth.js.org/configuration/nextjs
  */
-export const getServerAuthSession = (ctx: {
-  req: GetServerSidePropsContext['req'];
-  res: GetServerSidePropsContext['res'];
-}) => {
-  return getServerSession(ctx.req, ctx.res, authOptions);
-};
+export const getServerAuthSession = () => getServerSession(authOptions);
