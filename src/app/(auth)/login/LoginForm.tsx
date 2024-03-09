@@ -21,7 +21,7 @@ import {
   FormMessage
 } from '../../components/ui/form';
 import { Input } from '../../components/ui/input';
-import { SidebarContext } from '../layout';
+import { SignInContext } from '../context';
 import { GetSignInStatus } from '../utils';
 
 const FormSchema = z.object({
@@ -36,7 +36,7 @@ const FormSchema = z.object({
 });
 
 export default function LogInForm() {
-  const context = useContext(SidebarContext);
+  const context = useContext(SignInContext);
   const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

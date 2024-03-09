@@ -22,7 +22,7 @@ import {
   FormMessage
 } from '../../components/ui/form';
 import { Input } from '../../components/ui/input';
-import { SidebarContext } from '../layout';
+import { SignInContext } from '../context';
 
 const FormSchema = z
   .object({
@@ -49,7 +49,7 @@ const FormSchema = z
   );
 
 export function RegisterForm() {
-  const context = useContext(SidebarContext);
+  const context = useContext(SignInContext);
   const { mutate: registerUserMutation } = api.auth.register.useMutation();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

@@ -1,13 +1,9 @@
 'use client';
 
-import { createContext, useState } from 'react';
+import { useState } from 'react';
 
 import { Nav } from '../Nav';
-
-export const SidebarContext = createContext({
-  email: '',
-  password: ''
-});
+import { SignInContext } from './context';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isSigninContext] = useState({
@@ -16,11 +12,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   });
 
   return (
-    <SidebarContext.Provider value={isSigninContext}>
+    <SignInContext.Provider value={isSigninContext}>
       <div className="h-[100vh]">
         <Nav />
         {children}
       </div>
-    </SidebarContext.Provider>
+    </SignInContext.Provider>
   );
 }
