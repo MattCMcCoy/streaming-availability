@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import { api } from '~/trpc/react';
 
-interface UserProfileProps {
+interface CommentProps {
   comment: {
     id: string;
     createdAt: Date;
@@ -14,7 +14,7 @@ interface UserProfileProps {
   };
 }
 
-export function UserProfile({ comment }: UserProfileProps) {
+export function Comment({ comment }: CommentProps) {
   const {
     data: user,
     isLoading: userIsLoading,

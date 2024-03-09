@@ -1,4 +1,5 @@
-import { type Movie } from '../components/Card';
+import { type Movie } from '~/server/api/models/tmdb/Movie';
+
 import { MovieCarousel } from './MovieCarousel';
 
 export interface MovieCategoryProps {

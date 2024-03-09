@@ -1,14 +1,16 @@
 import React from 'react';
 
-import { Card, type Movie } from '../components/Card';
-import { MovieSkeleton } from '../components/MovieSkeleton';
+import { type Movie } from '~/server/api/models/tmdb/Movie';
+
+import { Card } from '../../components/card';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious
-} from '../components/ui/carousel';
+} from '../../components/carousel';
+import { MovieSkeleton } from '../../components/movie-skeleton';
 
 interface MovieCarouselProps {
   data: Movie[];

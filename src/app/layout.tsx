@@ -22,9 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`font-sans ${inter.variable} bg-gradient-to-b from-[#15162c] via-[#15162c] to-[#53357b]`}
-      >
+      <body className={`font-sans ${inter.variable} bg-[#15162c]`}>
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
     </html>

@@ -4,7 +4,7 @@ import { type Session } from 'next-auth';
 
 import { api } from '~/trpc/react';
 
-import { CommentSection } from './CommentSection';
+import { CommentSection } from './comment/CommentSection';
 import { ServerImage } from './ServerImage';
 
 export default function MovieDetails({

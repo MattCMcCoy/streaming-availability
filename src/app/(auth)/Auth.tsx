@@ -28,7 +28,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
-} from '../components/ui/dropdown-menu';
+} from '../components/dropdown-menu';
 
 export function Auth({ session }: { session: Session | null }) {
   if (!session) return;

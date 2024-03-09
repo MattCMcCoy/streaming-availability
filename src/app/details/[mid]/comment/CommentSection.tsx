@@ -9,24 +9,19 @@ import * as Separator from '@radix-ui/react-separator';
 import { HeartIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Button } from '~/app/components/ui/button';
+import { Button } from '~/app/components/button';
 import {
   Drawer,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerTrigger
-} from '~/app/components/ui/drawer';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem
-} from '~/app/components/ui/form';
-import { toast } from '~/app/components/ui/use-toast';
+} from '~/app/components/drawer';
+import { Form, FormControl, FormField, FormItem } from '~/app/components/form';
+import { toast } from '~/app/components/toast/use-toast';
 import { api } from '~/trpc/react';
 
-import { UserProfile } from './UserProfile';
+import { Comment } from './Comment';
 
 interface CommentSectionProps {
   movieId: number;
@@ -113,7 +108,7 @@ export function CommentSection({ movieId, session }: CommentSectionProps) {
                       <div className="p-3">
                         {comments.data?.map((comment, index) => (
                           <>
-                            <UserProfile key={index} comment={comment} />
+                            <Comment key={index} comment={comment} />
                             <Separator.Root className="my-2 h-1 w-full bg-white/15" />
                           </>
                         ))}
@@ -170,7 +165,7 @@ export function CommentSection({ movieId, session }: CommentSectionProps) {
               <div className="p-3">
                 {comments.data?.map((comment, index) => (
                   <>
-                    <UserProfile key={index} comment={comment} />
+                    <Comment key={index} comment={comment} />
                     <Separator.Root className="my-2 h-1 w-full bg-white/15" />
                   </>
                 ))}

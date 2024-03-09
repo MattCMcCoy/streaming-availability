@@ -1,10 +1,10 @@
 import { AuthShowcase } from '../(auth)/AuthShowcase';
-import { MovieCategories } from './MovieList';
+import { MovieCategories } from './movie/MovieList';
 
 export default async function Home() {
   return (
     <div className="h-full pb-10">
-      <div className="flex flex-col items-end gap-2 pr-10">
+      <div className="flex flex-col items-end gap-2 pr-10 pt-5">
         <AuthShowcase />
       </div>
       <div className="flex w-full flex-col">
