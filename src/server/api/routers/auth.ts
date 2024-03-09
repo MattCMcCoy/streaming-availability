@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 
 import { createTRPCRouter, publicProcedure } from '../trpc';
@@ -68,5 +68,21 @@ export const authRouter = createTRPCRouter({
       }
 
       return user;
+    }),
+
+  emailExists: publicProcedure
+    .input(
+      z.object({
+        email: z.string()
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const exists = await ctx.db.user.findUnique({
+        where: {
+          email: input.email
+        }
+      });
+
+      return exists;
     })
 });

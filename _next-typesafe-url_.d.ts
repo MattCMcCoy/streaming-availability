@@ -5,20 +5,16 @@
 // prettier-ignore
 /* eslint-disable */
 
-
 declare module "@@@next-typesafe-url" {
-  import { type RouteType as Route_0 } from "./src/pages/details/[did]";
-import { type RouteType as Route_1 } from "./src/pages/profile/[uid]";
-import type { InferRoute, StaticRoute } from "next-typesafe-url";
+  import type { InferRoute, StaticRoute } from "next-typesafe-url";
 
   interface DynamicRouter {
-    "/details/[did]": InferRoute<Route_0>;
-    "/profile/[uid]": InferRoute<Route_1>;
+    "/details/[mid]": InferRoute<import("./src/app/details/[mid]/routeType").RouteType>;
   }
 
   interface StaticRouter {
-    "/": StaticRoute;
     "/login": StaticRoute;
-    "/search": StaticRoute;
+    "/register": StaticRoute;
+    "": StaticRoute;
   }
 }
