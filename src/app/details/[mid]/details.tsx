@@ -51,7 +51,7 @@ export default function MovieDetails({ mid }: { mid: number }) {
         <div className="mr-auto mt-2 w-[80vw]">
           <div className="text-xl text-white">
             {`${moment(movieDetails.data.release_date).format('YYYY')} •
-            ${movieDetails.data.runtime} mins`}
+            ${movieDetails.data.runtime} mins • ${movieDetails.data.release_dates?.results?.find((r) => r.iso_3166_1 == 'US')?.release_dates.find((rd) => rd.certification != '')?.certification ?? 'NR'}`}
           </div>
           <div className="mt-2 space-x-2 text-xl text-white">
             {movieDetails.data.genres.map((genre, index) => (

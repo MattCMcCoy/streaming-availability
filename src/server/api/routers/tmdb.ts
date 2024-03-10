@@ -183,7 +183,7 @@ export const tmdbRouter = createTRPCRouter({
     .query(async ({ input }) => {
       const url = buildURL(`${env.NEXT_PUBLIC_TMDB_API_URL}/movie/${input}`, {
         api_key: env.TMDB_API_KEY,
-        append_to_response: 'watch%2Fproviders,videos'
+        append_to_response: 'watch%2Fproviders,videos,release_dates'
       });
 
       console.log(url);
