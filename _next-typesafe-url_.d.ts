@@ -18,5 +18,6 @@ declare module "@@@next-typesafe-url" {
     "/login": StaticRoute;
     "/register": StaticRoute;
     "": StaticRoute;
+    "/profile": StaticRoute;
   }
 }

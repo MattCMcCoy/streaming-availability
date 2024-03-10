@@ -9,7 +9,7 @@ import { $path } from 'next-typesafe-url';
 import { toast } from '~/app/lib/components/toast/use-toast';
 import { api } from '~/trpc/react';
 
-import { ServerImage } from './ServerImage';
+import { ServerImage } from '../../lib/server-image';
 
 export default function MovieDetails({ mid }: { mid: number }) {
   const router = useRouter();

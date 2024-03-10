@@ -1,6 +1,6 @@
 import { getServerAuthSession } from '~/server/auth';
 
-import { Auth, SignInButton } from './Auth';
+import { Auth, SignInButton } from './auth';
 
 export async function AuthShowcase() {
   const session = await getServerAuthSession();

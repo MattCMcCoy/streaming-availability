@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { type Session } from 'next-auth';
 import { signIn, signOut } from 'next-auth/react';
@@ -15,6 +16,8 @@ import {
   UserPlus,
   Users
 } from 'lucide-react';
+import { $path } from 'next-typesafe-url';
+import { api } from '~/trpc/react';
 
 import {
   DropdownMenu,
@@ -31,13 +34,14 @@ import {
 } from '../lib/components/dropdown-menu';
 
 export function Auth({ session }: { session: Session | null }) {
+  const user = api.user.getUser.useQuery({ userId: session?.user?.id ?? '' });
   if (!session) return;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="rounded-full p-1 px-1 font-semibold text-white no-underline transition hover:bg-white/20 focus:outline-none">
           <Image
-            src={session.user.image ?? ''}
+            src={user.data?.image ?? ''}
             alt=""
             className="h-12 w-12 rounded-full border-none fill-none"
             width={96}
@@ -50,8 +54,15 @@ export function Auth({ session }: { session: Session | null }) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
+            <Link
+              href={$path({
+                route: '/profile'
+              })}
+              className="flex flex-row"
+            >
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Settings className="mr-2 h-4 w-4" />
