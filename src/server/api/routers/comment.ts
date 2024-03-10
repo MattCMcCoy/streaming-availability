@@ -8,6 +8,9 @@ export const commentRouter = createTRPCRouter({
   createComment: protectedProcedure
     .input(
       z.object({
+        header: z.string().min(1, {
+          message: 'You must type something to be able to send!'
+        }),
         message: z.string().min(1, {
           message: 'You must type something to be able to send!'
         }),
@@ -26,6 +29,7 @@ export const commentRouter = createTRPCRouter({
 
       const comment = await ctx.db.comment.create({
         data: {
+          header: input.header,
           message: input.message,
           mid: input.movieId,
           createdById: input.createdById
