@@ -32,8 +32,17 @@ const FormSchema = z.object({
 });
 
 export function EditProfileForm({ user }: { user: User }) {
+  const utils = api.useUtils();
   const { mutate: updateUserMutation } = api.user.updateUser.useMutation({
     onSuccess: () => {
+      utils.user.getUser
+        .invalidate({ userId: user.id })
+        .then(() => {
+          console.log('User updated successfully.');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
       toast({
         color: 'green',
         title: 'Success',

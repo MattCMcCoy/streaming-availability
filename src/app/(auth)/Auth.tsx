@@ -17,6 +17,7 @@ import {
   Users
 } from 'lucide-react';
 import { $path } from 'next-typesafe-url';
+import { api } from '~/trpc/react';
 
 import {
   DropdownMenu,
@@ -33,13 +34,14 @@ import {
 } from '../lib/components/dropdown-menu';
 
 export function Auth({ session }: { session: Session | null }) {
+  const user = api.user.getUser.useQuery({ userId: session?.user?.id ?? '' });
   if (!session) return;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="rounded-full p-1 px-1 font-semibold text-white no-underline transition hover:bg-white/20 focus:outline-none">
           <Image
-            src={session.user.image ?? ''}
+            src={user.data?.image ?? ''}
             alt=""
             className="h-12 w-12 rounded-full border-none fill-none"
             width={96}
