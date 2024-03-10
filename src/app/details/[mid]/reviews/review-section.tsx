@@ -15,7 +15,7 @@ export function ReviewSection({ movieId }: ReviewSectionProps) {
   });
 
   return (
-    <div className="mx-auto mt-2 flex w-[75vw] flex-col pl-20 text-white lg:w-[50vw]">
+    <div className="mx-auto mt-2 flex flex-col text-white">
       {comments.data?.map((comment, index) => (
         <>
           <Review key={index} comment={comment} />

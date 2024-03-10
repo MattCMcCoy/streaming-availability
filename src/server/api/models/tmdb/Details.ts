@@ -127,6 +127,38 @@ const VideoSchema = z.object({
   )
 }) satisfies ZodType<Video>;
 
+interface ReleaseDate {
+  results: {
+    iso_3166_1: string;
+    release_dates: {
+      certification: string;
+      iso_639_1: string;
+      release_date: string;
+      type: number;
+      note: string;
+      descriptors: string[];
+    }[];
+  }[];
+}
+
+const ReleaseDateSchema = z.object({
+  results: z.array(
+    z.object({
+      iso_3166_1: z.string(),
+      release_dates: z.array(
+        z.object({
+          certification: z.string(),
+          iso_639_1: z.string(),
+          release_date: z.string(),
+          type: z.number(),
+          note: z.string(),
+          descriptors: z.array(z.string())
+        })
+      )
+    })
+  )
+}) satisfies ZodType<ReleaseDate>;
+
 export interface MovieDetail {
   adult: boolean;
   backdrop_path: string | null;
@@ -155,6 +187,7 @@ export interface MovieDetail {
   vote_count: number;
   'watch/providers'?: WatchProviders | null;
   videos: Video | null;
+  release_dates: ReleaseDate | null;
 }
 
 export const MovieDetailsSchema = z.object({
@@ -184,5 +217,6 @@ export const MovieDetailsSchema = z.object({
   vote_average: z.number(),
   vote_count: z.number(),
   'watch/providers': WatchProvidersSchema.nullable().optional(),
-  videos: VideoSchema.nullable()
+  videos: VideoSchema.nullable(),
+  release_dates: ReleaseDateSchema.nullable()
 }) satisfies ZodType<MovieDetail>;
