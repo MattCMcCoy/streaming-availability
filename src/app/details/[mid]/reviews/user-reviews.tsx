@@ -6,13 +6,13 @@ import { useRouter } from 'next/navigation';
 import { type Session } from 'next-auth';
 
 import { $path } from 'next-typesafe-url';
-import { Drawer, DrawerTrigger } from '~/app/components/drawer';
-import { toast } from '~/app/components/toast/use-toast';
+import { Drawer, DrawerTrigger } from '~/app/lib/components/drawer';
+import { toast } from '~/app/lib/components/toast/use-toast';
 import { api } from '~/trpc/react';
 
 import { ServerImage } from '../ServerImage';
-import { ReviewForm } from './review/review-form';
-import { ReviewSection } from './review/review-section';
+import { ReviewForm } from './review-form';
+import { ReviewSection } from './review-section';
 
 export function UserReviews({
   mid,

@@ -9,9 +9,9 @@ import { signIn } from 'next-auth/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Toaster } from '~/app/components/toast/toaster';
+import { Toaster } from '~/app/lib/components/toast/toaster';
 
-import { Button } from '../../components/button';
+import { Button } from '../../lib/components/button';
 import {
   Form,
   FormControl,
@@ -19,8 +19,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from '../../components/form';
-import { Input } from '../../components/input';
+} from '../../lib/components/form';
+import { Input } from '../../lib/components/input';
 import { SignInContext } from '../context';
 import { GetSignInStatus } from '../utils';
 

@@ -6,6 +6,9 @@ tasks:
       npm run format
       echo -e "\nLinting...\n"
       npm run lint:fix
+      echo -e "\nFormatting Database...\n"
+      npm run db:push
+      npm run db:format
   pre-commit:
     - |
       pre-commit clean

@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { api } from '~/trpc/react';
 
-import { Button } from '../../components/button';
+import { Button } from '../../lib/components/button';
 import {
   Form,
   FormControl,
@@ -20,8 +20,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from '../../components/form';
-import { Input } from '../../components/input';
+} from '../../lib/components/form';
+import { Input } from '../../lib/components/input';
 import { SignInContext } from '../context';
 
 const FormSchema = z

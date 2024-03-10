@@ -8,7 +8,7 @@ import {
 } from 'next-auth/react';
 
 import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs';
-import { Button } from '~/app/components/button';
+import { Button } from '~/app/lib/components/button';
 
 export function ProviderButtons({
   providers

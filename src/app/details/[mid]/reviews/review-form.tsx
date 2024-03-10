@@ -6,15 +6,20 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Textarea } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Button } from '~/app/components/button';
+import { Button } from '~/app/lib/components/button';
 import {
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerTrigger
-} from '~/app/components/drawer';
-import { Form, FormControl, FormField, FormItem } from '~/app/components/form';
-import { toast } from '~/app/components/toast/use-toast';
+} from '~/app/lib/components/drawer';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem
+} from '~/app/lib/components/form';
+import { toast } from '~/app/lib/components/toast/use-toast';
 import { api } from '~/trpc/react';
 
 interface ReviewFormProps {

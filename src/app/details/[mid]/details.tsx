@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Chip } from '@nextui-org/react';
 import moment from 'moment';
 import { $path } from 'next-typesafe-url';
-import { toast } from '~/app/components/toast/use-toast';
+import { toast } from '~/app/lib/components/toast/use-toast';
 import { api } from '~/trpc/react';
 
 import { ServerImage } from './ServerImage';
@@ -35,7 +35,7 @@ export default function MovieDetails({ mid }: { mid: number }) {
   return (
     <div className="flex h-[90vh] w-full flex-col items-center">
       <div className="h-fit pt-3 lg:w-[80vw]">
-        <div className="float-right text-white hover:underline">
+        <div className="float-right text-white hover:text-streamingpurple hover:underline">
           <Link
             href={$path({
               route: '/details/[mid]/reviews',

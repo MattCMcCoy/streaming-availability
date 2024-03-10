@@ -1,7 +1,7 @@
 import '~/styles/globals.css';
 import { TRPCReactProvider } from '~/trpc/react';
 
-import { Toaster } from './components/toast/toaster';
+import { Toaster } from './lib/components/toast/toaster';
 
 export const metadata = {
   title: 'Popcorn Streaming',
