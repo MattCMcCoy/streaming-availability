@@ -10,8 +10,8 @@ import { Drawer, DrawerTrigger } from '~/app/components/drawer';
 import { toast } from '~/app/components/toast/use-toast';
 import { api } from '~/trpc/react';
 
-import { ReviewForm } from '../comment/review-form';
 import { ServerImage } from '../ServerImage';
+import { ReviewForm } from './review/review-form';
 import { ReviewSection } from './review/review-section';
 
 export function UserReviews({
