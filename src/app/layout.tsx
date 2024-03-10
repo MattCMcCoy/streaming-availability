@@ -1,12 +1,7 @@
-import { Inter } from 'next/font/google';
-
 import '~/styles/globals.css';
 import { TRPCReactProvider } from '~/trpc/react';
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans'
-});
+import { Toaster } from './components/toast/toaster';
 
 export const metadata = {
   title: 'Popcorn Streaming',
@@ -22,8 +17,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable} bg-[#15162c]`}>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+      <body className={`bg-[#15162c] font-sans`}>
+        <TRPCReactProvider>
+          {children}
+          <Toaster />
+        </TRPCReactProvider>
       </body>
     </html>
   );

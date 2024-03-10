@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { Nav } from '../Nav';
+import { Nav } from '../navbar';
 import { SignInContext } from './context';
 
 export default function Layout({ children }: { children: React.ReactNode }) {

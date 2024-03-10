@@ -99,6 +99,34 @@ const CollectionSchema = z.object({
   backdrop_path: z.string().nullable()
 }) satisfies ZodType<Collection>;
 
+interface Video {
+  results: {
+    id: string;
+    iso_639_1: string;
+    iso_3166_1: string;
+    key: string;
+    name: string;
+    site: string;
+    size: number;
+    type: string;
+  }[];
+}
+
+const VideoSchema = z.object({
+  results: z.array(
+    z.object({
+      id: z.string(),
+      iso_639_1: z.string(),
+      iso_3166_1: z.string(),
+      key: z.string(),
+      name: z.string(),
+      site: z.string(),
+      size: z.number(),
+      type: z.string()
+    })
+  )
+}) satisfies ZodType<Video>;
+
 export interface MovieDetail {
   adult: boolean;
   backdrop_path: string | null;
@@ -126,6 +154,7 @@ export interface MovieDetail {
   vote_average: number;
   vote_count: number;
   'watch/providers'?: WatchProviders | null;
+  videos: Video | null;
 }
 
 export const MovieDetailsSchema = z.object({
@@ -154,5 +183,6 @@ export const MovieDetailsSchema = z.object({
   video: z.boolean(),
   vote_average: z.number(),
   vote_count: z.number(),
-  'watch/providers': WatchProvidersSchema.nullable().optional()
+  'watch/providers': WatchProvidersSchema.nullable().optional(),
+  videos: VideoSchema.nullable()
 }) satisfies ZodType<MovieDetail>;

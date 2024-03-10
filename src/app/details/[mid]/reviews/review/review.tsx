@@ -2,19 +2,21 @@
 
 import Image from 'next/image';
 
+import moment from 'moment';
 import { api } from '~/trpc/react';
 
-interface CommentProps {
+interface ReviewProps {
   comment: {
     id: string;
     createdAt: Date;
     message: string;
     mid: number;
     createdById: string;
+    header: string;
   };
 }
 
-export function Comment({ comment }: CommentProps) {
+export function Review({ comment }: ReviewProps) {
   const {
     data: user,
     isLoading: userIsLoading,
@@ -32,7 +34,7 @@ export function Comment({ comment }: CommentProps) {
 
   return (
     <div className="flex flex-row">
-      <div className="relative mt-2 h-10 w-10 rounded-full border border-streamingpurple">
+      <div className="relative mt-2 h-10 w-10 rounded-full border border-streamingpurple pl-10">
         {user.image && (
           <Image
             src={user.image}
@@ -46,13 +48,16 @@ export function Comment({ comment }: CommentProps) {
         )}
       </div>
       <div className="flex min-w-0 flex-col">
-        <div className="flex flex-row">
-          <div className="pl-2">{user.name}</div>
-          <div className="pl-1 text-gray-300/25">@{user.name}</div>
+        <p className="line-clamp-3 pl-3 font-bold text-white">
+          {comment.header}
+        </p>
+        <div className="flex flex-row space-x-2 pl-3">
+          <div className="text-sm">{user.name}</div>
+          <div className="text-sm text-gray-300/25">
+            {moment(comment.createdAt.toDateString()).format('MMMM Do YYYY')}
+          </div>
         </div>
-        <div className="m-1 line-clamp-3 block w-72 overflow-hidden rounded-lg border border-streamingpurple bg-streamingpurple/20 p-2">
-          <p className="line-clamp-3 text-white">{comment.message}</p>
-        </div>
+        <p className="ml-3 line-clamp-3 text-white">{comment.message}</p>
       </div>
     </div>
   );
