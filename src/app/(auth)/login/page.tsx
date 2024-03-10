@@ -1,9 +1,9 @@
 import { getProviders } from 'next-auth/react';
 
-import LogInForm from './LoginForm';
-import { ProviderButtons } from './ProviderButtons';
+import LogInForm from './login-form';
+import { ProviderButtons } from './provider-buttons';
 
-export default async function LogIn() {
+export default async function Page() {
   const providers = await getProviders();
 
   return (

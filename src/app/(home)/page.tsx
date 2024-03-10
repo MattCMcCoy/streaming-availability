@@ -1,4 +1,4 @@
-import { AuthShowcase } from '../(auth)/AuthShowcase';
+import { AuthShowcase } from '../(auth)/showcase';
 import { MovieCategories } from './movie/MovieList';
 
 export default async function Home() {

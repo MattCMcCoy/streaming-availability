@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { Nav } from '../navbar';
+import { Logo } from '../(nav)/logo';
 import { SignInContext } from './context';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SignInContext.Provider value={isSigninContext}>
       <div className="h-[100vh]">
-        <Nav />
+        <Logo />
         {children}
       </div>
     </SignInContext.Provider>

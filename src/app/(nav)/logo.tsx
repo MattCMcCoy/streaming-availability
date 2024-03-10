@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export function Nav() {
+export function Logo() {
   return (
     <div className="pl-5">
       <Link href="/">

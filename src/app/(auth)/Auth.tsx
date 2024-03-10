@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { type Session } from 'next-auth';
 import { signIn, signOut } from 'next-auth/react';
@@ -15,6 +16,7 @@ import {
   UserPlus,
   Users
 } from 'lucide-react';
+import { $path } from 'next-typesafe-url';
 
 import {
   DropdownMenu,
@@ -50,8 +52,15 @@ export function Auth({ session }: { session: Session | null }) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
+            <Link
+              href={$path({
+                route: '/profile'
+              })}
+              className="flex flex-row"
+            >
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Settings className="mr-2 h-4 w-4" />
