@@ -1,8 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import moment from 'moment';
+import { $path } from 'next-typesafe-url';
 import { api } from '~/trpc/react';
 
 interface ReviewProps {
@@ -52,7 +54,16 @@ export function Review({ comment }: ReviewProps) {
           {comment.header}
         </p>
         <div className="flex flex-row space-x-2 pl-3">
-          <div className="text-sm">{user.name}</div>
+          <div className="text-sm hover:text-streamingpurple hover:underline">
+            <Link
+              href={$path({
+                route: '/profile/[uid]',
+                routeParams: { uid: user.id }
+              })}
+            >
+              {user.name}
+            </Link>
+          </div>
           <div className="text-sm text-gray-300/25">
             {moment(comment.createdAt.toDateString()).format('MMMM Do YYYY')}
           </div>

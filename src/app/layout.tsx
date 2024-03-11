@@ -1,3 +1,4 @@
+import LayoutProviders from '~/layout-providers';
 import '~/styles/globals.css';
 import { TRPCReactProvider } from '~/trpc/react';
 
@@ -19,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`bg-[#15162c] font-sans`}>
         <TRPCReactProvider>
-          {children}
+          <LayoutProviders>{children}</LayoutProviders>
           <Toaster />
         </TRPCReactProvider>
       </body>

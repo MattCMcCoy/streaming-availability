@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { Chip } from '@nextui-org/react';
+import { Link1Icon } from '@radix-ui/react-icons';
 import moment from 'moment';
 import { $path } from 'next-typesafe-url';
 import { toast } from '~/app/lib/components/toast/use-toast';
@@ -35,8 +36,9 @@ export default function MovieDetails({ mid }: { mid: number }) {
   return (
     <div className="flex h-[90vh] w-full flex-col items-center">
       <div className="h-fit pt-3 lg:w-[80vw]">
-        <div className="float-right text-white hover:text-streamingpurple hover:underline">
+        <div className="float-right flex flex-row items-center text-white">
           <Link
+            className="hover:text-streamingpurple hover:underline"
             href={$path({
               route: '/details/[mid]/reviews',
               routeParams: { mid: movieDetails.data.id }
@@ -44,6 +46,18 @@ export default function MovieDetails({ mid }: { mid: number }) {
           >
             User reviews
           </Link>
+          {movieDetails.data.homepage && (
+            <>
+              <Link1Icon className="mx-2" />
+              <Link
+                className="hover:text-streamingpurple hover:underline"
+                href={movieDetails.data.homepage}
+                target="_blank"
+              >
+                Streaming site
+              </Link>
+            </>
+          )}
         </div>
         <div className="mt-10 border-b border-streaminggold text-4xl font-bold text-white">
           {movieDetails.data.title}
