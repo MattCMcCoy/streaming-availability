@@ -18,6 +18,9 @@ const config = {
         pathname: '**'
       }
     ]
+  },
+    experimental: {
+      serverActions: true
   }
 };
 
