@@ -19,8 +19,8 @@ const config = {
       }
     ]
   },
-    experimental: {
-      serverActions: true
+  experimental: {
+    serverActions: true
   }
 };
 
