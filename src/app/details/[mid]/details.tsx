@@ -40,8 +40,8 @@ export default function MovieDetails({ mid }: { mid: number }) {
   }
 
   return (
-    <div className="flex h-[90vh] w-full flex-col items-center">
-      <div className="h-fit pt-3 lg:w-[80vw]">
+    <div className="flex h-[90vh] w-[80vw] flex-row items-center">
+      <div className="ml-auto mr-10 h-fit lg:w-[60vw]">
         <div className="float-right flex flex-row items-center text-white">
           <Link
             className="hover:text-streamingpurple hover:underline"
@@ -81,15 +81,6 @@ export default function MovieDetails({ mid }: { mid: number }) {
             ))}
           </div>
           <div className="flex flex-row">
-            <div className="relative my-auto mr-5 mt-5 hidden h-[40vh] rounded-lg md:block lg:w-[380px]">
-              <ServerImage
-                src={
-                  movieDetails.data.poster_path ??
-                  movieDetails.data.backdrop_path ??
-                  ''
-                }
-              />
-            </div>
             {movieDetails.data.videos?.results.find(
               (video) => video.type == 'Trailer'
             ) && (
@@ -107,11 +98,21 @@ export default function MovieDetails({ mid }: { mid: number }) {
             )}
           </div>
           <div className="mr-auto h-fit pt-5 lg:w-[50vw]">
+            <div className="text-2xl font-bold text-white">Overview:</div>
             <div className="text-xl text-white">
               {movieDetails.data.overview}
             </div>
           </div>
         </div>
+      </div>
+      <div className="absolute right-0 ml-5 mr-5 mt-5 h-[60vh] rounded-lg shadow-lg shadow-streamingpurple lg:w-[380px]">
+        <ServerImage
+          src={
+            movieDetails.data.poster_path ??
+            movieDetails.data.backdrop_path ??
+            ''
+          }
+        />
       </div>
     </div>
   );

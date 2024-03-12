@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { CircularProgress, Tooltip } from '@nextui-org/react';
+import { CircularProgress } from '@nextui-org/react';
 import { $path } from 'next-typesafe-url';
 import { env } from '~/env';
 import { type Movie } from '~/server/api/models/tmdb/Movie';
@@ -41,19 +41,14 @@ export function Card(props: CardProps) {
           <div className="invisible flex w-[30vw] flex-col flex-wrap space-y-1 pl-1 pt-2 group-hover:visible md:w-[20vw] lg:w-[14vw]">
             {watchProviders?.results.US?.flatrate?.map((provider, index) => {
               return (
-                <Tooltip
+                <Image
                   key={index}
-                  content={provider.provider_name}
-                  className="text-white dark"
-                >
-                  <Image
-                    src={`${env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${provider.logo_path}`}
-                    alt=""
-                    width={50}
-                    height={50}
-                    className="rounded-lg"
-                  />
-                </Tooltip>
+                  src={`${env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${provider.logo_path}`}
+                  alt=""
+                  width={50}
+                  height={50}
+                  className="rounded-lg"
+                />
               );
             })}
             <div className="absolute bottom-5 right-5 z-10 pl-2 pt-2">
