@@ -21,7 +21,13 @@ export default function MovieDetails({ mid }: { mid: number }) {
   }
 
   if (movieDetails.error) {
-    return <div>Error: {movieDetails.error.message}</div>;
+    router.push('/');
+    toast({
+      title: 'Movie details not found, try again later.',
+      description: movieDetails.error.message,
+      color: 'red'
+    });
+    return null;
   }
 
   if (!movieDetails.data) {
@@ -54,7 +60,7 @@ export default function MovieDetails({ mid }: { mid: number }) {
                 href={movieDetails.data.homepage}
                 target="_blank"
               >
-                Streaming site
+                Homepage
               </Link>
             </>
           )}

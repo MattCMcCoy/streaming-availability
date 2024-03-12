@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import moment from 'moment';
 import { $path } from 'next-typesafe-url';
+import { toast } from '~/app/lib/components/toast/use-toast';
 import { api } from '~/trpc/react';
 
 interface ReviewProps {
@@ -31,7 +32,13 @@ export function Review({ comment }: ReviewProps) {
   }
 
   if (isError || !user) {
-    return <div>Error: {JSON.stringify(error)}</div>;
+    toast({
+      title: 'Error Fetching Review!',
+      description: error?.message,
+      color: 'red'
+    });
+
+    return null;
   }
 
   return (

@@ -1,5 +1,8 @@
 'use client';
 
+import React from 'react';
+
+import { ScrollToTopButton } from '~/app/lib/components/scroll-top';
 import { type Movie } from '~/server/api/models/tmdb/Movie';
 import { api } from '~/trpc/react';
 
@@ -14,10 +17,10 @@ export function Categories() {
   return (
     <>
       <Category title="Now Playing" data={nowPlayingMovies ?? []} />
-
       <Category title="Trending" data={trendingMovies ?? []} />
       <Category title="Popular" data={popularMovies ?? []} />
       <Category title="Top Rated Of All Time" data={topRatedMovies ?? []} />
+      <ScrollToTopButton />
     </>
   );
 }

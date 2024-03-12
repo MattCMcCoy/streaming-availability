@@ -59,11 +59,7 @@ export function ReviewForm({ movieId, session }: ReviewFormProps) {
         toast({
           title: 'SUCCESS!',
           className: 'bg-green-800',
-          description: (
-            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-              <code className="text-white">Comment Created!</code>
-            </pre>
-          )
+          description: 'Your review has been posted!'
         });
       }
     });
@@ -73,11 +69,7 @@ export function ReviewForm({ movieId, session }: ReviewFormProps) {
       toast({
         title: 'ERROR!',
         className: 'bg-red-800',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">Sign In to Post a Comment!</code>
-          </pre>
-        )
+        description: 'Sign In to Post a Review!'
       });
       return;
     }
