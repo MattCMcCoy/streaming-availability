@@ -39,14 +39,16 @@ export function Auth({ session }: { session: Session | null }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="rounded-full p-1 px-1 font-semibold text-white no-underline transition hover:bg-white/20 focus:outline-none">
-          <Image
-            src={user.data?.image ?? ''}
-            alt=""
-            className="h-12 w-12 rounded-full border-none fill-none"
-            width={96}
-            height={96}
-          />
+        <button className="rounded-full border border-streamingpurple/30 p-1 px-1 font-semibold text-white no-underline transition hover:bg-white/10 focus:outline-none">
+          {user.data?.image && (
+            <Image
+              src={user.data?.image}
+              alt=""
+              className="h-12 w-12 rounded-full border-none fill-none"
+              width={96}
+              height={96}
+            />
+          )}
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mr-10 w-48">
@@ -58,7 +60,7 @@ export function Auth({ session }: { session: Session | null }) {
               href={$path({
                 route: '/profile'
               })}
-              className="flex flex-row"
+              className="flex w-full flex-row"
             >
               <User className="mr-2 h-4 w-4" />
               <span>Profile</span>

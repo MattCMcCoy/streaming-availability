@@ -48,7 +48,7 @@ export const commentRouter = createTRPCRouter({
 
       return comments;
     }),
-  getCommentsByUserId: protectedProcedure
+  getCommentsByUserId: publicProcedure
     .input(z.object({ userId: z.string() }))
     .query(async ({ ctx, input }) => {
       const comments = await ctx.db.comment.findMany({

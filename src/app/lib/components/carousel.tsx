@@ -139,7 +139,7 @@ const Carousel = React.forwardRef<
           onKeyDownCapture={handleKeyDown}
           className={cn(
             'relative',
-            'w-[75vw] border-t-2 border-streaminggold pl-2 pt-2 xl:w-[81.8vw] 2xl:w-[95.6vw]',
+            'w-[95vw] border-t-2 border-streaminggold pl-2 pt-2',
             className
           )}
           role="region"
@@ -162,15 +162,7 @@ const CarouselContent = React.forwardRef<
 
   return (
     <div ref={carouselRef} className="overflow-hidden">
-      <div
-        ref={ref}
-        className={cn(
-          'flex',
-          'w-[75vw] xl:w-[81.8vw] 2xl:w-[96.3vw]',
-          className
-        )}
-        {...props}
-      />
+      <div ref={ref} className={cn('flex', className)} {...props} />
     </div>
   );
 });
@@ -197,6 +189,9 @@ const CarouselPrevious = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, ...props }, ref) => {
   const { scrollPrev, canScrollPrev } = useCarousel();
+
+  if (!canScrollPrev) return null;
+
   return (
     <button
       ref={ref}
@@ -211,7 +206,7 @@ const CarouselPrevious = React.forwardRef<
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="-ml-5 h-12 w-20"
+        className="-ml-5 h-56 w-20"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -235,6 +230,8 @@ const CarouselNext = React.forwardRef<
 >(({ className, ...props }, ref) => {
   const { scrollNext, canScrollNext } = useCarousel();
 
+  if (!canScrollNext) return null;
+
   return (
     <button
       ref={ref}
@@ -249,7 +246,7 @@ const CarouselNext = React.forwardRef<
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="-ml-5 h-12 w-20"
+        className="-ml-5 h-56 w-20"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"

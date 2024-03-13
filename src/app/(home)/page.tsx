@@ -1,5 +1,5 @@
 import { AuthShowcase } from '../(auth)/showcase';
-import { MovieCategories } from './movie/MovieList';
+import { Categories } from './movie/categories';
 
 export default async function Home() {
   return (
@@ -14,7 +14,7 @@ export default async function Home() {
           </h1>
         </div>
         <div className="flex flex-grow flex-col space-y-5 self-center">
-          <MovieCategories />
+          <Categories />
         </div>
       </div>
     </div>
