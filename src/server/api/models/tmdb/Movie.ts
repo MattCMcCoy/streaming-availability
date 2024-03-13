@@ -54,9 +54,9 @@ export const DiscoverMovieInputSchema = z.object({
   page: z.number().optional().default(1),
   primary_release_year: z.number().optional().nullable(),
   primary_release_date_gte: z.date().optional().nullable(),
-  primary_release_date_lte: z.date().optional().nullable(),
+  primary_release_date_lte: z.string().optional().nullable(),
   release_date_gte: z.date().optional().nullable(),
-  release_date_lte: z.date().optional().nullable(),
+  release_date_lte: z.string().optional().nullable(),
   region: z.string().optional().nullable(),
   sort_by: z
     .enum([
@@ -92,6 +92,7 @@ export const DiscoverMovieInputSchema = z.object({
   with_release_type: z.string().optional().nullable(),
   with_runtime_gte: z.number().optional().nullable(),
   with_runtime_lte: z.number().optional().nullable(),
+  with_watch_monetization_types: z.string().optional().nullable(),
   with_watch_providers: z.string().optional().nullable(),
   watch_region: z.string().optional().nullable(),
   with_origin_country: z.string().optional().nullable(),

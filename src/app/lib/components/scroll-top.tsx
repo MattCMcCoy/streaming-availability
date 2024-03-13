@@ -24,7 +24,7 @@ export function ScrollToTopButton() {
     <>
       {showScroll && (
         <Button
-          className="fixed bottom-20 left-5 space-x-2 rounded-xl border border-white"
+          className="fixed bottom-20 left-5 z-40 space-x-2 rounded-xl border border-white"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <ArrowUp size={16} className="font-bold" />

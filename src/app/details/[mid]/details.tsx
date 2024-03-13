@@ -40,11 +40,20 @@ export default function MovieDetails({ mid }: { mid: number }) {
   }
 
   return (
-    <div className="flex h-[90vh] w-[80vw] flex-row items-center">
-      <div className="ml-auto mr-10 h-fit lg:w-[60vw]">
-        <div className="float-right flex flex-row items-center text-white">
+    <div className="flex h-[90vh] w-[60vw] items-center xl:flex-row">
+      <div className="relative ml-5 mr-5 mt-5 h-[60vh] rounded-lg shadow-lg shadow-streamingpurple lg:w-[380px]">
+        <ServerImage
+          src={
+            movieDetails.data.poster_path ??
+            movieDetails.data.backdrop_path ??
+            ''
+          }
+        />
+      </div>
+      <div className="ml-auto h-fit w-[90vw] lg:w-[30vw]">
+        <div className="absolute right-28 float-right flex flex-row items-center justify-end self-end text-white">
           <Link
-            className="hover:text-streamingpurple hover:underline"
+            className=" hover:text-streamingpurple hover:underline"
             href={$path({
               route: '/details/[mid]/reviews',
               routeParams: { mid: movieDetails.data.id }
@@ -65,10 +74,10 @@ export default function MovieDetails({ mid }: { mid: number }) {
             </>
           )}
         </div>
-        <div className="mt-10 border-b border-streaminggold text-4xl font-bold text-white">
+        <div className="mt-10 w-[60vw] border-b border-streaminggold text-4xl font-bold text-white">
           {movieDetails.data.title}
         </div>
-        <div className="mr-auto mt-2 w-[80vw]">
+        <div className="mr-auto mt-2 w-[60vw]">
           <div className="text-xl text-white">
             {`${moment(movieDetails.data.release_date).format('YYYY')} •
             ${movieDetails.data.runtime} mins • ${movieDetails.data.release_dates?.results?.find((r) => r.iso_3166_1 == 'US')?.release_dates.find((rd) => rd.certification != '')?.certification ?? 'NR'}`}
@@ -104,15 +113,6 @@ export default function MovieDetails({ mid }: { mid: number }) {
             </div>
           </div>
         </div>
-      </div>
-      <div className="absolute right-0 ml-5 mr-5 mt-5 h-[60vh] rounded-lg shadow-lg shadow-streamingpurple lg:w-[380px]">
-        <ServerImage
-          src={
-            movieDetails.data.poster_path ??
-            movieDetails.data.backdrop_path ??
-            ''
-          }
-        />
       </div>
     </div>
   );

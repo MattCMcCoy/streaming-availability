@@ -23,7 +23,7 @@ export function Card(props: CardProps) {
         routeParams: { mid: props.data.id }
       })}
     >
-      <div className="relative h-96 w-[30vw] overflow-hidden rounded-xl border border-streaminggold md:w-[20vw] lg:w-[14vw]">
+      <div className="relative h-96 w-[45vw] overflow-hidden rounded-xl border border-streaminggold md:w-[28vw] lg:w-[21.5vw] xl:w-[18vw] 2xl:w-[14vw]">
         {props.data.poster_path ?? props.data.backdrop_path ? (
           <Image
             src={`${env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${props.data.poster_path ?? props.data.backdrop_path}`}
@@ -35,7 +35,7 @@ export function Card(props: CardProps) {
             className="rounded-lg"
           />
         ) : (
-          <></>
+          <>{props.data.title}</>
         )}
         <div className="group absolute h-full w-full rounded-lg hover:bg-black/60">
           <div className="invisible flex w-[30vw] flex-col flex-wrap space-y-1 pl-1 pt-2 group-hover:visible md:w-[20vw] lg:w-[14vw]">

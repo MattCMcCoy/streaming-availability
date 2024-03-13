@@ -60,7 +60,7 @@ export function Auth({ session }: { session: Session | null }) {
               href={$path({
                 route: '/profile'
               })}
-              className="flex flex-row"
+              className="flex w-full flex-row"
             >
               <User className="mr-2 h-4 w-4" />
               <span>Profile</span>

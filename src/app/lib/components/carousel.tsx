@@ -139,7 +139,7 @@ const Carousel = React.forwardRef<
           onKeyDownCapture={handleKeyDown}
           className={cn(
             'relative',
-            'w-[90vw] border-t-2 border-streaminggold pl-2 pt-2',
+            'w-[95vw] border-t-2 border-streaminggold pl-2 pt-2',
             className
           )}
           role="region"
