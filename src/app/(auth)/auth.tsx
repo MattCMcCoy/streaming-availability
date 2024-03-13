@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { type Session } from 'next-auth';
 import { signIn, signOut } from 'next-auth/react';
 
-import { GitHubLogoIcon } from '@radix-ui/react-icons';
+import { GitHubLogoIcon, PersonIcon } from '@radix-ui/react-icons';
 import {
   LogOut,
   Mail,
@@ -40,7 +40,7 @@ export function Auth({ session }: { session: Session | null }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="rounded-full border border-streamingpurple/30 p-1 px-1 font-semibold text-white no-underline transition hover:bg-white/10 focus:outline-none">
-          {user.data?.image && (
+          {user.data?.image ? (
             <Image
               src={user.data?.image}
               alt=""
@@ -48,6 +48,10 @@ export function Auth({ session }: { session: Session | null }) {
               width={96}
               height={96}
             />
+          ) : (
+            <div className="h-12 w-12 rounded-full bg-gray-300">
+              <PersonIcon className="m-auto h-16 w-16 text-gray-500" />
+            </div>
           )}
         </button>
       </DropdownMenuTrigger>

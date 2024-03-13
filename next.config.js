@@ -21,7 +21,8 @@ const config = {
   },
   experimental: {
     serverActions: true
-  }
+  },
+  transpilePackages: ['next-typesafe-url']
 };
 
 export default config;
