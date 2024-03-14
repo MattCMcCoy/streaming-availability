@@ -17,9 +17,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from '../lib/components/form';
-import { Input } from '../lib/components/input';
-import { toast } from '../lib/components/toast/use-toast';
+} from '../../lib/components/form';
+import { Input } from '../../lib/components/input';
+import { toast } from '../../lib/components/toast/use-toast';
 
 const FormSchema = z.object({
   email: z

@@ -18,10 +18,10 @@ async function Page({ routeParams }: PageProps) {
   const user = await api.user.getUser.query({
     userId: routeParams.uid
   });
-  const userFollowers = await api.follow.followers.query({
+  const userFollowers = await api.follow.followerCount.query({
     userId: routeParams.uid
   });
-  const userFollowing = await api.follow.following.query({
+  const userFollowing = await api.follow.followingCount.query({
     userId: routeParams.uid
   });
   const userReviews = await api.comment.getCommentsByUserId.query({
@@ -50,14 +50,14 @@ async function Page({ routeParams }: PageProps) {
                   variant="outline"
                   disabled
                 >
-                  Following: {userFollowing?.length}
+                  Following: {userFollowing}
                 </Button>
                 <Button
                   className="mt-3 w-full bg-transparent text-white"
                   variant="outline"
                   disabled
                 >
-                  Followers: {userFollowers?.length}
+                  Followers: {userFollowers}
                 </Button>
                 <Button
                   className="mt-3 w-full bg-transparent text-white"

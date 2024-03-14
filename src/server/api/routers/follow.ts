@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { z } from 'zod';
 
-import { createTRPCRouter, protectedProcedure } from '../trpc';
+import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 
 export const followRouter = createTRPCRouter({
   follow: protectedProcedure
@@ -146,5 +146,53 @@ export const followRouter = createTRPCRouter({
       });
 
       return followers;
+    }),
+
+  followingCount: publicProcedure
+    .input(
+      z.object({
+        userId: z.string()
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const exists = await ctx.db.user.findUnique({
+        where: { id: input.userId }
+      });
+
+      if (!exists) {
+        return null;
+      }
+
+      const following = await ctx.db.follow.findMany({
+        where: {
+          followingId: input.userId
+        }
+      });
+
+      return following.length;
+    }),
+
+  followerCount: publicProcedure
+    .input(
+      z.object({
+        userId: z.string()
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const exists = await ctx.db.user.findUnique({
+        where: { id: input.userId }
+      });
+
+      if (!exists) {
+        return null;
+      }
+
+      const followers = await ctx.db.follow.findMany({
+        where: {
+          followerId: input.userId
+        }
+      });
+
+      return followers.length;
     })
 });

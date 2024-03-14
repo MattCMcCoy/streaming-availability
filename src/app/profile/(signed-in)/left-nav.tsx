@@ -9,7 +9,7 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList
-} from '../lib/components/navigation-menu';
+} from '../../lib/components/navigation-menu';
 
 export function LeftNav() {
   return (
@@ -46,6 +46,19 @@ export function LeftNav() {
             >
               <NavigationMenuLink className="text-xl text-white hover:underline">
                 Following
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link
+              href={$path({
+                route: '/profile/followers'
+              })}
+              legacyBehavior
+              passHref
+            >
+              <NavigationMenuLink className="text-xl text-white hover:underline">
+                Followers
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

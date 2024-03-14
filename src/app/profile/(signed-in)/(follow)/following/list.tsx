@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import * as Separator from '@radix-ui/react-separator';
 import moment from 'moment';
@@ -9,13 +10,40 @@ import { $path } from 'next-typesafe-url';
 import { toast } from '~/app/lib/components/toast/use-toast';
 import { api } from '~/trpc/react';
 
-import { FollowButton } from '../follow-button';
+import { FollowButton } from '../../../follow-button';
 
 export function FollowingList({ userId }: { userId: string }) {
-  const { data: following, isLoading: followingIsLoading } =
-    api.follow.following.useQuery({ userId });
+  const router = useRouter();
+  const {
+    data: following,
+    isLoading: followingIsLoading,
+    error
+  } = api.follow.following.useQuery({ userId });
 
-  if (followingIsLoading || !following) return <div>Loading...</div>;
+  if (!userId) {
+    router.push('/login');
+
+    toast({
+      title:
+        'Looks like you are not signed in, please sign in to view your profile.',
+      variant: 'destructive'
+    });
+
+    return null;
+  }
+
+  if (error) {
+    toast({
+      title: `Error: ${error.message}`,
+      variant: 'destructive'
+    });
+
+    router.back();
+  }
+
+  if (followingIsLoading) return <div>Loading...</div>;
+
+  if (!following) return <div>No followers found</div>;
 
   return (
     <div>
