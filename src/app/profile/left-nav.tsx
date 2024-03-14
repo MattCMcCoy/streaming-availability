@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 
+import { $path } from 'next-typesafe-url';
+
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -15,7 +17,13 @@ export function LeftNav() {
       <NavigationMenu orientation="vertical" className="ml-16">
         <NavigationMenuList className="flex-col items-start space-x-0 space-y-2">
           <NavigationMenuItem>
-            <Link href="/" legacyBehavior passHref>
+            <Link
+              href={$path({
+                route: '/profile'
+              })}
+              legacyBehavior
+              passHref
+            >
               <NavigationMenuLink className="text-xl text-white hover:underline">
                 Profile
               </NavigationMenuLink>
@@ -29,9 +37,15 @@ export function LeftNav() {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/" legacyBehavior passHref>
+            <Link
+              href={$path({
+                route: '/profile/following'
+              })}
+              legacyBehavior
+              passHref
+            >
               <NavigationMenuLink className="text-xl text-white hover:underline">
-                Friends
+                Following
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

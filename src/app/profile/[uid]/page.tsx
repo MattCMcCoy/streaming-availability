@@ -3,14 +3,17 @@ import Image from 'next/image';
 import { type InferPagePropsType } from 'next-typesafe-url';
 import { withParamValidation } from 'next-typesafe-url/app/hoc';
 import { Nav } from '~/app/(nav)/navbar';
+import { getServerAuthSession } from '~/server/auth';
 import { api } from '~/trpc/server';
 
+import { FollowButton } from '../follow-button';
 import { Reviews } from './reviews';
 import { Route, type RouteType } from './routeType';
 
 type PageProps = InferPagePropsType<RouteType>;
 
 async function Page({ routeParams }: PageProps) {
+  const session = await getServerAuthSession();
   const user = await api.user.getUser.query({
     userId: routeParams.uid
   });
@@ -32,8 +35,14 @@ async function Page({ routeParams }: PageProps) {
                 />
               )}
               <div className="ml-5 self-center">
-                <h1 className="w-[60vw] border-b border-streaminggold text-3xl font-bold text-white">
+                <h1 className="flex w-[60vw] flex-row border-b border-streaminggold text-3xl font-bold text-white">
                   {user?.name}
+                  <div className="mb-1 ml-auto mr-3">
+                    <FollowButton
+                      followId={routeParams.uid}
+                      userId={session?.user.id ?? ''}
+                    />
+                  </div>
                 </h1>
                 <Reviews userId={routeParams.uid} />
               </div>
