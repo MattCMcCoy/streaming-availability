@@ -122,5 +122,29 @@ export const followRouter = createTRPCRouter({
       });
 
       return following;
+    }),
+
+  followers: protectedProcedure
+    .input(
+      z.object({
+        userId: z.string()
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const exists = await ctx.db.user.findUnique({
+        where: { id: input.userId }
+      });
+
+      if (!exists) {
+        return null;
+      }
+
+      const followers = await ctx.db.follow.findMany({
+        where: {
+          followerId: input.userId
+        }
+      });
+
+      return followers;
     })
 });

@@ -14,17 +14,16 @@ export function FollowButton({
   const apiUtils = api.useUtils();
   const { mutate: followMutation } = api.follow.follow.useMutation({
     onSuccess: () => {
-      apiUtils.follow.isFollowing
-        .invalidate({
-          follower: userId,
-          following: followId
-        })
-        .then(() => {
-          console.log('Followed');
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      void apiUtils.follow.followers.invalidate({
+        userId
+      });
+      void apiUtils.follow.following.invalidate({
+        userId: followId
+      });
+      void apiUtils.follow.isFollowing.invalidate({
+        follower: userId,
+        following: followId
+      });
 
       toast({
         title: 'Successfully followed user',
@@ -34,17 +33,16 @@ export function FollowButton({
   });
   const { mutate: unfollowMutation } = api.follow.unfollow.useMutation({
     onSuccess: () => {
-      apiUtils.follow.isFollowing
-        .invalidate({
-          follower: userId,
-          following: followId
-        })
-        .then(() => {
-          console.log('Unfollowed');
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      void apiUtils.follow.followers.invalidate({
+        userId
+      });
+      void apiUtils.follow.following.invalidate({
+        userId: followId
+      });
+      void apiUtils.follow.isFollowing.invalidate({
+        follower: userId,
+        following: followId
+      });
 
       toast({
         title: 'Successfully unfollowed user',
@@ -52,6 +50,7 @@ export function FollowButton({
       });
     }
   });
+
   const { data: isFollowing } = api.follow.isFollowing.useQuery({
     follower: userId,
     following: followId
