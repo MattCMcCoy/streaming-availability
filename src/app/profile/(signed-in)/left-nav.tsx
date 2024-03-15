@@ -30,7 +30,13 @@ export function LeftNav() {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/" legacyBehavior passHref>
+            <Link
+              href={$path({
+                route: '/profile/interactions'
+              })}
+              legacyBehavior
+              passHref
+            >
               <NavigationMenuLink className="text-xl text-white hover:underline">
                 Interactions
               </NavigationMenuLink>

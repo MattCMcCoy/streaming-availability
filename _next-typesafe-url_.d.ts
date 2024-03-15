@@ -21,6 +21,7 @@ declare module "@@@next-typesafe-url" {
     "": StaticRoute;
     "/profile/followers": StaticRoute;
     "/profile/following": StaticRoute;
+    "/profile/interactions": StaticRoute;
     "/profile": StaticRoute;
   }
 }
