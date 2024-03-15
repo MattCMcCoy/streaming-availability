@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { signIn } from 'next-auth/react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { PersonIcon } from '@radix-ui/react-icons';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { api } from '~/trpc/react';
@@ -162,16 +163,20 @@ export function RegisterForm() {
             )}
           />
         </div>
-        <div className="mb-2">
-          {form.getValues().imageURL && (
-            <div className="rounded-full p-1 pl-20 font-semibold text-white no-underline transition focus:outline-none">
-              <Image
-                src={form.getValues().imageURL ?? ''}
-                alt=""
-                className="h-12 w-12 rounded-full border-none fill-none"
-                width={96}
-                height={96}
-              />
+        <div>
+          {form.getValues().imageURL ? (
+            <Image
+              src={form.getValues().imageURL ?? ''}
+              alt=""
+              className="mx-auto mb-2 mt-5 rounded-2xl"
+              draggable={false}
+              width={96}
+              height={96}
+              onError={(e) => (e.currentTarget.src = '')}
+            />
+          ) : (
+            <div className="mx-auto mb-2 mt-5 h-[64px] w-[96px] rounded-2xl bg-gray-300">
+              <PersonIcon className="m-auto h-16 w-16 text-gray-500" />
             </div>
           )}
           <FormField

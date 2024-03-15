@@ -6,16 +6,8 @@ import Link from 'next/link';
 import { type Session } from 'next-auth';
 import { signIn, signOut } from 'next-auth/react';
 
-import { GitHubLogoIcon } from '@radix-ui/react-icons';
-import {
-  LogOut,
-  Mail,
-  MessageSquare,
-  Settings,
-  User,
-  UserPlus,
-  Users
-} from 'lucide-react';
+import { GitHubLogoIcon, PersonIcon } from '@radix-ui/react-icons';
+import { LogOut, Settings, User, Users } from 'lucide-react';
 import { $path } from 'next-typesafe-url';
 import { api } from '~/trpc/react';
 
@@ -25,11 +17,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '../lib/components/dropdown-menu';
 
@@ -40,7 +28,7 @@ export function Auth({ session }: { session: Session | null }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="rounded-full border border-streamingpurple/30 p-1 px-1 font-semibold text-white no-underline transition hover:bg-white/10 focus:outline-none">
-          {user.data?.image && (
+          {user.data?.image ? (
             <Image
               src={user.data?.image}
               alt=""
@@ -48,6 +36,10 @@ export function Auth({ session }: { session: Session | null }) {
               width={96}
               height={96}
             />
+          ) : (
+            <div className="h-12 w-12 rounded-full bg-gray-300">
+              <PersonIcon className="m-auto h-16 w-16 text-gray-500" />
+            </div>
           )}
         </button>
       </DropdownMenuTrigger>
@@ -66,7 +58,7 @@ export function Auth({ session }: { session: Session | null }) {
               <span>Profile</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem disabled>
             <Settings className="mr-2 h-4 w-4" />
             <span>Settings</span>
           </DropdownMenuItem>
@@ -74,27 +66,16 @@ export function Auth({ session }: { session: Session | null }) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <Users className="mr-2 h-4 w-4" />
-            <span>Friends</span>
+            <Link
+              href={$path({
+                route: '/profile/following'
+              })}
+              className="flex w-full flex-row"
+            >
+              <Users className="mr-2 h-4 w-4" />
+              <span>Following</span>
+            </Link>
           </DropdownMenuItem>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
-              <UserPlus className="mr-2 h-4 w-4" />
-              <span>Add A Friend</span>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <DropdownMenuItem>
-                  <Mail className="mr-2 h-4 w-4" />
-                  <span>Email</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <MessageSquare className="mr-2 h-4 w-4" />
-                  <span>Username</span>
-                </DropdownMenuItem>
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem disabled>

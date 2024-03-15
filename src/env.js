@@ -14,6 +14,7 @@ export const env = createEnv({
         (str) => !str.includes('YOUR_POSTGRES_URL_HERE'),
         'You forgot to change the default URL'
       ),
+    AUTH_TOKEN: z.string(),
     NODE_ENV: z
       .enum(['development', 'test', 'production'])
       .default('development'),
@@ -51,6 +52,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
+    AUTH_TOKEN: process.env.AUTH_TOKEN,
     NODE_ENV: process.env.NODE_ENV,
 
     // NEXT AUTH

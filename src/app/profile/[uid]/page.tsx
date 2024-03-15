@@ -3,15 +3,28 @@ import Image from 'next/image';
 import { type InferPagePropsType } from 'next-typesafe-url';
 import { withParamValidation } from 'next-typesafe-url/app/hoc';
 import { Nav } from '~/app/(nav)/navbar';
+import { Button } from '~/app/lib/components/button';
+import { getServerAuthSession } from '~/server/auth';
 import { api } from '~/trpc/server';
 
+import { FollowButton } from '../follow-button';
 import { Reviews } from './reviews';
 import { Route, type RouteType } from './routeType';
 
 type PageProps = InferPagePropsType<RouteType>;
 
 async function Page({ routeParams }: PageProps) {
+  const session = await getServerAuthSession();
   const user = await api.user.getUser.query({
+    userId: routeParams.uid
+  });
+  const userFollowers = await api.follow.followerCount.query({
+    userId: routeParams.uid
+  });
+  const userFollowing = await api.follow.followingCount.query({
+    userId: routeParams.uid
+  });
+  const userReviews = await api.comment.getCommentsByUserId.query({
     userId: routeParams.uid
   });
 
@@ -22,18 +35,47 @@ async function Page({ routeParams }: PageProps) {
         <div className="mt-5 flex flex-row">
           <div className="ml-48">
             <div className="mx-auto flex w-[60vw] flex-row">
-              {user?.image && (
-                <Image
-                  src={user?.image}
-                  alt=""
-                  width={90}
-                  height={90}
-                  className="self-baseline rounded-full"
-                />
-              )}
+              <div className="flex flex-col">
+                {user?.image && (
+                  <Image
+                    src={user?.image}
+                    alt=""
+                    width={90}
+                    height={90}
+                    className="mx-auto self-baseline rounded-full"
+                  />
+                )}
+                <Button
+                  className="mr-2 mt-3 w-full bg-transparent text-white"
+                  variant="outline"
+                  disabled
+                >
+                  Following: {userFollowing}
+                </Button>
+                <Button
+                  className="mt-3 w-full bg-transparent text-white"
+                  variant="outline"
+                  disabled
+                >
+                  Followers: {userFollowers}
+                </Button>
+                <Button
+                  className="mt-3 w-full bg-transparent text-white"
+                  variant="outline"
+                  disabled
+                >
+                  Reviews: {userReviews?.length}
+                </Button>
+              </div>
               <div className="ml-5 self-center">
-                <h1 className="w-[60vw] border-b border-streaminggold text-3xl font-bold text-white">
+                <h1 className="flex w-[60vw] flex-row border-b border-streaminggold text-3xl font-bold text-white">
                   {user?.name}
+                  <div className="mb-1 ml-auto mr-3">
+                    <FollowButton
+                      followId={routeParams.uid}
+                      userId={session?.user.id ?? ''}
+                    />
+                  </div>
                 </h1>
                 <Reviews userId={routeParams.uid} />
               </div>
