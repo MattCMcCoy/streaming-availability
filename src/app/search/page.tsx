@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import { type InferPagePropsType } from 'next-typesafe-url';
 import { withParamValidation } from 'next-typesafe-url/app/hoc';
 
@@ -15,10 +17,12 @@ async function Page({ searchParams }: PageProps) {
       <div className="mx-auto w-fit">
         <SearchBar />
       </div>
-      <div className="ml-10 mt-10 text-xl text-white/20">
-        Showing Results for {`"${searchParams.title}"`}...
-      </div>
-      <SearchResults title={searchParams.title} />
+      <Suspense fallback={<>Loading...</>}>
+        <div className="ml-10 mt-10 text-xl text-white/20">
+          Showing Results for {`"${searchParams.title}"`}...
+        </div>
+        <SearchResults title={searchParams.title} />
+      </Suspense>
     </div>
   );
 }
