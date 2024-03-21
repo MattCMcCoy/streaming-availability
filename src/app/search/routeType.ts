@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 export const Route = {
   searchParams: z.object({
-    title: z.string()
+    title: z.string().optional()
   })
 } satisfies DynamicRoute;
 
