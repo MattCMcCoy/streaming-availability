@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { z } from 'zod';
 import { env } from '~/env';
 
 import {
@@ -14,10 +15,11 @@ import {
 import {
   type DiscoverMovie,
   DiscoverMovieInputSchema,
+  type Movie,
   MovieSchema,
   SpecialDiscoverMovieInputSchema
 } from '../models/tmdb/Movie';
-import { createTRPCRouter, publicProcedure } from '../trpc';
+import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { buildURL } from '../utils/utils';
 
 export const tmdbRouter = createTRPCRouter({
@@ -187,8 +189,6 @@ export const tmdbRouter = createTRPCRouter({
         append_to_response: 'watch%2Fproviders,videos,release_dates'
       });
 
-      console.log(url);
-
       const res = await fetch(url, { method: 'Get' });
 
       const body = (await res.json()) as MovieDetail;
@@ -200,5 +200,62 @@ export const tmdbRouter = createTRPCRouter({
       }
 
       return null;
+    }),
+
+  getStarredMovieCards: protectedProcedure
+    .input(z.array(MovieDetailsInputSchema))
+    .query(async ({ input }) => {
+      const movies = await Promise.all(
+        input.map(async (mid) => {
+          const url = buildURL(`${env.NEXT_PUBLIC_TMDB_API_URL}/movie/${mid}`, {
+            api_key: env.TMDB_API_KEY
+          });
+
+          const res = await fetch(url, { method: 'Get' });
+
+          const body = (await res.json()) as MovieDetail;
+
+          return {
+            id: body.id,
+            adult: body.adult,
+            backdrop_path: body.backdrop_path,
+            genre_ids: body.genres.map((genre) => genre.id),
+            original_language: body.original_language,
+            original_title: body.original_title,
+            overview: body.overview,
+            popularity: body.popularity,
+            poster_path: body.poster_path,
+            release_date: body.release_date,
+            title: body.title,
+            video: body.video,
+            vote_average: body.vote_average,
+            vote_count: body.vote_count
+          } as Movie;
+        })
+      );
+
+      const isMovieSchema = MovieSchema.safeParse(movies);
+
+      if (isMovieSchema.success) {
+        return isMovieSchema.data;
+      }
+
+      return null;
+    }),
+
+  search: publicProcedure
+    .input(z.string())
+    .output(MovieSchema)
+    .query(async ({ input }) => {
+      const url = buildURL(`${env.NEXT_PUBLIC_TMDB_API_URL}/search/movie`, {
+        api_key: env.TMDB_API_KEY,
+        query: input
+      });
+
+      const res = await fetch(url, { method: 'Get' });
+
+      const body = (await res.json()) as DiscoverMovie;
+
+      return body.results;
     })
 });
