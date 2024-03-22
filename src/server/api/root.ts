@@ -3,6 +3,7 @@ import { createTRPCRouter } from '~/server/api/trpc';
 import { authRouter } from './routers/auth';
 import { commentRouter } from './routers/comment';
 import { followRouter } from './routers/follow';
+import { starRouter } from './routers/star';
 import { tmdbRouter } from './routers/tmdb';
 import { userRouter } from './routers/user';
 
@@ -16,7 +17,8 @@ export const appRouter = createTRPCRouter({
   user: userRouter,
   tmdb: tmdbRouter,
   comment: commentRouter,
-  follow: followRouter
+  follow: followRouter,
+  star: starRouter
 });
 
 // export type definition of API

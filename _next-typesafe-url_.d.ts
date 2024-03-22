@@ -13,6 +13,7 @@ declare module "@@@next-typesafe-url" {
     "/details/[mid]": InferRoute<import("./src/app/details/[mid]/routeType").RouteType>;
     "/details/[mid]/reviews": InferRoute<import("./src/app/details/[mid]/reviews/routeType").RouteType>;
     "/profile/[uid]": InferRoute<import("./src/app/profile/[uid]/routeType").RouteType>;
+    "/search": InferRoute<import("./src/app/search/routeType").RouteType>;
   }
 
   interface StaticRouter {

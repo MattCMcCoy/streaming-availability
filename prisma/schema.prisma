@@ -50,7 +50,7 @@ model User {
   comments      Comment[]
   followers     Follow[]  @relation("Followers")
   following     Follow[]  @relation("Following")
-  likes         Like[]
+  stars         Star[]
 }
 
 model VerificationToken {
@@ -73,15 +73,14 @@ model Comment {
   @@index([createdById])
 }
 
-model Like {
-  id        String   @id @unique @default(cuid())
-  createdAt DateTime @default(now())
-  message   String
-  mid       Int
-  likedBy   User     @relation(fields: [likedById], references: [id])
-  likedById String
+model Star {
+  createdAt  DateTime @default(now())
+  mid        Int
+  staredBy   User     @relation(fields: [staredById], references: [id])
+  staredById String
 
-  @@index([likedById])
+  @@id(name: "staredBy_mid", [staredById, mid])
+  @@index([staredById])
 }
 
 model Follow {

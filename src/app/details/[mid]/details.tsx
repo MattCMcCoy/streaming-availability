@@ -3,8 +3,11 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+import { type Session } from 'next-auth';
+
 import { Chip } from '@nextui-org/react';
 import { Link1Icon } from '@radix-ui/react-icons';
+import { Star } from 'lucide-react';
 import moment from 'moment';
 import { $path } from 'next-typesafe-url';
 import { toast } from '~/app/lib/components/toast/use-toast';
@@ -12,9 +15,38 @@ import { api } from '~/trpc/react';
 
 import { ServerImage } from '../../lib/server-image';
 
-export default function MovieDetails({ mid }: { mid: number }) {
+export default function MovieDetails({
+  mid,
+  session
+}: {
+  mid: number;
+  session: Session | null;
+}) {
   const router = useRouter();
+  const getStarsUtils = api.useUtils().star.getStarsByMovieId;
   const movieDetails = api.tmdb.details.useQuery(mid);
+  const { mutate: starMovie } = api.star.starMovie.useMutation({
+    onSuccess: async () => {
+      toast({
+        title: 'Movie starred!',
+        color: 'green'
+      });
+
+      await getStarsUtils.refetch({ movieId: mid });
+    }
+  });
+  const { mutate: unstarMovie } = api.star.unstarMovie.useMutation({
+    onSuccess: async () => {
+      toast({
+        title: 'Movie unstarred!',
+        color: 'green'
+      });
+
+      await getStarsUtils.refetch({ movieId: mid });
+    }
+  });
+
+  const { data: stars } = api.star.getStarsByMovieId.useQuery({ movieId: mid });
 
   if (movieDetails.isLoading) {
     return <div>Loading...</div>;
@@ -40,8 +72,8 @@ export default function MovieDetails({ mid }: { mid: number }) {
   }
 
   return (
-    <div className="flex h-[90vh] w-[60vw] items-center xl:flex-row">
-      <div className="relative ml-5 mr-5 mt-5 h-[60vh] rounded-lg shadow-lg shadow-streamingpurple lg:w-[380px]">
+    <div className="mx-auto flex h-[90vh] w-[98vw] items-center lg:mx-0 lg:w-[60vw] xl:flex-row">
+      <div className="invisible relative mt-5 h-[60vh] rounded-lg shadow-lg shadow-streamingpurple lg:visible lg:ml-5 lg:mr-5 lg:w-[380px]">
         <ServerImage
           src={
             movieDetails.data.poster_path ??
@@ -50,34 +82,58 @@ export default function MovieDetails({ mid }: { mid: number }) {
           }
         />
       </div>
-      <div className="ml-auto h-fit w-[90vw] lg:w-[30vw]">
-        <div className="absolute right-28 float-right flex flex-row items-center justify-end self-end text-white">
-          <Link
-            className=" hover:text-streamingpurple hover:underline"
-            href={$path({
-              route: '/details/[mid]/reviews',
-              routeParams: { mid: movieDetails.data.id }
-            })}
-          >
-            User reviews
-          </Link>
-          {movieDetails.data.homepage && (
-            <>
-              <Link1Icon className="mx-2" />
-              <Link
-                className="hover:text-streamingpurple hover:underline"
-                href={movieDetails.data.homepage}
-                target="_blank"
-              >
-                Homepage
-              </Link>
-            </>
+      <div className="ml-5 h-fit w-[90vw] lg:ml-auto lg:w-[30vw]">
+        <div className="border-b border-streaminggold lg:w-[60vw]">
+          {stars?.find((star) => star.staredById === session?.user.id) ? (
+            <Star
+              onClick={() =>
+                unstarMovie({
+                  movieId: mid,
+                  userId: session?.user.id ?? ''
+                })
+              }
+              className="float-right h-10 w-6  text-streaminggold hover:text-white/20"
+            />
+          ) : (
+            <Star
+              onClick={() =>
+                starMovie({
+                  movieId: mid,
+                  userId: session?.user.id ?? ''
+                })
+              }
+              className="float-right h-10 w-6 text-white/20 hover:text-streaminggold"
+            />
           )}
+          <div className="mt-10 text-4xl font-bold text-white">
+            {movieDetails.data.title}
+          </div>
+          <div className="right-28 float-right flex flex-row items-center justify-end self-end text-white">
+            <Link
+              className=" hover:text-streamingpurple hover:underline"
+              href={$path({
+                route: '/details/[mid]/reviews',
+                routeParams: { mid: movieDetails.data.id }
+              })}
+            >
+              User reviews
+            </Link>
+            {movieDetails.data.homepage && (
+              <>
+                <Link1Icon className="mx-2" />
+                <Link
+                  className="hover:text-streamingpurple hover:underline"
+                  href={movieDetails.data.homepage}
+                  target="_blank"
+                >
+                  Homepage
+                </Link>
+              </>
+            )}
+          </div>
         </div>
-        <div className="mt-10 w-[60vw] border-b border-streaminggold text-4xl font-bold text-white">
-          {movieDetails.data.title}
-        </div>
-        <div className="mr-auto mt-2 w-[60vw]">
+
+        <div className="mr-auto mt-2 w-[90vw] lg:w-[60vw]">
           <div className="text-xl text-white">
             {`${moment(movieDetails.data.release_date).format('YYYY')} •
             ${movieDetails.data.runtime} mins • ${movieDetails.data.release_dates?.results?.find((r) => r.iso_3166_1 == 'US')?.release_dates.find((rd) => rd.certification != '')?.certification ?? 'NR'}`}
