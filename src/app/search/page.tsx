@@ -15,9 +15,6 @@ async function Page({ searchParams }: PageProps) {
       <div className="mx-auto w-fit">
         <SearchBar />
       </div>
-      <div className="ml-10 mt-10 text-xl text-white/20">
-        Showing Results for {`"${searchParams.title}"`}...
-      </div>
       <SearchResults title={searchParams.title ?? ''} />
     </div>
   );

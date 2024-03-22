@@ -35,7 +35,9 @@ export function Card(props: CardProps) {
             className="rounded-lg"
           />
         ) : (
-          <>{props.data.title}</>
+          <div className="absolute left-5 top-10 w-fit text-wrap text-center text-white">
+            {props.data.title}
+          </div>
         )}
         <div className="group absolute h-full w-full rounded-lg hover:bg-black/60">
           <div className="invisible flex w-[30vw] flex-col flex-wrap space-y-1 pl-1 pt-2 group-hover:visible md:w-[20vw] lg:w-[14vw]">
