@@ -205,6 +205,9 @@ export const tmdbRouter = createTRPCRouter({
   getStarredMovieCards: protectedProcedure
     .input(z.array(MovieDetailsInputSchema))
     .query(async ({ input }) => {
+      if (input.length === 0) {
+        return null;
+      }
       const movies = await Promise.all(
         input.map(async (mid) => {
           const url = buildURL(`${env.NEXT_PUBLIC_TMDB_API_URL}/movie/${mid}`, {

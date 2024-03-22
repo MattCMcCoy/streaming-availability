@@ -14,7 +14,6 @@ import { Card } from './card';
 
 interface MovieCarouselProps {
   data: Movie[];
-  needsAuth?: boolean;
 }
 
 export function MovieCarousel(props: MovieCarouselProps) {
@@ -35,7 +34,7 @@ export function MovieCarousel(props: MovieCarouselProps) {
                 <Card data={movie} />
               </CarouselItem>
             ))
-          ) : !props.needsAuth ? (
+          ) : (
             <>
               <CarouselItem className="hidden sm:block">
                 <MovieSkeleton />
@@ -50,8 +49,6 @@ export function MovieCarousel(props: MovieCarouselProps) {
                 <MovieSkeleton />
               </CarouselItem>
             </>
-          ) : (
-            <div>Sign in to see your starred movies</div>
           )}
         </CarouselContent>
         {props.data.length > 0 && <CarouselNext className="absolute right-0" />}
