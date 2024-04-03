@@ -1,9 +1,11 @@
 'use client';
 
+import React from 'react';
+
 import Image from 'next/image';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@nextui-org/react';
+import { Button, Checkbox } from '@nextui-org/react';
 import { type User } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -28,10 +30,12 @@ const FormSchema = z.object({
     .email('This is not a valid email.'),
   password: z.string().optional(),
   name: z.string().min(1, { message: 'This field has to be filled.' }),
-  image: z.string().url('This is not a valid URL.')
+  image: z.string().url('This is not a valid URL.'),
+  role: z.string()
 });
 
 export function EditProfileForm({ user }: { user: User }) {
+  const [selected, setSelected] = React.useState(user.role === 'CRITIC');
   const utils = api.useUtils();
   const { mutate: updateUserMutation } = api.user.updateUser.useMutation({
     onSuccess: () => {
@@ -62,7 +66,8 @@ export function EditProfileForm({ user }: { user: User }) {
       email: user.email ?? '',
       password: user.password ?? '',
       name: user.name ?? '',
-      image: user.image ?? ''
+      image: user.image ?? '',
+      role: selected ? 'CRITIC' : 'USER'
     }
   });
 
@@ -172,6 +177,29 @@ export function EditProfileForm({ user }: { user: User }) {
               </FormItem>
             )}
           />
+          <div className="mt-10">
+            <FormField
+              control={form.control}
+              name="role"
+              render={({}) => (
+                <FormItem>
+                  <FormControl>
+                    <Checkbox
+                      isSelected={selected}
+                      onValueChange={setSelected}
+                    />
+                  </FormControl>
+                  <FormLabel className="mr-2 text-white">
+                    Are you a movie Critic?
+                  </FormLabel>
+                  <FormMessage />
+                  <FormDescription className="w-56 text-wrap">
+                    This role can be changed in the settings at any time.
+                  </FormDescription>
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
         <Button
           className="ml-auto w-32 bg-streamingpurple font-semibold text-white hover:bg-gray-300/20 disabled:cursor-not-allowed disabled:bg-transparent disabled:text-white disabled:hover:bg-transparent"

@@ -29,7 +29,9 @@ export function ProviderButtons({
             <div key={provider.name}>
               <Button
                 className={`mb-4 flex w-52 items-center p-2 font-semibold ${buttonStyle.style}`}
-                onClick={() => signIn(provider.id, { callbackUrl: '/' })}
+                onClick={() =>
+                  signIn(provider.id, { callbackUrl: '/register' })
+                }
                 disabled={buttonStyle.disabled}
               >
                 {buttonStyle.icon && (
