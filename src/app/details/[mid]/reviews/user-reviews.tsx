@@ -29,7 +29,8 @@ export function UserReviews({
   const router = useRouter();
   const movieDetails = api.tmdb.details.useQuery(mid);
   const comments = api.comment.getCommentsByMovieId.useQuery({
-    movieId: mid
+    movieId: mid,
+    type: type.toUpperCase()
   });
 
   if (movieDetails.isLoading) {
