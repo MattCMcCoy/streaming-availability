@@ -75,7 +75,7 @@ export function UserReviews({
                 </div>
               </DrawerTrigger>
             )}
-            <ReviewForm movieId={mid} session={session} />
+            <ReviewForm movieId={mid} session={session} type={type} />
           </Drawer>
         </div>
       </div>
