@@ -113,7 +113,19 @@ export default function MovieDetails({
               className=" hover:text-streamingpurple hover:underline"
               href={$path({
                 route: '/details/[mid]/reviews',
-                routeParams: { mid: movieDetails.data.id }
+                routeParams: { mid: movieDetails.data.id },
+                searchParams: { type: 'critic' }
+              })}
+            >
+              Crtitic reviews
+            </Link>
+            <Link1Icon className="mx-2" />
+            <Link
+              className=" hover:text-streamingpurple hover:underline"
+              href={$path({
+                route: '/details/[mid]/reviews',
+                routeParams: { mid: movieDetails.data.id },
+                searchParams: { type: 'user' }
               })}
             >
               User reviews

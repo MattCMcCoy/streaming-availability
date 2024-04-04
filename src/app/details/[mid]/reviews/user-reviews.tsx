@@ -16,11 +16,16 @@ import { ReviewForm } from './review-form';
 
 export function UserReviews({
   mid,
+  type,
   session
 }: {
   mid: number;
+  type: string;
   session: Session | null;
 }) {
+  const { data: user } = api.user.getUser.useQuery({
+    userId: session?.user.id ?? ''
+  });
   const router = useRouter();
   const movieDetails = api.tmdb.details.useQuery(mid);
   const comments = api.comment.getCommentsByMovieId.useQuery({
@@ -58,13 +63,17 @@ export function UserReviews({
           </Link>
         </div>
         <div className="flex flex-row">
-          <div className="text-3xl font-semibold">User Reviews</div>
+          <div className="text-3xl font-semibold">
+            {`${type.charAt(0).toUpperCase()}${type.substring(1)}`} Reviews
+          </div>
           <Drawer>
-            <DrawerTrigger asChild>
-              <div className="ml-auto hover:cursor-pointer hover:text-streamingpurple hover:underline">
-                Add a review
-              </div>
-            </DrawerTrigger>
+            {user?.role === type.toUpperCase() && (
+              <DrawerTrigger asChild>
+                <div className="ml-auto hover:cursor-pointer hover:text-streamingpurple hover:underline">
+                  Add a review
+                </div>
+              </DrawerTrigger>
+            )}
             <ReviewForm movieId={mid} session={session} />
           </Drawer>
         </div>
