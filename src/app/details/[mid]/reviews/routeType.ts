@@ -1,10 +1,13 @@
-import { type DynamicLayout } from 'next-typesafe-url';
+import { type DynamicRoute } from 'next-typesafe-url';
 import { z } from 'zod';
 
 export const Route = {
   routeParams: z.object({
     mid: z.number()
+  }),
+  searchParams: z.object({
+    type: z.string().optional()
   })
-} satisfies DynamicLayout;
+} satisfies DynamicRoute;
 
 export type RouteType = typeof Route;

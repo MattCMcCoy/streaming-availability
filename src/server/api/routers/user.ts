@@ -20,7 +20,8 @@ export const userRouter = createTRPCRouter({
           name: z.string(),
           email: z.string(),
           image: z.string(),
-          password: z.string().optional()
+          password: z.string().optional(),
+          role: z.string()
         })
       })
     )
@@ -53,7 +54,8 @@ export const userRouter = createTRPCRouter({
           name: input.data.name,
           email: input.data.email,
           image: input.data.image,
-          password: input.data.password
+          password: input.data.password,
+          role: input.data.role
         }
       });
 

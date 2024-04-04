@@ -25,6 +25,7 @@ import { api } from '~/trpc/react';
 interface ReviewFormProps {
   movieId: number;
   session: Session | null;
+  type: string;
 }
 
 const FormSchema = z.object({
@@ -36,13 +37,14 @@ const FormSchema = z.object({
   })
 });
 
-export function ReviewForm({ movieId, session }: ReviewFormProps) {
+export function ReviewForm({ movieId, session, type }: ReviewFormProps) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema)
   });
 
   const comments = api.comment.getCommentsByMovieId.useQuery({
-    movieId: movieId
+    movieId: movieId,
+    type: type.toUpperCase()
   });
 
   const { mutate: createCommentMutation } =

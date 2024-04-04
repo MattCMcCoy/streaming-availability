@@ -40,13 +40,23 @@ export const commentRouter = createTRPCRouter({
     }),
 
   getCommentsByMovieId: publicProcedure
-    .input(z.object({ movieId: z.number() }))
+    .input(z.object({ movieId: z.number(), type: z.string() }))
     .query(async ({ ctx, input }) => {
       const comments = await ctx.db.comment.findMany({
         where: { mid: input.movieId }
       });
 
-      return comments;
+      const userIds = comments.map((comment) => comment.createdById);
+
+      const users = await ctx.db.user.findMany({
+        where: { id: { in: userIds }, role: input.type }
+      });
+
+      const filtered = comments.filter((comment) =>
+        users.find((user) => user.id === comment.createdById)
+      );
+
+      return filtered;
     }),
 
   getCommentsByUserId: publicProcedure

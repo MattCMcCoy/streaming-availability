@@ -1,12 +1,16 @@
 'use client';
 
 import { useContext } from 'react';
+import React from 'react';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
+import { type Session } from 'next-auth';
 import { signIn } from 'next-auth/react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Checkbox } from '@nextui-org/react';
 import { PersonIcon } from '@radix-ui/react-icons';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -25,52 +29,58 @@ import {
 import { Input } from '../../lib/components/input';
 import { SignInContext } from '../context';
 
-const FormSchema = z
-  .object({
-    email: z
-      .string()
-      .min(1, { message: 'This field has to be filled.' })
-      .email('This is not a valid email.'),
-    password: z
-      .string()
-      .min(1, { message: 'This field has to be filled.' })
-      .min(8, 'This is not a valid password.'),
-    confirmPassword: z.string(),
-    username: z.string().min(1, { message: 'This field has to be filled.' }),
-    imageURL: z.string().url('This is not a valid URL.')
-  })
-  .refine(
-    (values) => {
-      return values.password === values.confirmPassword;
-    },
-    {
-      message: 'Passwords must match!',
-      path: ['confirmPassword']
-    }
-  );
+const FormSchema = z.object({
+  username: z.string().min(1, { message: 'This field has to be filled.' }),
+  imageURL: z.string().url('This is not a valid URL.'),
+  role: z.string()
+});
 
-export function RegisterForm() {
+export function RegisterForm({ session }: { session: Session | null }) {
+  const [selected, setSelected] = React.useState(false);
+  const router = useRouter();
   const context = useContext(SignInContext);
+
   const { mutate: registerUserMutation } = api.auth.register.useMutation();
+  const { mutate: updateUserMutation } = api.user.updateUser.useMutation();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: context.email,
-      password: context.password,
-      confirmPassword: '',
-      username: '',
-      imageURL: ''
+      username: session?.user.name ?? '',
+      imageURL: session?.user.image ?? ''
     }
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    registerUserMutation(data);
+  React.useEffect(() => {
+    form.setValue('role', selected ? 'CRITIC' : 'USER');
+  }, [form, selected]);
 
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    console.log(data);
+    if (session?.user) {
+      updateUserMutation({
+        data: {
+          image: data.imageURL ?? session.user.image,
+          name: data.username ?? session.user.name,
+          email: session.user.email ?? '',
+          password: '',
+          role: selected ? 'CRITIC' : 'USER'
+        },
+        userId: session.user.id
+      });
+
+      router.push('/');
+      return;
+    }
+    registerUserMutation({
+      ...context,
+      ...data,
+      role: selected ? 'CRITIC' : 'USER'
+    });
     new Promise((r) => setTimeout(r, 1000))
       .then(() => {
         signIn('credentials', {
-          email: data.email,
-          password: data.password,
+          email: context.email,
+          password: context.password,
           callbackUrl: '/'
         }).catch((error) => {
           console.error('Failed to sign in', error);
@@ -82,26 +92,6 @@ export function RegisterForm() {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
       <Form {...form}>
-        <div className="mb-2">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-white">Email</FormLabel>
-                <FormControl>
-                  <Input
-                    disabled
-                    className="border border-white bg-transparent text-white"
-                    placeholder="example@email.com"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
         <div className="mb-2">
           <FormField
             control={form.control}
@@ -120,45 +110,6 @@ export function RegisterForm() {
                 <FormDescription className="w-56 text-wrap">
                   This is how your name will appear to other users.
                 </FormDescription>
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="mb-2">
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-white">Password</FormLabel>
-                <FormControl>
-                  <Input
-                    disabled
-                    className="border border-white bg-transparent text-white"
-                    placeholder="example123"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="mb-2">
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-white">Confirm Password</FormLabel>
-                <FormControl>
-                  <Input
-                    className="border border-white bg-transparent text-white"
-                    placeholder="example123"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -200,10 +151,33 @@ export function RegisterForm() {
             )}
           />
         </div>
+        <div className="mt-10">
+          <FormField
+            control={form.control}
+            name="role"
+            render={({}) => (
+              <FormItem>
+                <FormControl>
+                  <Checkbox isSelected={selected} onValueChange={setSelected} />
+                </FormControl>
+                <FormLabel className="mr-2 text-white">
+                  Are you a movie Critic?
+                </FormLabel>
+                <FormMessage />
+                <FormDescription className="w-56 text-wrap">
+                  This role can be changed in the settings at any time.
+                </FormDescription>
+              </FormItem>
+            )}
+          />
+        </div>
+
         <Button
           className="w-full font-semibold text-white hover:bg-streamingpurple"
           type="submit"
-          disabled={!form.formState.isDirty || !form.formState.isValid}
+          disabled={
+            (!form.formState.isDirty || !form.formState.isValid) && !session
+          }
         >
           Create An Account
         </Button>

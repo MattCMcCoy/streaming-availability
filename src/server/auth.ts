@@ -15,6 +15,8 @@ import bcrypt from 'bcryptjs';
 import { env } from '~/env';
 import { db } from '~/server/db';
 
+import { type UserRole } from './api/models/User';
+
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
  * object and keep type safety.
@@ -25,15 +27,9 @@ declare module 'next-auth' {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
+      role?: UserRole;
     } & DefaultSession['user'];
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
 
 /**
@@ -56,6 +52,10 @@ export const authOptions: NextAuthOptions = {
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET
     }),
+    GoogleProvider({
+      clientId: '',
+      clientSecret: ''
+    }),
     CredentialsProvider({
       name: 'credentials',
       credentials: {
@@ -64,7 +64,6 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password) {
-          console.log('here');
           return null;
         }
 
@@ -91,16 +90,13 @@ export const authOptions: NextAuthOptions = {
 
         return exists;
       }
-    }),
-    GoogleProvider({
-      clientId: '',
-      clientSecret: ''
     })
   ],
 
   // TODO: Add custom error page (https://next-auth.js.org/configuration/pages#error-redirect)
   pages: {
-    signIn: '/login'
+    signIn: '/login',
+    newUser: '/register'
   },
   callbacks: {
     jwt: ({ token, account, user }) => {
@@ -115,7 +111,8 @@ export const authOptions: NextAuthOptions = {
       ...session,
       user: {
         ...session.user,
-        id: token.id
+        id: token.id,
+        role: token.role
       }
     })
   }
