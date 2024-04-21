@@ -65,6 +65,7 @@ model VerificationToken {
 model Comment {
   id          String   @id @unique @default(cuid())
   createdAt   DateTime @default(now())
+  rating      Int
   header      String
   message     String
   mid         Int
