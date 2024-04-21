@@ -31,6 +31,7 @@ export const commentRouter = createTRPCRouter({
         data: {
           header: input.header,
           message: input.message,
+          rating: 0,
           mid: input.movieId,
           createdById: input.createdById
         }
