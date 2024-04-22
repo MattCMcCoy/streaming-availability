@@ -78,6 +78,19 @@ interface CategoryProps {
 }
 
 function Category(props: CategoryProps) {
+  if (!props.session && props.needsAuth) {
+    return (
+      <div className="font-sans">
+        <div className="self-start border-b border-streaminggold text-3xl font-bold text-white">
+          {props.title}
+        </div>
+        <div className="mx-auto w-fit text-lg text-white/20">
+          SIGN IN TO SEE YOUR STARRED MOVIES
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="font-sans">
       <div className="self-start border-b border-streaminggold text-3xl font-bold text-white">

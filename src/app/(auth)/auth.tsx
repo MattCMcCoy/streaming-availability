@@ -7,7 +7,7 @@ import { type Session } from 'next-auth';
 import { signIn, signOut } from 'next-auth/react';
 
 import { GitHubLogoIcon, PersonIcon } from '@radix-ui/react-icons';
-import { LogOut, Settings, User, Users } from 'lucide-react';
+import { LogOut, User, Users } from 'lucide-react';
 import { $path } from 'next-typesafe-url';
 import { api } from '~/trpc/react';
 
@@ -37,8 +37,8 @@ export function Auth({ session }: { session: Session | null }) {
               height={96}
             />
           ) : (
-            <div className="h-12 w-12 rounded-full bg-gray-300">
-              <PersonIcon className="m-auto h-16 w-16 text-gray-500" />
+            <div className="h-12 w-12 items-center justify-center rounded-full bg-gray-300">
+              <PersonIcon className="mx-auto h-8 w-8 pt-3 text-gray-500" />
             </div>
           )}
         </button>
@@ -58,13 +58,6 @@ export function Auth({ session }: { session: Session | null }) {
               <span>Profile</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem disabled>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
           <DropdownMenuItem>
             <Link
               href={$path({
@@ -76,16 +69,21 @@ export function Auth({ session }: { session: Session | null }) {
               <span>Following</span>
             </Link>
           </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => void signOut()}>
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>Log out</span>
+          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem disabled>
-          <GitHubLogoIcon className="mr-2 h-4 w-4" />
-          <span>GitHub</span>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => void signOut()}>
-          <LogOut className="mr-2 h-4 w-4" />
-          <span>Log out</span>
+        <DropdownMenuItem>
+          <Link
+            href="https://github.com/MattCMcCoy/streaming-availability"
+            target="_blank"
+            className="flex w-full flex-row"
+          >
+            <GitHubLogoIcon className="mr-2 h-4 w-4" />
+            <span>GitHub</span>
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
