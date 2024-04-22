@@ -64,7 +64,6 @@ export function EditProfileForm({ user }: { user: User }) {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: user.email ?? '',
-      password: user.password ?? '',
       name: user.name ?? '',
       image: user.image ?? '',
       role: selected ? 'CRITIC' : 'USER'
@@ -123,28 +122,6 @@ export function EditProfileForm({ user }: { user: User }) {
             )}
           />
         </div>
-        {user.password && (
-          <div className="mb-2">
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-white">Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled
-                      className="border border-white bg-transparent text-white"
-                      placeholder="example123"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-        )}
         <div className="mb-2">
           {form.getValues().image && (
             <div className="m-3 w-fit rounded-full border border-streamingpurple p-1 font-semibold text-white no-underline transition focus:outline-none">
@@ -193,7 +170,7 @@ export function EditProfileForm({ user }: { user: User }) {
                     Are you a movie Critic?
                   </FormLabel>
                   <FormMessage />
-                  <FormDescription className="w-56 text-wrap">
+                  <FormDescription className="text-wrap">
                     This role can be changed in the settings at any time.
                   </FormDescription>
                 </FormItem>
