@@ -30,6 +30,7 @@ CREATE TABLE "User" (
     "name" TEXT,
     "email" TEXT,
     "password" TEXT,
+    "role" TEXT,
     "emailVerified" DATETIME,
     "image" TEXT
 );
@@ -45,6 +46,7 @@ CREATE TABLE "VerificationToken" (
 CREATE TABLE "Comment" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "rating" INTEGER NOT NULL,
     "header" TEXT NOT NULL,
     "message" TEXT NOT NULL,
     "mid" INTEGER NOT NULL,
@@ -53,13 +55,13 @@ CREATE TABLE "Comment" (
 );
 
 -- CreateTable
-CREATE TABLE "Like" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+CREATE TABLE "Star" (
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "message" TEXT NOT NULL,
     "mid" INTEGER NOT NULL,
-    "likedById" TEXT NOT NULL,
-    CONSTRAINT "Like_likedById_fkey" FOREIGN KEY ("likedById") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "staredById" TEXT NOT NULL,
+
+    PRIMARY KEY ("staredById", "mid"),
+    CONSTRAINT "Star_staredById_fkey" FOREIGN KEY ("staredById") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -100,10 +102,7 @@ CREATE UNIQUE INDEX "Comment_id_key" ON "Comment"("id");
 CREATE INDEX "Comment_createdById_idx" ON "Comment"("createdById");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Like_id_key" ON "Like"("id");
-
--- CreateIndex
-CREATE INDEX "Like_likedById_idx" ON "Like"("likedById");
+CREATE INDEX "Star_staredById_idx" ON "Star"("staredById");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Follow_id_key" ON "Follow"("id");
