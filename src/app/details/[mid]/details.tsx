@@ -84,29 +84,36 @@ export default function MovieDetails({
       </div>
       <div className="ml-5 h-fit w-[90vw] lg:ml-auto lg:w-[30vw]">
         <div className="border-b border-streaminggold lg:w-[60vw]">
-          {stars?.find((star) => star.staredById === session?.user.id) ? (
-            <Star
-              onClick={() =>
-                unstarMovie({
-                  movieId: mid,
-                  userId: session?.user.id ?? ''
-                })
-              }
-              className="float-right h-10 w-6  text-streaminggold hover:text-white/20"
-            />
-          ) : (
-            <Star
-              onClick={() =>
-                starMovie({
-                  movieId: mid,
-                  userId: session?.user.id ?? ''
-                })
-              }
-              className="float-right h-10 w-6 text-white/20 hover:text-streaminggold"
-            />
-          )}
-          <div className="mt-10 text-4xl font-bold text-white">
-            {movieDetails.data.title}
+          <div className="flex flex-row-reverse items-center">
+            <div className="ml-auto mt-auto flex w-fit flex-row items-center text-streaminggold">
+              <div className="mr-2 mt-2 text-3xl font-bold">
+                {stars?.length}
+              </div>
+              {stars?.find((star) => star.staredById === session?.user.id) ? (
+                <Star
+                  onClick={() =>
+                    unstarMovie({
+                      movieId: mid,
+                      userId: session?.user.id ?? ''
+                    })
+                  }
+                  className="float-right h-10 w-6  text-streaminggold hover:text-white/20"
+                />
+              ) : (
+                <Star
+                  onClick={() =>
+                    starMovie({
+                      movieId: mid,
+                      userId: session?.user.id ?? ''
+                    })
+                  }
+                  className="float-right h-10 w-6 text-white/20 hover:text-streaminggold"
+                />
+              )}
+            </div>
+            <div className="mt-10 text-4xl font-bold text-white">
+              {movieDetails.data.title}
+            </div>
           </div>
           <div className="right-28 float-right flex flex-row items-center justify-end self-end text-white">
             <Link
