@@ -10,6 +10,7 @@ import { Link1Icon } from '@radix-ui/react-icons';
 import { Star } from 'lucide-react';
 import moment from 'moment';
 import { $path } from 'next-typesafe-url';
+import { MagnifyingGlass } from 'react-loader-spinner';
 import { toast } from '~/app/lib/components/toast/use-toast';
 import { api } from '~/trpc/react';
 
@@ -49,7 +50,20 @@ export default function MovieDetails({
   const { data: stars } = api.star.getStarsByMovieId.useQuery({ movieId: mid });
 
   if (movieDetails.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="mx-auto flex h-[80vh] w-[80vw] items-center justify-center align-middle">
+        <MagnifyingGlass
+          visible={true}
+          height="120"
+          width="120"
+          ariaLabel="magnifying-glass-loading"
+          wrapperStyle={{}}
+          wrapperClass="magnifying-glass-wrapper"
+          glassColor="#c0efff"
+          color="#e15b64"
+        />
+      </div>
+    );
   }
 
   if (movieDetails.error) {
